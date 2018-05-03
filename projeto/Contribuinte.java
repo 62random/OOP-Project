@@ -89,7 +89,7 @@ public class Contribuinte
       * Get para a variável password do objeto.
     */
     
-    public String getPassword(){
+    public String getPassword(){ /*Acho que isto não devia ter get, mas em vez disso uma função que recebe uma string e retorna um booleano (caso a string coincida com a pass)*/
         return this.password;
     }
 
