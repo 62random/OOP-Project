@@ -17,7 +17,7 @@ public class Fatura {
         this.nome_emitente  = "";
         this.descricao      = "";
         this.categoria      = "";
-        this.emissao        = new LocalDateTime();
+        this.emissao        = null;
     }
 
     public Fatura(int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, int valor) {
