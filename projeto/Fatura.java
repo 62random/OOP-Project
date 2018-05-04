@@ -100,13 +100,13 @@ public class Fatura {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Fatura fatura = (Fatura) object;
-        return  nif_emitente    == fatura.getNif_emitente() &&
-                nif_cliente     == fatura.getNif_cliente()  &&
-                valor           == fatura.getValor()        &&
-                descricao       == fatura.getDescricao()    &&
-                categoria       == fatura.getCategoria()    &&
-                nome_emitente   == fatura.getNome_emitente()&&
-                emissao.equals(fatura.getEmissao())         ;
+        return  this.nif_emitente    == fatura.getNif_emitente() &&
+                this.nif_cliente     == fatura.getNif_cliente()  &&
+                this.valor           == fatura.getValor()        &&
+                this.descricao       == fatura.getDescricao()    &&
+                this.categoria       == fatura.getCategoria()    &&
+                this.nome_emitente   == fatura.getNome_emitente()&&
+                this.emissao.equals(fatura.getEmissao())         ;
     }
 
     public Fatura clone(){
