@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 
 
 public class Fatura {
-    private int id;
+    private long id;
     private int nif_emitente;
     private int nif_cliente;
     private int valor;
@@ -11,7 +11,7 @@ public class Fatura {
     private String descricao;
     private LocalDateTime emissao;
     
-    private static int nextid = 0;
+    private static long nextid = 0;
 
     public Fatura(){
         this.id             = nextid;
@@ -50,7 +50,7 @@ public class Fatura {
         this.valor          = f.getValor();
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
