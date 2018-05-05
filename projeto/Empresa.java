@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
 
+
 public class Empresa extends Contribuinte
 {
     private Set<String> setores;
