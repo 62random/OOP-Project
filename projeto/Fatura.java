@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 
 
 public class Fatura {
+    private long id;
     private int nif_emitente;
     private int nif_cliente;
     private int valor;
@@ -11,6 +12,7 @@ public class Fatura {
     private LocalDateTime emissao;
 
     public Fatura(){
+        this.id             = 0;
         this.nif_emitente   = 0;
         this.nif_cliente    = 0;
         this.valor          = 0;
@@ -20,7 +22,8 @@ public class Fatura {
         this.emissao        = null;
     }
 
-    public Fatura(int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, int valor) {
+    public Fatura(long id, int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, int valor) {
+        this.id             = id;
         this.nif_emitente   = nif_emitente;
         this.nome_emitente  = nome_emitente;
         this.emissao        = emissao;
@@ -31,13 +34,18 @@ public class Fatura {
     }
 
     public Fatura(Fatura f) {
-        this.nif_emitente   = f.nif_emitente;
-        this.nome_emitente  = f.nome_emitente;
-        this.emissao        = f.emissao;
-        this.nif_cliente    = f.nif_cliente;
-        this.descricao      = f.descricao;
-        this.categoria      = f.categoria;
-        this.valor          = f.valor;
+        this.id             = f.getId();
+        this.nif_emitente   = f.getNif_emitente();
+        this.nome_emitente  = f.getNome_emitente();
+        this.emissao        = f.getEmissao();
+        this.nif_cliente    = f.getNif_cliente();
+        this.descricao      = f.getDescricao();
+        this.categoria      = f.getCategoria();
+        this.valor          = f.getValor();
+    }
+
+    public long getId() {
+        return id;
     }
 
     public int getNif_cliente() {
@@ -66,6 +74,10 @@ public class Fatura {
 
     public String getNome_emitente() {
         return nome_emitente;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setCategoria(String categoria) {
@@ -100,7 +112,8 @@ public class Fatura {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Fatura fatura = (Fatura) object;
-        return  this.nif_emitente    == fatura.getNif_emitente() &&
+        return  this.id              == fatura.getId()           &&
+                this.nif_emitente    == fatura.getNif_emitente() &&
                 this.nif_cliente     == fatura.getNif_cliente()  &&
                 this.valor           == fatura.getValor()        &&
                 this.descricao       == fatura.getDescricao()    &&
@@ -116,6 +129,9 @@ public class Fatura {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
+        sb.append("Id: ");
+        sb.append(this.id);
+        sb.append("\n");
         sb.append("Emitente: ");
         sb.append(this.nome_emitente);
         sb.append("\n");
