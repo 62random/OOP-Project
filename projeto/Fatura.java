@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 
 
 public class Fatura {
-    private long id;
+    private int id;
     private int nif_emitente;
     private int nif_cliente;
     private int valor;
@@ -10,9 +10,11 @@ public class Fatura {
     private String categoria;
     private String descricao;
     private LocalDateTime emissao;
+    
+    private static int nextid = 0;
 
     public Fatura(){
-        this.id             = 0;
+        this.id             = nextid;
         this.nif_emitente   = 0;
         this.nif_cliente    = 0;
         this.valor          = 0;
@@ -20,10 +22,12 @@ public class Fatura {
         this.descricao      = "";
         this.categoria      = "";
         this.emissao        = null;
+        
+        nextid++;
     }
 
-    public Fatura(long id, int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, int valor) {
-        this.id             = id;
+    public Fatura(int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, int valor) {
+        this.id             = nextid;
         this.nif_emitente   = nif_emitente;
         this.nome_emitente  = nome_emitente;
         this.emissao        = emissao;
@@ -31,6 +35,8 @@ public class Fatura {
         this.descricao      = descricao;
         this.categoria      = categoria;
         this.valor          = valor;
+        
+        nextid++;
     }
 
     public Fatura(Fatura f) {
@@ -44,7 +50,7 @@ public class Fatura {
         this.valor          = f.getValor();
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -74,10 +80,6 @@ public class Fatura {
 
     public String getNome_emitente() {
         return nome_emitente;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setCategoria(String categoria) {
