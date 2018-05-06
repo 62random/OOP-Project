@@ -8,6 +8,8 @@
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CIndividual extends Contribuinte
 {
@@ -40,8 +42,8 @@ public class CIndividual extends Contribuinte
       * @param nsetores      Conjunto de setores em que pode haver descontos.
     */
     
-    public CIndividual(int nif1,String nemail,String nnome,String nmorada,String npassword,int nn_agregado,Set<Integer> agregados,double ncoeficiente,Set<String> nsetores){
-        super(nif1,nemail,nnome,nmorada,npassword);
+    public CIndividual(int nif1,String nemail,String nnome,String nmorada,String npassword,int nn_agregado,Set<Integer> agregados,double ncoeficiente,Set<String> nsetores,List<Integer> faturas){
+        super(nif1,nemail,nnome,nmorada,npassword,faturas);
         this.n_agregado = nn_agregado;
         setNifs_agregado(agregados);
         this.coeficientefiscal = ncoeficiente;
@@ -208,6 +210,22 @@ public class CIndividual extends Contribuinte
             && this.nifs_agregado.equals(aux.getNifsAgregado())
             && this.setores.equals(aux.getSetores());
         
+    }
+    
+    public int hashCode(){
+        int hash = 7;
+        long aux;
+        
+        aux = Double.doubleToLongBits(this.coeficientefiscal);
+        hash = hash*31 + super.hashCode();
+        hash = hash*31 + this.n_agregado;
+        hash = hash*31 + this.nifs_agregado.hashCode();
+        hash = hash*31 + this.setores.hashCode();
+        hash = 31*hash + (int)(aux^(aux >>> 32));
+        
+        
+        
+        return hash;
     }
     
     

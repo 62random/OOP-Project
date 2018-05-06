@@ -9,6 +9,8 @@
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Empresa extends Contribuinte
@@ -36,8 +38,8 @@ public class Empresa extends Contribuinte
       * @param setores      Conjunto de setores.
       * @param ncoeficiente Coeficiente de decução fiscal.
      */
-    public Empresa(int nif1,String nemail,String nnome,String nmorada,String npassword,Set<String> setores,double ncoeficiente){
-        super(nif1,nemail,nnome,nmorada,npassword);
+    public Empresa(int nif1,String nemail,String nnome,String nmorada,String npassword,Set<String> setores,double ncoeficiente,List<Integer> faturas){
+        super(nif1,nemail,nnome,nmorada,npassword,faturas);
         setSetores(setores);
         this.fatorcal = ncoeficiente;
     }
@@ -146,6 +148,20 @@ public class Empresa extends Contribuinte
         return super.equals(aux)
             && this.setores.equals(aux.getSetores())
             && this.fatorcal == aux.getfatorcal();
+    }
+    
+    public int hashCode(){
+        int hash = 7;
+        long aux;
+        
+        aux = Double.doubleToLongBits(this.fatorcal);
+        hash = hash*31 + super.hashCode();
+        hash = hash*31 + this.setores.hashCode();
+        hash = 31*hash + (int)(aux^(aux >>> 32));
+        
+        
+        
+        return hash;
     }
     
     

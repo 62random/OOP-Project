@@ -1,4 +1,8 @@
 
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Classe Contribuinte
  */
@@ -9,6 +13,7 @@ public class Contribuinte
     private String nome;
     private String morada;
     private String password;
+    private List<Integer> faturas;
     
     
     /**
@@ -21,6 +26,8 @@ public class Contribuinte
         this.nome = "";
         this.morada = "";
         this.password = "";
+        this.faturas = new ArrayList<Integer>();
+        
     }
 
     /**
@@ -32,12 +39,13 @@ public class Contribuinte
       * @param npassword    Password a introduzir.
     */
     
-    public Contribuinte(int nif1,String nemail,String nnome,String nmorada,String npassword){
+    public Contribuinte(int nif1,String nemail,String nnome,String nmorada,String npassword,List<Integer> faturas){
         this.nif = nif1;
         this.email = nemail;
         this.nome = nnome;
         this.morada = nmorada;
         this.password = npassword;
+        setFaturas(faturas);
     }
 
     /**
@@ -51,6 +59,7 @@ public class Contribuinte
         this.nome = a.getNome();
         this.morada = a.getMorada();
         this.password = a.getPassword();
+        this.faturas = a.getFaturas();
     }
 
     /**
@@ -91,6 +100,19 @@ public class Contribuinte
     
     public String getPassword(){ /*Acho que isto não devia ter get, mas em vez disso uma função que recebe uma string e retorna um booleano (caso a string coincida com a pass)*/
         return this.password;
+    }
+    
+    public List<Integer> getFaturas(){
+        List<Integer> nova = new ArrayList<>();
+        Iterator <Integer> i = this.faturas.iterator();
+        int aux;
+        
+        while(i.hasNext()){
+            aux = i.next();
+            nova.add(aux);
+        }
+        
+        return nova;
     }
 
     /**
@@ -169,6 +191,17 @@ public class Contribuinte
     public void setPassword(String p){
         this.password = p;
 	}
+	
+    public void setFaturas(List<Integer> a){
+        this.faturas = new ArrayList<Integer>();
+        Iterator <Integer> i = a.iterator();
+        int aux;
+        
+        while(i.hasNext()){
+            aux = i.next();
+            this.faturas.add(aux);
+        }
+    }
 
 	/**
 	   * Método equals para a classe Contribuinte.
@@ -188,7 +221,22 @@ public class Contribuinte
             && aux.getNome().equals(this.nome)
             && aux.getMorada().equals(this.morada)
             && aux.getEmail().equals(this.email)
-            && aux.getPassword().equals(this.password);
+            && aux.getPassword().equals(this.password)
+            && aux.getFaturas().equals(this.faturas);
+    }
+    
+    public int hashCode(){
+        int hash = 7;
+        
+        hash = hash*31 + this.nif;
+        hash = hash*31 + this.email.hashCode();
+        hash = hash*31 + this.nome.hashCode();
+        hash = hash*31 + this.morada.hashCode();
+        hash = hash*31 + this.password.hashCode();
+        hash = hash*31 + this.faturas.hashCode();
+        
+        
+        return hash;
     }
     
     

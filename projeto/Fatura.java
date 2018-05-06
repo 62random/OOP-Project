@@ -2,16 +2,16 @@ import java.time.LocalDateTime;
 
 
 public class Fatura {
-    private long id;
+    private int id;
     private int nif_emitente;
     private int nif_cliente;
-    private int valor;
+    private double valor;
     private String nome_emitente;
     private String categoria;
     private String descricao;
     private LocalDateTime emissao;
     
-    private static long nextid = 0;
+    private static int nextid = 0;
 
     public Fatura(){
         this.id             = nextid;
@@ -26,7 +26,7 @@ public class Fatura {
         nextid++;
     }
 
-    public Fatura(int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, int valor) {
+    public Fatura(int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, double valor) {
         this.id             = nextid;
         this.nif_emitente   = nif_emitente;
         this.nome_emitente  = nome_emitente;
@@ -50,7 +50,7 @@ public class Fatura {
         this.valor          = f.getValor();
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -62,7 +62,7 @@ public class Fatura {
         return nif_emitente;
     }
 
-    public int getValor() {
+    public double getValor() {
         return valor;
     }
 
@@ -106,7 +106,7 @@ public class Fatura {
         this.nome_emitente = nome_emitente;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
@@ -157,6 +157,23 @@ public class Fatura {
         sb.append("\n");
 
         return sb.toString();
+    }
+    
+    public int hashCode(){
+        int hash = 7;
+        long aux;
+        
+        aux = Double.doubleToLongBits(this.valor);
+        hash = hash*31 + this.id;
+        hash = hash*31 + this.nif_emitente;
+        hash = hash*31 + this.nif_cliente;
+        hash = hash*31 + (int)(aux^(aux >>> 32));
+        hash = hash*31 + this.nome_emitente.hashCode();
+        hash = hash*31 + this.categoria.hashCode();
+        hash = hash*31 + this.descricao.hashCode();
+        hash = hash*31 + this.emissao.hashCode();
+        
+        return hash;
     }
 
 

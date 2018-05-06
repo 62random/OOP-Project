@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=BDEmpresas
+comment1.params=
+comment1.target=BDEmpresas()
+comment2.params=a
+comment2.target=BDEmpresas(java.util.Map)
+comment3.params=a
+comment3.target=BDEmpresas(BDEmpresas)
+comment4.params=
+comment4.target=java.util.Map\ getEmpresas()
+comment5.params=a
+comment5.target=void\ setEmpresas(java.util.Map)
+comment6.params=
+comment6.target=BDEmpresas\ clone()
+numComments=7
