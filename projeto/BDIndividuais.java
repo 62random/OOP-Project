@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class BDIndividuais
+public class BDIndividuais implements BaseFunc
 {
     private Map<Integer,CIndividual> individuais;
     
@@ -43,5 +43,49 @@ public class BDIndividuais
         return new BDIndividuais(this);
     }
     
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        
+        for(CIndividual f : this.individuais.values())
+            sb.append(f.toString() + "\n");
+            
+        return sb.toString();
+    }
+    
+    public boolean equals(Object object){
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        
+        BDIndividuais aux = (BDIndividuais) object;
+        Map<Integer,CIndividual> aux1 = aux.getCindividual();
+        
+        return aux1.equals(this.individuais);
+    }
+    
+    public Contribuinte getContribuinte(int nif) throws Erros{
+        Contribuinte aux = this.individuais.get(nif);
+        if (aux == null){
+            throw new Erros("Contribuinte não encontrado");
+        }
+        return aux.clone();
+    }
+    
+    public void addContribuinte(Contribuinte o){
+        CIndividual a = (CIndividual) o;
+        this.individuais.put(a.getNif(),a.clone());
+    }
+    
+    public boolean contains(int nif){
+        CIndividual a = this.individuais.get(nif);
+        if (a == null)
+            return false;
+        return true;
+    }
+    
+    public void setFaturaId(int id,int nif){
+        CIndividual a = this.individuais.get(nif);
+        a.setFatura(id);
+
+    }
     
 }

@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=BaseFunc
+comment1.params=nif
+comment1.target=Contribuinte\ getContribuinte(int)
+comment2.params=o
+comment2.target=void\ addContribuinte(Contribuinte)
+comment3.params=id\ cliente
+comment3.target=void\ setFaturaId(int,\ int)
+comment4.params=nif
+comment4.target=boolean\ contains(int)
+numComments=5

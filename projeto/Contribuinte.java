@@ -2,6 +2,9 @@
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.Set;
 
 /**
  * Classe Contribuinte
@@ -13,7 +16,7 @@ public class Contribuinte
     private String nome;
     private String morada;
     private String password;
-    private List<Integer> faturas;
+    private Set<Integer> faturas;
     
     
     /**
@@ -26,20 +29,20 @@ public class Contribuinte
         this.nome = "";
         this.morada = "";
         this.password = "";
-        this.faturas = new ArrayList<Integer>();
+        this.faturas = new TreeSet<Integer>();
         
     }
 
     /**
       * Construtor com argumentos.
-      * @param nif1 	    Nif a introduzir.
-      * @param nemail 	    Email a introduzir.
-      * @param nnome  	    Nome a introduzir.
-      * @param nmorada 	    Morada a introduzir.
+      * @param nif1         Nif a introduzir.
+      * @param nemail       Email a introduzir.
+      * @param nnome        Nome a introduzir.
+      * @param nmorada      Morada a introduzir.
       * @param npassword    Password a introduzir.
     */
     
-    public Contribuinte(int nif1,String nemail,String nnome,String nmorada,String npassword,List<Integer> faturas){
+    public Contribuinte(int nif1,String nemail,String nnome,String nmorada,String npassword,Set<Integer> faturas){
         this.nif = nif1;
         this.email = nemail;
         this.nome = nnome;
@@ -81,7 +84,7 @@ public class Contribuinte
     /**
       * Get para a variável Nome do objeto.
     */
-	
+    
     public String getNome(){
         return this.nome;
     }
@@ -89,7 +92,7 @@ public class Contribuinte
     /**
       * Get para a variável morada do objeto.
     */
-	
+    
     public String getMorada(){
         return this.morada;
     }
@@ -102,8 +105,8 @@ public class Contribuinte
         return this.password;
     }
     
-    public List<Integer> getFaturas(){
-        List<Integer> nova = new ArrayList<>();
+    public Set<Integer> getFaturas(){
+        Set<Integer> nova = new TreeSet<>();
         Iterator <Integer> i = this.faturas.iterator();
         int aux;
         
@@ -141,6 +144,10 @@ public class Contribuinte
         sb.append("Password: ");
         sb.append(this.password+"\n");
         
+        for(int a : this.faturas)
+            sb.append(a +":");
+        sb.append("\n");
+        
         return sb.toString();
     }
 
@@ -153,47 +160,47 @@ public class Contribuinte
         this.nif = a;
     }
 
-	/**
+    /**
        * Método set da variável email.
-	   * @param e valor a introduzir.
-   	*/
-	
+       * @param e valor a introduzir.
+    */
+    
     public void setEmail(String e){
         this.email = e;
     }
 
-	/**
-	   * Método set da variável nome.
-	   * @param e valor a introduzir.
-	*/
-	
-	
+    /**
+       * Método set da variável nome.
+       * @param e valor a introduzir.
+    */
+    
+    
     public void setNome(String e){
         this.nome = e;
     }
 
-	/**
-	   * Método set da variável morada.
-	   * @param m valor a introduzir.
-	*/
-	
-	
+    /**
+       * Método set da variável morada.
+       * @param m valor a introduzir.
+    */
+    
+    
     public void setMorada(String m){
         this.morada = m;
     }
 
-	/**
-	   * Método set da variável password.
-	   * @param p valor a introduzir.
-	*/
-	
-	
+    /**
+       * Método set da variável password.
+       * @param p valor a introduzir.
+    */
+    
+    
     public void setPassword(String p){
         this.password = p;
-	}
-	
-    public void setFaturas(List<Integer> a){
-        this.faturas = new ArrayList<Integer>();
+    }
+    
+    public void setFaturas(Set<Integer> a){
+        this.faturas = new TreeSet<Integer>();
         Iterator <Integer> i = a.iterator();
         int aux;
         
@@ -203,10 +210,10 @@ public class Contribuinte
         }
     }
 
-	/**
-	   * Método equals para a classe Contribuinte.
-	   * @param o objeto a comparar.
-	*/
+    /**
+       * Método equals para a classe Contribuinte.
+       * @param o objeto a comparar.
+    */
 
     public boolean equals(Object o){
         if(this == o)
@@ -237,6 +244,11 @@ public class Contribuinte
         
         
         return hash;
+    }
+    
+    
+    public void setFatura(int id){
+        this.faturas.add(id);
     }
     
     

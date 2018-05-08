@@ -38,7 +38,7 @@ public class Empresa extends Contribuinte
       * @param setores      Conjunto de setores.
       * @param ncoeficiente Coeficiente de decução fiscal.
      */
-    public Empresa(int nif1,String nemail,String nnome,String nmorada,String npassword,Set<String> setores,double ncoeficiente,List<Integer> faturas){
+    public Empresa(int nif1,String nemail,String nnome,String nmorada,String npassword,Set<String> setores,double ncoeficiente,Set<Integer> faturas){
         super(nif1,nemail,nnome,nmorada,npassword,faturas);
         setSetores(setores);
         this.fatorcal = ncoeficiente;

@@ -46,5 +46,26 @@ public class BDgeral
         return this.faturas.clone();
     }
     
+    public void addIndividual(CIndividual i){
+        this.individuais.addContribuinte(i);
+    }
+    
+    public void addEmpresa(Empresa i){
+        this.empresas.addContribuinte(i);
+    }
+    
+    public void addFatura(Fatura i){
+        this.faturas.addFatura(i,this.individuais,this.empresas);
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.individuais.toString() +"\n");
+        sb.append(this.empresas.toString() + "\n");
+        sb.append(this.faturas.toString() + "\n");
+        
+        return sb.toString();
+    }
+    
     
 }

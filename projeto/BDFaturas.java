@@ -41,4 +41,32 @@ public class BDFaturas
     public BDFaturas clone(){
         return new BDFaturas(this);
     }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        
+        for(Fatura f : this.faturas.values())
+            sb.append(f.toString() + "\n");
+            
+        return sb.toString();
+    }
+    
+    public boolean equals(Object object){
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        
+        BDFaturas aux = (BDFaturas) object;
+        Map<Integer,Fatura> aux1 = aux.getFaturas();
+        
+        return aux1.equals(this.faturas);
+    }
+
+        
+    public void addFatura(Fatura a, BDIndividuais i, BDEmpresas e){        
+        if (i.contains(a.getNif_cliente()) && e.contains(a.getNif_emitente())){
+            i.setFaturaId(a.getId(),a.getNif_cliente());
+            e.setFaturaId(a.getId(),a.getNif_emitente());
+            this.faturas.put(a.getId(),a.clone());
+        }
+    }
 }

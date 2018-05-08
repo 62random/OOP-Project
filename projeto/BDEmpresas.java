@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class BDEmpresas
+public class BDEmpresas implements BaseFunc
 {
     private Map<Integer,Empresa> empresas;
     
@@ -41,6 +41,50 @@ public class BDEmpresas
     
     public BDEmpresas clone(){
         return new BDEmpresas(this);
+    }
+    
+        public String toString(){
+        StringBuilder sb = new StringBuilder();
+        
+        for(Empresa f : this.empresas.values())
+            sb.append(f.toString() + "\n");
+            
+        return sb.toString();
+    }
+    
+    public boolean equals(Object object){
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        
+        BDEmpresas aux = (BDEmpresas) object;
+        Map<Integer,Empresa> aux1 = aux.getEmpresas();
+        
+        return aux1.equals(this.empresas);
+    }
+    
+    public Contribuinte getContribuinte(int nif) throws Erros{
+        Contribuinte aux = this.empresas.get(nif);
+        if (aux == null){
+            throw new Erros("Contribuinte não encontrado");
+        }
+        return aux.clone();
+    }
+    
+    public void addContribuinte(Contribuinte o){
+        Empresa a = (Empresa) o;
+        this.empresas.put(a.getNif(),a.clone());
+    }
+    
+    public boolean contains(int nif){
+        Empresa a = this.empresas.get(nif);
+        if (a == null)
+            return false;
+        return true;
+    }
+    
+    public void setFaturaId(int id,int nif){
+        Empresa a = this.empresas.get(nif);
+        a.setFatura(id);
     }
     
 }

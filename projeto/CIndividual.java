@@ -42,7 +42,7 @@ public class CIndividual extends Contribuinte
       * @param nsetores      Conjunto de setores em que pode haver descontos.
     */
     
-    public CIndividual(int nif1,String nemail,String nnome,String nmorada,String npassword,int nn_agregado,Set<Integer> agregados,double ncoeficiente,Set<String> nsetores,List<Integer> faturas){
+    public CIndividual(int nif1,String nemail,String nnome,String nmorada,String npassword,int nn_agregado,Set<Integer> agregados,double ncoeficiente,Set<String> nsetores,Set<Integer> faturas){
         super(nif1,nemail,nnome,nmorada,npassword,faturas);
         this.n_agregado = nn_agregado;
         setNifs_agregado(agregados);
@@ -187,6 +187,7 @@ public class CIndividual extends Contribuinte
         
         for(String b : this.setores)
             sb.append(b + "; ");
+        sb.append("\n");
         
         return sb.toString();
     }
