@@ -1,11 +1,12 @@
 #BlueJ package file
-dependency1.from=BDIndividuais
-dependency1.to=CIndividual
+dependency1.from=BDgeral
+dependency1.to=BDEmpresas
 dependency1.type=UsesDependency
-dependency2.from=BDEmpresas
-dependency2.to=Empresa
+dependency2.from=BDgeral
+dependency2.to=BDIndividuais
 dependency2.type=UsesDependency
 dependency3.from=BDgeral
+<<<<<<< Updated upstream
 dependency3.to=BDEmpresas
 dependency3.type=UsesDependency
 dependency4.from=BDgeral
@@ -13,10 +14,20 @@ dependency4.to=BDIndividuais
 dependency4.type=UsesDependency
 dependency5.from=BDgeral
 dependency5.to=BDFaturas
+=======
+dependency3.to=BDFaturas
+dependency3.type=UsesDependency
+dependency4.from=BDEmpresas
+dependency4.to=Empresa
+dependency4.type=UsesDependency
+dependency5.from=BDIndividuais
+dependency5.to=CIndividual
+>>>>>>> Stashed changes
 dependency5.type=UsesDependency
 dependency6.from=BDFaturas
 dependency6.to=Fatura
 dependency6.type=UsesDependency
+<<<<<<< Updated upstream
 editor.fx.0.height=778
 editor.fx.0.width=1162
 editor.fx.0.x=118
@@ -31,8 +42,24 @@ package.editor.x=28
 package.editor.y=22
 package.frame.height=778
 package.frame.width=967
+=======
+editor.fx.0.height=1056
+editor.fx.0.width=1855
+editor.fx.0.x=65
+editor.fx.0.y=24
+objectbench.height=233
+objectbench.width=1831
+package.divider.horizontal=0.6
+package.divider.vertical=0.7578203834510595
+package.editor.height=744
+package.editor.width=1725
+package.editor.x=65
+package.editor.y=24
+package.frame.height=1056
+package.frame.width=1855
+>>>>>>> Stashed changes
 package.numDependencies=6
-package.numTargets=8
+package.numTargets=9
 package.showExtends=true
 package.showUses=true
 project.charset=UTF-8
@@ -52,41 +79,65 @@ target2.height=50
 target2.name=Empresa
 target2.showInterface=false
 target2.type=ClassTarget
-target2.width=80
+target2.width=90
 target2.x=540
 target2.y=130
 target3.height=50
 target3.name=BDEmpresas
 target3.showInterface=false
 target3.type=ClassTarget
+<<<<<<< Updated upstream
 target3.width=100
 target3.x=360
 target3.y=30
+=======
+target3.width=120
+target3.x=460
+target3.y=290
+>>>>>>> Stashed changes
 target4.height=50
 target4.name=CIndividual
 target4.showInterface=false
 target4.type=ClassTarget
+<<<<<<< Updated upstream
 target4.width=90
 target4.x=540
 target4.y=220
+=======
+target4.width=110
+target4.x=740
+target4.y=180
+>>>>>>> Stashed changes
 target5.height=50
 target5.name=Contribuinte
 target5.showInterface=false
 target5.type=ClassTarget
+<<<<<<< Updated upstream
 target5.width=100
 target5.x=680
 target5.y=160
+=======
+target5.width=120
+target5.x=650
+target5.y=20
+>>>>>>> Stashed changes
 target6.height=50
 target6.name=Fatura
 target6.showInterface=false
 target6.type=ClassTarget
 target6.width=80
+<<<<<<< Updated upstream
 target6.x=90
 target6.y=110
+=======
+target6.x=210
+target6.y=130
+>>>>>>> Stashed changes
 target7.height=50
 target7.name=BDIndividuais
 target7.showInterface=false
 target7.type=ClassTarget
+<<<<<<< Updated upstream
 target7.width=110
 target7.x=360
 target7.y=250
@@ -97,3 +148,22 @@ target8.type=ClassTarget
 target8.width=90
 target8.x=60
 target8.y=290
+=======
+target7.width=130
+target7.x=650
+target7.y=350
+target8.height=360
+target8.name=menu
+target8.showInterface=false
+target8.type=ClassTarget
+target8.width=80
+target8.x=20
+target8.y=90
+target9.height=50
+target9.name=BDFaturas
+target9.showInterface=false
+target9.type=ClassTarget
+target9.width=100
+target9.x=260
+target9.y=350
+>>>>>>> Stashed changes
