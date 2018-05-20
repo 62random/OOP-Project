@@ -1,4 +1,6 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Set;
+import java.util.HashSet;
 
 
 public class Fatura {
@@ -9,7 +11,8 @@ public class Fatura {
     private String nome_emitente;
     private String categoria;
     private String descricao;
-    private LocalDateTime emissao;
+    private Set<String> old_desc;
+    private LocalDate emissao;
     
     private static int nextid = 0;
 
@@ -21,12 +24,13 @@ public class Fatura {
         this.nome_emitente  = "";
         this.descricao      = "";
         this.categoria      = "";
+        this.old_desc       = new HashSet<String>();
         this.emissao        = null;
         
         nextid++;
     }
 
-    public Fatura(int nif_emitente, String nome_emitente, LocalDateTime emissao, int nif_cliente, String descricao, String categoria, double valor) {
+    public Fatura(int nif_emitente, String nome_emitente, LocalDate emissao, int nif_cliente, String descricao, String categoria, double valor) {
         this.id             = nextid;
         this.nif_emitente   = nif_emitente;
         this.nome_emitente  = nome_emitente;
@@ -34,6 +38,7 @@ public class Fatura {
         this.nif_cliente    = nif_cliente;
         this.descricao      = descricao;
         this.categoria      = categoria;
+        this.old_desc       = new HashSet<String>();
         this.valor          = valor;
         
         nextid++;
@@ -47,7 +52,15 @@ public class Fatura {
         this.nif_cliente    = f.getNif_cliente();
         this.descricao      = f.getDescricao();
         this.categoria      = f.getCategoria();
+        this.old_desc       = f.getOld_desc();
         this.valor          = f.getValor();
+    }
+    
+    public Set<String> getOld_desc(){
+        Set<String> aux = new HashSet <String>();
+        this.old_desc.forEach(a -> aux.add(a));
+        
+        return aux;
     }
 
     public int getId() {
@@ -66,7 +79,7 @@ public class Fatura {
         return valor;
     }
 
-    public LocalDateTime getEmissao() {
+    public LocalDate getEmissao() {
         return emissao;
     }
 
@@ -87,10 +100,11 @@ public class Fatura {
     }
 
     public void setDescricao(String descricao) {
+        this.old_desc.add(this.descricao);
         this.descricao = descricao;
     }
 
-    public void setEmissao(LocalDateTime emissao) {
+    public void setEmissao(LocalDate emissao) {
         this.emissao = emissao;
     }
 
@@ -114,6 +128,15 @@ public class Fatura {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Fatura fatura = (Fatura) object;
+        
+        Set<String> aux = fatura.getOld_desc();
+        if (aux.size() != this.old_desc.size())
+            return false;
+        
+        for(String a : aux)
+            if (!this.old_desc.contains(a))
+                return false;
+            
         return  this.id              == fatura.getId()           &&
                 this.nif_emitente    == fatura.getNif_emitente() &&
                 this.nif_cliente     == fatura.getNif_cliente()  &&
@@ -172,6 +195,10 @@ public class Fatura {
         hash = hash*31 + this.categoria.hashCode();
         hash = hash*31 + this.descricao.hashCode();
         hash = hash*31 + this.emissao.hashCode();
+        
+        for(String a : this.old_desc){
+            hash = hash*31 + a.hashCode();
+        }
         
         return hash;
     }
