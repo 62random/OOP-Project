@@ -99,7 +99,7 @@ public class menu extends Exception
                         break;
                     }
                     
-                    faturaaux = new Fatura(int1,string1,LocalDateTime.now(),int2,string2,string3,double1);
+                    faturaaux = new Fatura(int1,string1,LocalDate.now(),int2,string2,string3,double1);
                     bd.addFatura(faturaaux);
                     System.out.println("Inserido com sucesso ");
                     break;
