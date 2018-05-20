@@ -13,13 +13,16 @@ import java.util.Iterator;
 public class BDFaturas
 {
     private Map<Integer,Fatura> faturas;
+    private Set<Integer> faturas_porval;
 
     public BDFaturas (){
         this.faturas = new HashMap<Integer,Fatura>();
+        this.faturas_porval = new HashSet<Integer>();
     }
     
     public BDFaturas(Map<Integer,Fatura> a){
         setFaturas(a);
+        this.faturas_porval = new HashSet<Integer>();
     }
     
     public BDFaturas(BDFaturas a){
@@ -36,6 +39,13 @@ public class BDFaturas
     public void setFaturas(Map<Integer,Fatura> a){
         this.faturas = new HashMap <Integer,Fatura>();
         a.values().stream().forEach(e -> this.faturas.put(e.getId(),e.clone()));
+    }
+    
+    public Set<Integer> getFaturas_porval(){
+        Set<Integer> aux = new HashSet<Integer>();
+        this.faturas_porval.forEach( a -> aux.add(a));
+        
+        return aux;
     }
     
     public BDFaturas clone(){
@@ -62,11 +72,40 @@ public class BDFaturas
     }
 
         
-    public void addFatura(Fatura a, BDIndividuais i, BDEmpresas e){        
+    public void addFatura(Fatura a, BDIndividuais i, BDEmpresas e){
+        Empresa aux;
+        
         if (i.contains(a.getNif_cliente()) && e.contains(a.getNif_emitente())){
             i.setFaturaId(a.getId(),a.getNif_cliente());
             e.setFaturaId(a.getId(),a.getNif_emitente());
+            
+            try {
+                aux = (Empresa) e.getContribuinte(a.getNif_emitente());
+            }
+            catch (Erros l){
+                return;
+            }
+            
+            if (aux.getSetores().size() > 1)
+                this.faturas_porval.add(a.getId());
+            
             this.faturas.put(a.getId(),a.clone());
         }
+    }
+    
+    public List<Fatura> faturas_no_intervalo(LocalDate start ,LocalDate end, Set<Integer> idlist){
+        return this.faturas.values().stream()
+                                    .filter(b -> idlist.contains(b.getId()) 
+                                    && b.getEmissao().isAfter(start)
+                                    && b.getEmissao().isBefore(end))
+                                    .map( b -> b.clone())
+                                    .collect(Collectors.toList());
+    }
+    
+    public List<Fatura> faturas_contribuinte(Set<Integer> idlist){
+        return this.faturas.values().stream()
+                                    .filter( b -> idlist.contains(b.getId()))
+                                    .map( b -> b.clone())
+                                    .collect(Collectors.toList());
     }
 }

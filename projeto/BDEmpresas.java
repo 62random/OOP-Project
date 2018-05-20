@@ -87,4 +87,5 @@ public class BDEmpresas implements BaseFunc
         a.setFatura(id);
     }
     
+    
 }
