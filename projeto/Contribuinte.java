@@ -199,13 +199,10 @@ public class Contribuinte
         this.password = p;
     }
     
-<<<<<<< Updated upstream
+
     public void setFaturas(Set<Integer> a){
         this.faturas = new TreeSet<Integer>();
-=======
-    public void setFaturas(List<Integer> a){
-        this.faturas = new ArrayList<Integer>();
->>>>>>> Stashed changes
+
         Iterator <Integer> i = a.iterator();
         int aux;
         

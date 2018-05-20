@@ -33,18 +33,13 @@ comment18.text=\n\ M\u00E9todo\ equals\ para\ a\ classe\ Contribuinte.\n\ @param
 comment19.params=
 comment19.target=int\ hashCode()
 comment2.params=nif1\ nemail\ nnome\ nmorada\ npassword\ faturas
-<<<<<<< Updated upstream
 comment2.target=Contribuinte(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.util.Set)
-comment2.text=\n\ Construtor\ com\ argumentos.\n\ @param\ nif1\ \ \ \ \ \ \ \ \ Nif\ a\ introduzir.\n\ @param\ nemail\ \ \ \ \ \ \ Email\ a\ introduzir.\n\ @param\ nnome\ \ \ \ \ \ \ \ Nome\ a\ introduzir.\n\ @param\ nmorada\ \ \ \ \ \ Morada\ a\ introduzir.\n\ @param\ npassword\ \ \ \ Password\ a\ introduzir.\n
-comment20.params=id
-comment20.target=void\ setFatura(int)
-=======
-comment2.target=Contribuinte(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.util.List)
 comment2.text=\n\ Construtor\ com\ argumentos.\n\ @param\ nif1\ \ \ \ \ \ \ \ \ Nif\ a\ introduzir.\n\ @param\ nemail\ \ \ \ \ \ \ Email\ a\ introduzir.\n\ @param\ nnome\ \ \ \ \ \ \ \ Nome\ a\ introduzir.\n\ @param\ nmorada\ \ \ \ \ \ Morada\ a\ introduzir.\n\ @param\ npassword\ \ \ \ Password\ a\ introduzir.\n
 comment20.params=passe
 comment20.target=boolean\ trylogin(java.lang.String)
 comment20.text=\n\ M\u00E9todo\ de\ verificao\ de\ login\ do\ contribuinte.\n\ @param\ Password\ a\ verificar.\n
->>>>>>> Stashed changes
+comment21.params=id
+comment21.target=void\ setFatura(int)
 comment3.params=a
 comment3.target=Contribuinte(Contribuinte)
 comment3.text=\n\ Construtor\ com\ argumentos.\n\ @param\ a\ \ Contribuinte\ a\ copiar.\n
@@ -64,9 +59,5 @@ comment8.params=
 comment8.target=java.lang.String\ getPassword()
 comment8.text=\n\ Get\ para\ a\ vari\u00E1vel\ password\ do\ objeto.\n
 comment9.params=
-<<<<<<< Updated upstream
 comment9.target=java.util.Set\ getFaturas()
-=======
-comment9.target=java.util.List\ getFaturas()
->>>>>>> Stashed changes
-numComments=21
+numComments=22

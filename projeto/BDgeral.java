@@ -9,12 +9,36 @@ import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 public class BDgeral
 {
     private BDEmpresas empresas;
     private BDIndividuais individuais;
     private BDFaturas faturas;
+    
+    
+    public static void createFile(String path) {
+        try {
+            File file = new File(path);
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                FileOutputStream writer = new FileOutputStream(path);
+                writer.write(("").getBytes());
+                writer.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     
     public BDgeral(){
         this.empresas = new BDEmpresas();
@@ -33,6 +57,25 @@ public class BDgeral
         this.individuais = a.getBDIndividuais();
         this.faturas = a.getBDFaturas();
     }
+    
+    public void guardaEstado(String nome) throws FileNotFoundException ,IOException{
+      //  createFile(nome);
+        FileOutputStream fos = new FileOutputStream(nome);
+
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this);
+        oos.flush();
+        oos.close();
+    }
+    
+    public BDgeral carregaEstado(String nome) throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(nome);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        BDgeral h = (BDgeral) ois.readObject();
+        ois.close();
+        return h;
+    }
+    
     
     public BDEmpresas getBDEmpresas(){
         return this.empresas.clone();
