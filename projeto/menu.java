@@ -21,18 +21,64 @@ import java.io.FileNotFoundException;
 public class menu extends Exception
 {
 
-    
-    private static void imprimirmenu(){
+    private static void imprimirmenu(int i){
+        if (i == 1)
+            imprimirmenu1();
+        if (i == 2)
+            imprimirmenu2();
+        if (i == 3)
+            imprimirmenu3();
+        if (i == 4)
+            imprimirmenu4();
+        if (i == 5)
+            imprimirmenu5();
+        
+            
+    }
+    private static void imprimirmenu1(){
         System.out.println("------------------Java Fatura------------------");
         System.out.println("Opçoes");
-        System.out.println("1-Adicionar Faturar");
-        System.out.println("2-Adicionar Empresa");
-        System.out.println("3-Adicionar Contribuinte Individual");
+        System.out.println("1-Registar contribuintes");
+        System.out.println("2-Fazer Login");
         
-        System.out.println("4-Guardar Ficheiro");
-        System.out.println("5-Importar Ficheiro");
-        System.out.println("6-Imprimir BD");
-        System.out.println("7-Sair");
+        System.out.println("3-Guardar Ficheiro");
+        System.out.println("4-Importar Ficheiro");
+        System.out.println("5-Imprimir BD");
+        System.out.println("6-Sair");
+    }
+    private static void imprimirmenu2(){
+        System.out.println("------------------Registar contribuintes------------------");
+        System.out.println("Opçoes");
+        System.out.println("1-Registar Contribuinte Individual");
+        System.out.println("2-Registar Empresa");
+        
+        System.out.println("3-Voltar Menu anterior");
+    }
+    private static void imprimirmenu3(){
+        System.out.println("------------------Menu de Login------------------");
+        System.out.println("Opçoes");
+        System.out.println("1-Login de Contribuinte Individual");
+        System.out.println("2-Login de Empresa");
+        System.out.println("3-Login de Contribuinte Admin");
+
+        System.out.println("4-Voltar Menu anterior");
+    }
+    private static void imprimirmenu4(){
+        System.out.println("------------------Menu de Empresas------------------");
+        System.out.println("Opçoes");
+        System.out.println("1-Criar faturas");
+        System.out.println("2-Log out");
+    }
+    private static void imprimirmenu5(){
+        System.out.println("------------------Menu de Contribuinte Individual------------------");
+        System.out.println("Opçoes");
+        System.out.println("1-Listagem de faturas");
+        System.out.println("2-Montagem fiscal e do agregado");
+        System.out.println("3-Adicionar agregado");
+        System.out.println("4-Validar faturas");
+        System.out.println("5-Alterar atividade economica");
+        
+        System.out.println("6-Voltar Menu anterior");
     }
     
     private static void inserirFatura(BDgeral bd) throws Erros{
@@ -64,8 +110,10 @@ public class menu extends Exception
                          
         }
            catch(InputMismatchException e){
+               ac.next();
            throw new Erros("Falha ao inserir");
         }
+        
         Fatura faturaaux = null;            
         faturaaux = new Fatura(int_1,string_1,LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
         bd.addFatura(faturaaux);
@@ -141,8 +189,7 @@ public class menu extends Exception
     public static void menu()
     {
         Scanner ac = new Scanner(System.in);
-        imprimirmenu();
-        boolean flag = true;
+        int flag = 1;
         int choice= -1;
         BDgeral bd = new BDgeral(); 
         
@@ -154,52 +201,31 @@ public class menu extends Exception
         Fatura faturaaux = null;
         
         
-        while(flag){
+        while(flag != 0){
+            imprimirmenu(flag);
+            
             try{
                 choice=ac.nextInt(); 
             }
-            catch(InputMismatchException e){ 
+            catch(InputMismatchException e){
                 System.out.println("Insere digitos apenas");
                 ac.next();
                
                 continue;
             }
+            
+        if (flag == 1){
                 
             switch(choice){
                 case 1:
-                    try{
-                        inserirFatura(bd);
-                    }
-                    catch(Erros e){
-                    System.out.println("Falha ao inserir");
-                    break;
-                    }
-                    System.out.println("Inserido com sucesso");
+                    flag = 2;
                     break;
                     
                 case 2:
-                    try{
-                        inserirEmpresa(bd);
-                    }
-                    catch(Erros e){
-                    System.out.println("Falha ao inserir");
-                    break;
-                    }
-                    System.out.println("Inserido com sucesso");
+                    flag = 3;
                     break;
                     
                 case 3:
-                    try{
-                        inserirCIndi(bd);
-                    }
-                    catch(Erros e){
-                    System.out.println("Falha ao inserir");
-                    break;
-                    }
-                    System.out.println("Inserido com sucesso");
-                    break;
-                    
-                case 4:
                     try{
                         System.out.println("Nome Ficheiro : ");
                         string1=ac.next();
@@ -207,22 +233,19 @@ public class menu extends Exception
                     }
                     catch(InputMismatchException e){
                         System.out.println("Failed");
-                        ac.next();
                         break;
                     }
                     catch(FileNotFoundException e){
                         System.out.println("Ficheiro nao encontrado");
-                        ac.next();
                         break;  
                     }
                     catch(IOException e){
                         System.out.println("Erro ao aceder ao ficheiro");
-                        ac.next();
                         break;  
                     }
                     System.out.println("Gravado com sucesso");
                     break;
-                case 5:
+                case 4:
                     try{
                         System.out.println("Nome Ficheiro : ");
                         string1=ac.next();
@@ -230,46 +253,126 @@ public class menu extends Exception
                     }
                     catch(InputMismatchException e){
                         System.out.println("Failed");
-                        ac.next();
                         break;
                     }
                     catch(FileNotFoundException e){
                         System.out.println("Ficheiro nao encontrado");
-                        ac.next();
                         break;  
                     }
                     catch(IOException e){
                         System.out.println("Erro ao aceder ao ficheiro");
-                        ac.next();
                         break;  
                     }
                     catch(ClassNotFoundException e){
                         System.out.println("Erro ao aceder ao ficheiro");
-                        ac.next();
                         break;  
                     }
                     System.out.println("Lido com sucesso");
                     break;
                
-                case 6:
+                case 5:
                     System.out.print(bd.toString());
                     break;
-                case 7:
+                case 6:
                     System.out.println("A sair");
-                    flag = false;
+                    flag = 0;
                     break;
                     
-                case 0:
-                    imprimirmenu();
-                    break;
-                
                 default:
                     System.out.println("Opçao Invalida");
                 }
         
             }
+        else if (flag == 2){
+            switch(choice){
+                case 2:
+                    try{
+                        inserirEmpresa(bd);
+                    }
+                    catch(Erros e){
+                        System.out.println("Falha ao inserir");
+                        break;
+                    }
+                    System.out.println("Inserido com sucesso");
+                    break;
+                    
+                case 1:
+                    try{
+                        inserirCIndi(bd);
+                    }
+                    catch(Erros e){
+                        System.out.println("Falha ao inserir");
+                        break;
+                    }
+                    System.out.println("Inserido com sucesso");
+                    break;
+                    
+                case 3:
+                    flag = 1;
+                    break;
+                default:
+                    System.out.println("Opçao Invalida");
+                }
+        }
+        else if (flag == 3){
+            switch(choice){
+                case 1:
+                    break;
+                    
+                case 2:
+                    break;
+                    
+                case 3:
+                    break;
+                
+                case 4:
+                    flag = 1;
+                    break;
+                default:
+                    System.out.println("Opçao Invalida");
+                }
+        }
         
-        System.out.println("Saiu com sucesso");
+        else if (flag == 4){
+            switch(choice){
+                case 1:
+                try{
+                    inserirFatura(bd);
+                }
+                catch(Erros e){
+                    System.out.println("Falha ao inserir");
+                    break;
+                 }
+                 System.out.println("Inserido com sucesso");
+                 break;
+                
+                    
+                case 2:
+                    flag = 1;
+                    break;
+                    
+                default:
+                    System.out.println("Opçao Invalida");
+                }
+        }
+        else if (flag == 5){
+            switch(choice){
+                case 1:
+                    break;
+                    
+                case 6:
+                    flag = 1;
+                    break;
+                default:
+                    System.out.println("Opçao Invalida");
+                
+            
+           }
+        
+        }
+        
     }
     
+        System.out.println("Saiu com sucesso");
+  }
 }
