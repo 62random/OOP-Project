@@ -33,6 +33,13 @@ public class BDSetores {
         return new BDSetores(this);
     }
 
+    public void addSetor(Setor s){
+        this.setores.put(s.getNome(), s.clone());
+    }
+
+    public boolean existeSetor(String s){
+        return this.setores.containsKey(s);
+    }
 
     public boolean equals(Object o) {
         if (this == o) return true;

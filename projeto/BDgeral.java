@@ -24,6 +24,7 @@ public class BDgeral
     private BDContribuintes empresas;
     private BDContribuintes individuais;
     private BDFaturas faturas;
+    private BDSetores setores;
     
     
     public static void createFile(String path) {
@@ -46,18 +47,23 @@ public class BDgeral
         this.empresas = new BDContribuintes();
         this.individuais = new BDContribuintes();
         this.faturas = new BDFaturas();
+        this.setores = new BDSetores();
     }
     
-    public BDgeral(BDContribuintes a,BDContribuintes b,BDFaturas c){
-        this.empresas = a.clone();
-        this.individuais = b.clone();
-        this.faturas = c.clone();
+
+    
+    public BDgeral(BDContribuintes a,BDContribuintes b,BDFaturas c, BDSetores d){
+        this.empresas       = a.clone();
+        this.individuais    = b.clone();
+        this.faturas        = c.clone();
+        this.setores        = d.clone();
     }
     
     public BDgeral(BDgeral a){
-        this.empresas = a.getBDEmpresas();
-        this.individuais = a.getBDIndividuais();
-        this.faturas = a.getBDFaturas();
+        this.empresas       = a.getBDEmpresas();
+        this.individuais    = a.getBDIndividuais();
+        this.faturas        = a.getBDFaturas();
+        this.setores        = a.getBDSetores();
     }
     
     public void guardaEstado(String nome) throws FileNotFoundException ,IOException{
@@ -90,6 +96,10 @@ public class BDgeral
     public BDFaturas getBDFaturas(){
         return this.faturas.clone();
     }
+
+    public BDSetores getBDSetores() {
+        return this.setores.clone();
+    }
     
     public void addIndividual(CIndividual i){
         try{
@@ -105,24 +115,44 @@ public class BDgeral
             this.empresas.addContribuinte(i);
         }
         catch (Erros l){
-            System.out.println(l.getMessage());
+            System.out.println("Não conseguiu inserir empresa: " + l.getMessage());
         }
+
+        Set<String> setores = i.getSetores();
+        for(String s: setores)
+            if(this.setores.existeSetor(s))
+                addSetor(new Setor(s, 0));
+
     }
     
     public void addFatura(Fatura i){
-        this.faturas.addFatura(i,this.individuais,this.empresas);
+        /**
+        if(!this.setores.existeSetor(i.getCategoria()))
+            addSetor(new Setor(i.getCategoria(), 0));*/
+        this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
     }
+
+    public void addSetor(Setor s){this.setores.addSetor(s);}
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.individuais.toString() +"\n");
         sb.append(this.empresas.toString() + "\n");
         sb.append(this.faturas.toString() + "\n");
+        sb.append(this.setores.toString() + "\n");
         
         return sb.toString();
     }
     
-    
+    public double deduz(int id){ //falta contabilizar o número de elementos do agregado familiar (quando isso estivr pronto)
+        String setor = this.faturas.getFaturas().get(id).getCategoria();
+        double taxa = this.setores.getSetores().get(setor).getTaxa();
+        taxa *= this.faturas.getFaturas().get(id).getValor();
+
+        return taxa;
+    }
+
+
     //7
     public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, int type, int id){
         Empresa e;

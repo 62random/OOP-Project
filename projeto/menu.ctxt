@@ -2,6 +2,12 @@
 comment0.target=menu
 comment1.params=
 comment1.target=void\ imprimirmenu()
-comment2.params=
-comment2.target=void\ menu()
-numComments=3
+comment2.params=bd
+comment2.target=void\ inserirFatura(BDgeral)
+comment3.params=bd
+comment3.target=void\ inserirEmpresa(BDgeral)
+comment4.params=bd
+comment4.target=void\ inserirCIndi(BDgeral)
+comment5.params=
+comment5.target=void\ menu()
+numComments=6
