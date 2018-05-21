@@ -185,6 +185,30 @@ public class menu extends Exception
         bd.addIndividual(individual_aux);
     }
     
+    private static boolean loginEmpresa(BDgeral bd, int nif, String passe) {
+        
+        return true;
+        // metodo do ambrosio
+        
+        
+                         
+    
+    
+    }
+    
+    private static boolean loginIndividual(BDgeral bd, int nif, String passe) {
+        
+        
+        
+        
+        return true;
+        // metodo do ambrosio
+        
+        
+                         
+    
+    
+    }
     // instance variables - replace the example below with your own
     public static void menu()
     {
@@ -194,10 +218,10 @@ public class menu extends Exception
         BDgeral bd = new BDgeral(); 
         
         
-        int int1,int2,int3,int4,int5 = 0;
+        int int_1,int_2,int_3,int_4,int_5 = 0;
         long long1,long2 = 0;
         double double1, double2 = 0;
-        String string1,string2 ,string3= null;
+        String string_1,string_2 ,string_3= null;
         Fatura faturaaux = null;
         
         
@@ -228,8 +252,8 @@ public class menu extends Exception
                 case 3:
                     try{
                         System.out.println("Nome Ficheiro : ");
-                        string1=ac.next();
-                        bd.guardaEstado(string1);                        
+                        string_1=ac.next();
+                        bd.guardaEstado(string_1);                        
                     }
                     catch(InputMismatchException e){
                         System.out.println("Failed");
@@ -248,8 +272,8 @@ public class menu extends Exception
                 case 4:
                     try{
                         System.out.println("Nome Ficheiro : ");
-                        string1=ac.next();
-                        bd.carregaEstado(string1);                        
+                        string_1=ac.next();
+                        bd.carregaEstado(string_1);                        
                     }
                     catch(InputMismatchException e){
                         System.out.println("Failed");
@@ -317,9 +341,40 @@ public class menu extends Exception
         else if (flag == 3){
             switch(choice){
                 case 1:
+                
+                    System.out.println("NIF: ");
+                    try{
+                        int_1 = ac.nextInt();
+                        System.out.println("Password: ");
+                        string_1 = ac.next();
+                    
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println ("Numero invalido");
+                        break;
+                    }
+                    if (loginIndividual(bd,int_1,string_1)){
+                        flag = 5;
+                    
+                    }
                     break;
                     
                 case 2:
+                    System.out.println("NIF: ");
+                    try{
+                        int_1 = ac.nextInt();
+                        System.out.println("Password: ");
+                        string_1 = ac.next();
+                    
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println ("Numero invalido");
+                        break;
+                    }
+                    if (loginEmpresa(bd,int_1,string_1)){
+                        flag = 4;
+                    
+                    }
                     break;
                     
                 case 3:
