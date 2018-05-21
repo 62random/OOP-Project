@@ -12,7 +12,7 @@ public class Setor {
         this.taxa   = 0;
     }
 
-    public Setor(int id, String nome, double taxa) {
+    public Setor(String nome, double taxa) {
         this.id     = nextid++;
         this.nome   = nome;
         this.taxa   = taxa;

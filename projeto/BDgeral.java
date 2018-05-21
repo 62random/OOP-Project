@@ -104,12 +104,18 @@ public class BDgeral
     }
     
     public void addEmpresa(Empresa i){
+
+        Set<String> setores = i.getSetores();
+        for(String s: setores)
+            if(this.setores.existeSetor(s))
+                addSetor(new Setor(s, 0));
+
         this.empresas.addContribuinte(i);
     }
     
     public void addFatura(Fatura i){
         if(!this.setores.existeSetor(i.getCategoria()))
-            addSetor(new Setor());
+            addSetor(new Setor(i.getCategoria(), 0));
         this.faturas.addFatura(i,this.individuais,this.empresas);
     }
 
