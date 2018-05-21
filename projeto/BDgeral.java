@@ -31,7 +31,7 @@ public class BDgeral
         try {
             File file = new File(path);
             if (!file.exists()) {
-                file.createNewFile();
+                file.createNewFile();   
             } else {
                 FileOutputStream writer = new FileOutputStream(path);
                 writer.write(("").getBytes());
@@ -65,8 +65,12 @@ public class BDgeral
     }
     
     public void guardaEstado(String nome) throws FileNotFoundException ,IOException{
-      //  createFile(nome);
-        FileOutputStream fos = new FileOutputStream(nome);
+        File f = new File(nome);
+        if(!f.exists()){
+            f.createNewFile();
+        }
+        //createFile(nome);
+        FileOutputStream fos = new FileOutputStream(f);
 
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(this);
