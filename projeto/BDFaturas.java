@@ -72,7 +72,7 @@ public class BDFaturas
     }
 
         
-    public void addFatura(Fatura a, BDIndividuais i, BDEmpresas e){
+    public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e){
         Empresa aux;
         
         if (i.contains(a.getNif_cliente()) && e.contains(a.getNif_emitente())){

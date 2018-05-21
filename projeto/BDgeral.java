@@ -21,8 +21,8 @@ import java.util.Collections;
 
 public class BDgeral
 {
-    private BDEmpresas empresas;
-    private BDIndividuais individuais;
+    private BDContribuintes empresas;
+    private BDContribuintes individuais;
     private BDFaturas faturas;
     
     
@@ -43,12 +43,12 @@ public class BDgeral
     
     
     public BDgeral(){
-        this.empresas = new BDEmpresas();
-        this.individuais = new BDIndividuais();
+        this.empresas = new BDContribuintes();
+        this.individuais = new BDContribuintes();
         this.faturas = new BDFaturas();
     }
     
-    public BDgeral(BDEmpresas a,BDIndividuais b,BDFaturas c){
+    public BDgeral(BDContribuintes a,BDContribuintes b,BDFaturas c){
         this.empresas = a.clone();
         this.individuais = b.clone();
         this.faturas = c.clone();
@@ -79,11 +79,11 @@ public class BDgeral
     }
     
     
-    public BDEmpresas getBDEmpresas(){
+    public BDContribuintes getBDEmpresas(){
         return this.empresas.clone();
     }
     
-    public BDIndividuais getBDIndividuais(){
+    public BDContribuintes getBDIndividuais(){
         return this.individuais.clone();
     }
     
@@ -92,11 +92,21 @@ public class BDgeral
     }
     
     public void addIndividual(CIndividual i){
-        this.individuais.addContribuinte(i);
+        try{
+            this.individuais.addContribuinte(i);
+        }
+        catch (Erros l){
+            System.out.println(l.getMessage());
+        }
     }
     
     public void addEmpresa(Empresa i){
-        this.empresas.addContribuinte(i);
+        try{
+            this.empresas.addContribuinte(i);
+        }
+        catch (Erros l){
+            System.out.println(l.getMessage());
+        }
     }
     
     public void addFatura(Fatura i){
