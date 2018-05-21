@@ -33,6 +33,13 @@ public class BDSetores {
         return new BDSetores(this);
     }
 
+    public void addSetor(Setor s){
+        this.setores.put(s.getNome(), s.clone());
+    }
+
+    public boolean existeSetor(String s){
+        return this.setores.containsKey(s);
+    }
 
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,4 +48,12 @@ public class BDSetores {
         return this.setores.equals(bdSetores.setores);
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for(Setor s : this.setores.values())
+            sb.append(s.toString() + "\n");
+
+        return sb.toString();
+    }
 }

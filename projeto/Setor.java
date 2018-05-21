@@ -4,14 +4,16 @@ public class Setor {
     private String nome;
     private double taxa;
 
+    private static int nextid = 0;
+
     public Setor(){
-        this.id     = -1;
+        this.id     = nextid++;
         this.nome   = "";
         this.taxa   = 0;
     }
 
-    public Setor(int id, String nome, double taxa) {
-        this.id     = id;
+    public Setor(String nome, double taxa) {
+        this.id     = nextid++;
         this.nome   = nome;
         this.taxa   = taxa;
     }

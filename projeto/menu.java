@@ -372,7 +372,7 @@ public class menu extends Exception
                         break;
                     }
                     if (loginEmpresa(bd,int_1,string_1)){
-                        flag = 4;
+                        flag = 4; 
                     
                     }
                     break;

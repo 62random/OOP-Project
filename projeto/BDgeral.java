@@ -24,6 +24,7 @@ public class BDgeral
     private BDEmpresas empresas;
     private BDIndividuais individuais;
     private BDFaturas faturas;
+    private BDSetores setores;
     
     
     public static void createFile(String path) {
@@ -43,21 +44,24 @@ public class BDgeral
     
     
     public BDgeral(){
-        this.empresas = new BDEmpresas();
-        this.individuais = new BDIndividuais();
-        this.faturas = new BDFaturas();
+        this.empresas       = new BDEmpresas();
+        this.individuais    = new BDIndividuais();
+        this.faturas        = new BDFaturas();
+        this.setores        = new BDSetores();
     }
     
-    public BDgeral(BDEmpresas a,BDIndividuais b,BDFaturas c){
-        this.empresas = a.clone();
-        this.individuais = b.clone();
-        this.faturas = c.clone();
+    public BDgeral(BDEmpresas a,BDIndividuais b,BDFaturas c, BDSetores d){
+        this.empresas       = a.clone();
+        this.individuais    = b.clone();
+        this.faturas        = c.clone();
+        this.setores        = d.clone();
     }
     
     public BDgeral(BDgeral a){
-        this.empresas = a.getBDEmpresas();
-        this.individuais = a.getBDIndividuais();
-        this.faturas = a.getBDFaturas();
+        this.empresas       = a.getBDEmpresas();
+        this.individuais    = a.getBDIndividuais();
+        this.faturas        = a.getBDFaturas();
+        this.setores        = a.getBDSetores();
     }
     
     public void guardaEstado(String nome) throws FileNotFoundException ,IOException{
@@ -94,29 +98,60 @@ public class BDgeral
     public BDFaturas getBDFaturas(){
         return this.faturas.clone();
     }
+
+    public BDSetores getBDSetores() {
+        return this.setores.clone();
+    }
     
     public void addIndividual(CIndividual i){
         this.individuais.addContribuinte(i);
     }
     
     public void addEmpresa(Empresa i){
+
+        Set<String> setores = i.getSetores();
+        for(String s: setores)
+            if(this.setores.existeSetor(s))
+                addSetor(new Setor(s, 0));
+
         this.empresas.addContribuinte(i);
     }
     
     public void addFatura(Fatura i){
+        if(!this.setores.existeSetor(i.getCategoria()))
+            addSetor(new Setor(i.getCategoria(), 0));
         this.faturas.addFatura(i,this.individuais,this.empresas);
     }
+
+    public void addSetor(Setor s){this.setores.addSetor(s);}
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.individuais.toString() +"\n");
         sb.append(this.empresas.toString() + "\n");
         sb.append(this.faturas.toString() + "\n");
+        sb.append(this.setores.toString() + "\n");
         
         return sb.toString();
     }
     
-    
+    public double deduz(int id){
+        String setor = this.faturas.getFaturas().get(id).getCategoria();
+        double taxa = this.setores.getSetores().get(setor).getTaxa();
+        taxa *= this.faturas.getFaturas().get(id).getValor();
+
+        try {
+            CIndividual cont = (CIndividual) this.getBDIndividuais().getContribuinte( this.faturas.getFaturas().get(id).getNif_cliente());
+            taxa *= (cont.getNumAgregado()*0.05 + 1);
+        }
+        catch (Erros e) {
+            System.out.println("fatura sem NIF  de cliente válido (NIF: " + id +  ")\n");
+        }
+
+        return taxa;
+    }
+
+
     //7
     public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, int type, int id){
         Empresa e;
