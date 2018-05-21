@@ -48,4 +48,12 @@ public class BDSetores {
         return this.setores.equals(bdSetores.setores);
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for(Setor s : this.setores.values())
+            sb.append(s.toString() + "\n");
+
+        return sb.toString();
+    }
 }

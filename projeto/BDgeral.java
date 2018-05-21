@@ -131,10 +131,18 @@ public class BDgeral
         return sb.toString();
     }
     
-    public double deduz(int id){ //falta contabilizar o número de elementos do agregado familiar (quando isso estivr pronto)
+    public double deduz(int id){
         String setor = this.faturas.getFaturas().get(id).getCategoria();
         double taxa = this.setores.getSetores().get(setor).getTaxa();
         taxa *= this.faturas.getFaturas().get(id).getValor();
+
+        try {
+            CIndividual cont = (CIndividual) this.getBDIndividuais().getContribuinte( this.faturas.getFaturas().get(id).getNif_cliente());
+            taxa *= (cont.getNumAgregado()*0.05 + 1);
+        }
+        catch (Erros e) {
+            System.out.println("fatura sem NIF  de cliente válido (NIF: " + id +  ")\n");
+        }
 
         return taxa;
     }
