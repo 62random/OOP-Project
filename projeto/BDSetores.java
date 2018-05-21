@@ -33,6 +33,9 @@ public class BDSetores {
         return new BDSetores(this);
     }
 
+    public void addSetor(Setor s){
+        this.setores.put(s.getNome(), s.clone());
+    }
 
     public boolean equals(Object o) {
         if (this == o) return true;
