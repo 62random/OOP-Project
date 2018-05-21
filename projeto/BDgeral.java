@@ -108,6 +108,8 @@ public class BDgeral
     }
     
     public void addFatura(Fatura i){
+        if(!this.setores.existeSetor(i.getCategoria()))
+            addSetor(new Setor());
         this.faturas.addFatura(i,this.individuais,this.empresas);
     }
 
