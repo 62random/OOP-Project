@@ -74,13 +74,15 @@ public class BDFaturas
         
     public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e, BDSetores d){
         Empresa aux;
+        CIndividual aux2;
            
             
         try {
              aux = (Empresa) e.getContribuinte(a.getNif_emitente());
+             aux2 = (CIndividual) i.getContribuinte(a.getNif_cliente());
         }
         catch (Erros l){
-             System.out.println("Contribuinte" +  l.getMessage() +"não existe");
+             System.out.println("Contribuinte" +  l.getMessage() +"não existe\n");
              return;
         }
             

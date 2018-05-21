@@ -66,22 +66,29 @@ public class BDContribuintes
     
     public Contribuinte getContribuinte(int nif) throws Erros{
         Contribuinte aux = this.dados.get(nif);
+        
         if (aux == null){
-            throw new Erros("Contribuinte não encontrado");
+            Integer i = new Integer(nif);
+            throw new Erros(i.toString());
         }
         return aux.clone();
     }
     
     public void addContribuinte(Contribuinte o) throws Erros{
+        Integer i = new Integer(o.getNif());
+        
         if (this.dados.containsKey(o.getNif()))
-            throw new Erros("Contribuinte já inserido");
+            throw new Erros(i.toString());
+            
         this.dados.put(o.getNif(),o.clone());
     }
     
     public boolean contains(int nif){
         Contribuinte a = this.dados.get(nif);
+        
         if (a == null)
             return false;
+            
         return true;
     }
     

@@ -2,8 +2,8 @@
 comment0.target=BDFaturas
 comment1.params=
 comment1.target=BDFaturas()
-comment10.params=a\ i\ e
-comment10.target=void\ addFatura(Fatura,\ BDContribuintes,\ BDContribuintes)
+comment10.params=a\ i\ e\ d
+comment10.target=void\ addFatura(Fatura,\ BDContribuintes,\ BDContribuintes,\ BDSetores)
 comment11.params=start\ end\ idlist
 comment11.target=java.util.List\ faturas_no_intervalo(java.time.LocalDate,\ java.time.LocalDate,\ java.util.Set)
 comment12.params=idlist

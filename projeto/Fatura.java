@@ -202,6 +202,10 @@ public class Fatura {
         
         return hash;
     }
+    
+    public int compareTo(Fatura h) {
+        return h.getId() - this.id;
+    }
 
 
 }

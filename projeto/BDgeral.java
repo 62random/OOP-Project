@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.Collections;
+import java.lang.ArithmeticException;
 
 public class BDgeral
 {
@@ -106,7 +107,7 @@ public class BDgeral
             this.individuais.addContribuinte(i);
         }
         catch (Erros l){
-            System.out.println(l.getMessage());
+            System.out.println("Contribuinte " + l.getMessage() + " já inserido");
         }
     }
     
@@ -115,24 +116,44 @@ public class BDgeral
             this.empresas.addContribuinte(i);
         }
         catch (Erros l){
-            System.out.println("Não conseguiu inserir empresa: " + l.getMessage());
+            System.out.println("Contribuinte " + l.getMessage() + " já inserido");
         }
-
-        Set<String> setores = i.getSetores();
-        for(String s: setores)
-            if(this.setores.existeSetor(s))
-                addSetor(new Setor(s, 0));
 
     }
     
     public void addFatura(Fatura i){
-        /**
-        if(!this.setores.existeSetor(i.getCategoria()))
-            addSetor(new Setor(i.getCategoria(), 0));*/
         this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
     }
 
     public void addSetor(Setor s){this.setores.addSetor(s);}
+    
+    public Empresa getEmpresa(int nif) throws Erros{
+        Empresa aux;
+        Integer i = new Integer(nif);
+        
+        try{
+            aux = (Empresa) this.empresas.getContribuinte(nif);
+        }
+        catch (Erros l){
+            throw new Erros(i.toString());
+        }
+        
+        return aux;
+    }
+    
+    public CIndividual getCIndividual(int nif) throws Erros{
+        CIndividual aux;
+        Integer i = new Integer(nif);
+        
+        try{
+            aux = (CIndividual) this.individuais.getContribuinte(nif);
+        }
+        catch (Erros l){
+            throw new Erros(i.toString());
+        }
+        
+        return aux;
+    }
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -153,42 +174,31 @@ public class BDgeral
     }
 
 
-    //7
-    public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, int type, int id){
+    //7 true ordena por tempo false por valor
+    public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, boolean type, int id){
         Empresa e;
         try {
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
             return new ArrayList<Fatura>();
         }
         
         List<Fatura> list = this.faturas.faturas_no_intervalo(start,end,e.getFaturas());
         
-        if (type == 1){
-            Collections.sort(list, new Comparator<Fatura>(){
-                
-                public int compare(Fatura f1,Fatura f2){
-                    if (f1.getEmissao().isAfter(f2.getEmissao()))
-                        return -1;
-                    else if (f1.getEmissao().equals(f2.getEmissao()))
-                        return 0;
-                    return 1;
-                }
-            });
+        TreeSet<Fatura> ordena_aux;
+        
+        if (type){
+            ordena_aux = new TreeSet<>(new CompFatTime());
+            list.forEach( a -> ordena_aux.add(a));
+            list = ordena_aux.stream().collect(Collectors.toList());
         }
-        else if (type == 0){
-            Collections.sort(list, new Comparator<Fatura>(){
-                
-                public int compare(Fatura f1,Fatura f2){
-                    if (f1.getValor() < f2.getValor())
-                        return -1;
-                    else if (f1.getValor() == f2.getValor())
-                        return 0;
-                    return 1;
-                }
-            });
+        else {
+            ordena_aux = new TreeSet<>(new CompValor());
+            list.forEach( a -> ordena_aux.add(a));
+            list = ordena_aux.stream().collect(Collectors.toList());
+            
         }
         
         return list;
@@ -202,7 +212,7 @@ public class BDgeral
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
             return listagem;
         }
         
@@ -230,7 +240,7 @@ public class BDgeral
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
             return listagem;
         }
         
@@ -246,17 +256,9 @@ public class BDgeral
             aux1.add(f);
         }
         
+        
         for(List<Fatura> a : listagem.values()){
-           Collections.sort(a, new Comparator<Fatura>(){
-                
-                public int compare(Fatura f1,Fatura f2){
-                    if (f1.getValor() < f2.getValor())
-                        return -1;
-                    else if (f1.getValor() == f2.getValor())
-                        return 0;
-                    return 1;
-                }
-            });
+           a.sort(new CompValor());
         }
         
         return listagem;
@@ -268,8 +270,8 @@ public class BDgeral
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
-            return -1;
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
+            return 0;
         }
         
         List<Fatura> list = this.faturas.faturas_no_intervalo(start,end,e.getFaturas());
@@ -279,7 +281,7 @@ public class BDgeral
                    .sum();
     }
     //11
-    public double rel_top10(){
+    public double rel_top10() throws ArithmeticException{
         Map <Integer,List<Fatura>> listagem = new HashMap<>();
         
         List<Fatura> aux = new ArrayList<>();
@@ -293,11 +295,7 @@ public class BDgeral
             aux.add(a);
         }
         
-        List <Double> aux2 = new ArrayList <>();
-        
-        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor()).sum()));
-        
-        Collections.sort(aux2, new Comparator<Double>(){
+        TreeSet <Double> aux2 = new TreeSet <Double>(new Comparator<Double>(){
                 
                 public int compare(Double f1,Double f2){
                     if (f2 == f1)
@@ -305,6 +303,9 @@ public class BDgeral
                     return f2 > f1 ? -1 : 1;
                 }
             });
+        
+        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor()).sum()));
+        
         
             
         int i = 0;
@@ -317,6 +318,10 @@ public class BDgeral
                 top10_total += k;
             }
             total += k;
+        }
+        
+        if (total == 0){
+            throw new ArithmeticException();
         }
         
         return top10_total / total;
