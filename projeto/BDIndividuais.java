@@ -9,9 +9,10 @@ import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.*;
 
 
-public class BDIndividuais implements BaseFunc
+public class BDIndividuais implements BaseFunc,Serializable 
 {
     private Map<Integer,CIndividual> individuais;
     

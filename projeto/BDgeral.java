@@ -18,8 +18,9 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.Collections;
+import java.io.*;
 
-public class BDgeral
+public class BDgeral implements Serializable 
 {
     private BDEmpresas empresas;
     private BDIndividuais individuais;

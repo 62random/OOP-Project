@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
-
-public class Empresa extends Contribuinte
+public class Empresa extends Contribuinte implements Serializable 
 {
     private Set<String> setores;
     private double fatorcal;
