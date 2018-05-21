@@ -23,16 +23,120 @@ public class menu extends Exception
 
     
     private static void imprimirmenu(){
-          System.out.println("------------------Java Fatura------------------");
+        System.out.println("------------------Java Fatura------------------");
         System.out.println("Opçoes");
         System.out.println("1-Adicionar Faturar");
         System.out.println("2-Adicionar Empresa");
+        System.out.println("3-Adicionar Contribuinte Individual");
         
-        System.out.println("3-Guardar Ficheiro");
-        System.out.println("4-Importar Ficheiro");
-        System.out.println("5-Imprimir BD");
-        System.out.println("6-Sair");
+        System.out.println("4-Guardar Ficheiro");
+        System.out.println("5-Importar Ficheiro");
+        System.out.println("6-Imprimir BD");
+        System.out.println("7-Sair");
     }
+    
+    private static void inserirFatura(BDgeral bd) throws Erros{
+        int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
+        double double_1=0;
+        String string_1, string_2, string_3 = null;
+        Scanner ac = new Scanner(System.in).useDelimiter("\\n");
+        try{
+                         System.out.println("Id da Fatura : ");
+                         int_1=ac.nextInt();
+                         System.out.println("Nome do Emitente: ");
+                         string_1=ac.next();
+                         System.out.println("NIF cliente: ");
+                         int_2=ac.nextInt();
+                         System.out.println("Descricao : ");
+                         string_2=ac.next();
+                         System.out.println("Categoria : ");
+                         string_3=ac.next();
+                         System.out.println("Valor : ");
+                         double_1 = ac.nextDouble();
+                         
+                         System.out.println("----Data---- ");
+                         System.out.println("Dia: ");
+                         int_4=ac.nextInt();
+                         System.out.println("Mes: ");
+                         int_5=ac.nextInt();
+                         System.out.println("Ano: ");
+                         int_6=ac.nextInt();
+                         
+        }
+           catch(InputMismatchException e){
+           throw new Erros("Falha ao inserir");
+        }
+        Fatura faturaaux = null;            
+        faturaaux = new Fatura(int_1,string_1,LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
+        bd.addFatura(faturaaux);
+    }
+    
+    private static void inserirEmpresa(BDgeral bd) throws Erros{
+        int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
+        double double_1=0;
+        String string_1, string_2, string_3, string_4 = null;
+        Scanner ac = new Scanner(System.in).useDelimiter("\\n");
+        Set<Integer> faturas = new TreeSet<>();
+        Set<String> setores = new TreeSet<>();
+        Set<Integer> agregados = new TreeSet<>();
+        try{
+                         System.out.println("NIF da empresa : ");
+                         int_1 = ac.nextInt();
+                         System.out.println("Email: ");
+                         string_1 = ac.next();
+                         System.out.println("Nome: ");
+                         string_2 = ac.next();
+                         System.out.println("Morada: ");
+                         string_3 = ac.next();
+                         System.out.println("Password: ");
+                         string_4 = ac.next();
+                         System.out.println("Coeficiente de decução fiscal: ");
+                         double_1 = ac.nextDouble();
+                         
+        }
+           catch(InputMismatchException e){
+           throw new Erros("Falha ao inserir");
+        }
+        Empresa empresa_aux = null;            
+        empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,double_1,faturas); 
+        bd.addEmpresa(empresa_aux);
+    }
+    
+    private static void inserirCIndi(BDgeral bd) throws Erros{
+        int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
+        double double_1=0;
+        String string_1, string_2, string_3, string_4 = null;
+        Scanner ac = new Scanner(System.in).useDelimiter("\\n");
+        Set<Integer> faturas = new TreeSet<>();
+        Set<String> setores = new TreeSet<>();
+        Set<Integer> agregados = new TreeSet<>();
+        try{            
+                         System.out.println("NIF : ");
+                         int_1 = ac.nextInt();
+                         System.out.println("Email: ");
+                         string_1 = ac.next();
+                         System.out.println("Nome: ");
+                         string_2 = ac.next();
+                         System.out.println("Morada: ");
+                         string_3 = ac.next();
+                         System.out.println("Password: ");
+                         string_4 = ac.next();
+                         System.out.println("Numero de elementos do agregado: ");
+                         int_2 = ac.nextInt();
+                         System.out.println("Coeficiente de decução fiscal: ");
+                         double_1 = ac.nextDouble();
+                         
+                         
+                         
+           }
+           catch(InputMismatchException e){
+           throw new Erros("Falha ao inserir");
+        }
+        CIndividual individual_aux = null;            
+        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,int_2, agregados, double_1, setores, faturas);
+        bd.addIndividual(individual_aux);
+    }
+    
     // instance variables - replace the example below with your own
     public static void menu()
     {
@@ -41,29 +145,15 @@ public class menu extends Exception
         boolean flag = true;
         int choice= -1;
         BDgeral bd = new BDgeral(); 
+        
+        
         int int1,int2,int3,int4,int5 = 0;
         long long1,long2 = 0;
         double double1, double2 = 0;
         String string1,string2 ,string3= null;
         Fatura faturaaux = null;
-               Set<Integer> faturas = new TreeSet<>();
-        Set<String> setores = new TreeSet<>();
-        Set<Integer> agregados = new TreeSet<>();
-        CIndividual c1 = new CIndividual(1,"","","","",4,agregados,1.32,setores,faturas);
-        setores.add("educação");
-        agregados.add(123);
-        agregados.add(12);
-        CIndividual c2 = new CIndividual(12,"","","","",3,agregados,5,setores,faturas);
         
-        setores.add("las");
-        Empresa e1 = new Empresa(54,"","","","",setores,1.5,faturas);
-        setores.add("filmes");
-        Empresa e2 = new Empresa(23,"","","","",setores,1,faturas);
         
-        bd.addIndividual(c1);
-        bd.addIndividual(c2);
-        bd.addEmpresa(e1);
-        bd.addEmpresa(e2);
         while(flag){
             try{
                 choice=ac.nextInt(); 
@@ -77,35 +167,39 @@ public class menu extends Exception
                 
             switch(choice){
                 case 1:
-
                     try{
-                         System.out.println("Id da Fatura : ");
-                         int1=ac.nextInt();
-                         System.out.println("Nome do Emitente: ");
-                         string1=ac.next();
-                         System.out.println("NIF cliente: ");
-                         int2=ac.nextInt();
-                         System.out.println("Descricao : ");
-                         string2=ac.next();
-                         System.out.println("Categoria : ");
-                         string3=ac.next();
-                         System.out.println("Valor : ");
-                         double1 = ac.nextDouble();
-                         
+                        inserirFatura(bd);
                     }
-                    catch(InputMismatchException e){
-                        System.out.println("Failed");
-                        ac.next();
-                        break;
+                    catch(Erros e){
+                    System.out.println("Falha ao inserir");
+                    break;
                     }
+                    System.out.println("Inserido com sucesso");
+                    break;
                     
-                    faturaaux = new Fatura(int1,string1,LocalDate.now(),int2,string2,string3,double1);
-                    bd.addFatura(faturaaux);
-                    System.out.println("Inserido com sucesso ");
-                    break;
                 case 2:
+                    try{
+                        inserirEmpresa(bd);
+                    }
+                    catch(Erros e){
+                    System.out.println("Falha ao inserir");
                     break;
+                    }
+                    System.out.println("Inserido com sucesso");
+                    break;
+                    
                 case 3:
+                    try{
+                        inserirCIndi(bd);
+                    }
+                    catch(Erros e){
+                    System.out.println("Falha ao inserir");
+                    break;
+                    }
+                    System.out.println("Inserido com sucesso");
+                    break;
+                    
+                case 4:
                     try{
                         System.out.println("Nome Ficheiro : ");
                         string1=ac.next();
@@ -128,7 +222,7 @@ public class menu extends Exception
                     }
                     System.out.println("Gravado com sucesso");
                     break;
-                case 4:
+                case 5:
                     try{
                         System.out.println("Nome Ficheiro : ");
                         string1=ac.next();
@@ -157,10 +251,10 @@ public class menu extends Exception
                     System.out.println("Lido com sucesso");
                     break;
                
-                case 5:
+                case 6:
                     System.out.print(bd.toString());
                     break;
-                case 6:
+                case 7:
                     System.out.println("A sair");
                     flag = false;
                     break;

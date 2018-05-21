@@ -39,7 +39,7 @@ public class CIndividual extends Contribuinte
       * @param nn_agregado  Número de elementos no agregado.
       * @param agregados    Conjunto com os nifs dos agredados.
       * @param ncoefiente   Coeficiente de dedução.
-      * @param nsetores      Conjunto de setores em que pode haver descontos.
+      * @param nsetores     Conjunto de setores em que pode haver descontos.
     */
     
     public CIndividual(int nif1,String nemail,String nnome,String nmorada,String npassword,int nn_agregado,Set<Integer> agregados,double ncoeficiente,Set<String> nsetores,Set<Integer> faturas){
