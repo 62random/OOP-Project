@@ -2,8 +2,9 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.io.Serializable;
 
-public class BDSetores {
+public class BDSetores implements Serializable {
     private Map<String, Setor> setores;
 
     public BDSetores() {

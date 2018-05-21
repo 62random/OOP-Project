@@ -9,8 +9,9 @@ import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.Serializable;
 
-public class BDFaturas
+public class BDFaturas implements Serializable
 {
     private Map<Integer,Fatura> faturas;
     private Set<Integer> faturas_porval;

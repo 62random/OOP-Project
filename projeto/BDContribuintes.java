@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.Serializable;
 
-public class BDContribuintes
+public class BDContribuintes implements Serializable
 {
     private Map<Integer,Contribuinte> dados;
     

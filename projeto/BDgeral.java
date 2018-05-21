@@ -17,10 +17,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Collections;
 import java.lang.ArithmeticException;
 
-public class BDgeral
+public class BDgeral implements Serializable
 {
     private BDContribuintes empresas;
     private BDContribuintes individuais;

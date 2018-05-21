@@ -10,8 +10,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class CIndividual extends Contribuinte
+public class CIndividual extends Contribuinte implements Serializable
 {
     private int n_agregado;
     private Set<Integer> nifs_agregado;

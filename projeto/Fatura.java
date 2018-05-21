@@ -1,9 +1,10 @@
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.HashSet;
+import java.io.Serializable;
 
 
-public class Fatura {
+public class Fatura implements Serializable {
     private int id;
     private int nif_emitente;
     private int nif_cliente;
