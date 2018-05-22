@@ -127,7 +127,7 @@ public class BDgeral
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(this.individuais.toString() +"\n");
+        sb.append(this.individuais.toString() +"\n")
         sb.append(this.empresas.toString() + "\n");
         sb.append(this.faturas.toString() + "\n");
         sb.append(this.setores.toString() + "\n");
