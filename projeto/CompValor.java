@@ -1,7 +1,8 @@
 
 import java.util.Comparator;
+import java.io.Serializable;
 
-public class CompValor implements Comparator<Fatura>
+public class CompValor implements Comparator<Fatura>,Serializable
 {   
     @Override
     public int compare(Fatura f1,Fatura f2){

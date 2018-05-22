@@ -2,8 +2,9 @@
 
 import java.util.Comparator;
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class CompFatTime implements Comparator<Fatura>
+public class CompFatTime implements Comparator<Fatura>,Serializable
 {
     @Override
     public int compare(Fatura o1, Fatura o2) {
