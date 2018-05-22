@@ -127,7 +127,7 @@ public class BDgeral
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(this.individuais.toString() +"\n")
+        sb.append(this.individuais.toString() +"\n");
         sb.append(this.empresas.toString() + "\n");
         sb.append(this.faturas.toString() + "\n");
         sb.append(this.setores.toString() + "\n");
@@ -145,12 +145,27 @@ public class BDgeral
             taxa *= (cont.getNumAgregado()*0.05 + 1);
         }
         catch (Erros e) {
-            System.out.println("fatura sem NIF  de cliente válido (NIF: " + id +  ")\n");
+            System.out.println("fatura sem NIF  de cliente válido (NIF: " + this.faturas.getFaturas().get(id).getNif_cliente() +  ")\n");
         }
 
         return taxa;
     }
 
+    public double reembolso(int nif){
+        double ret = 0;
+
+        try {
+            CIndividual cont = (CIndividual) this.individuais.getContribuinte(nif);
+            for(int id : cont.getFaturas()) {
+                ret += deduz(id);
+            }
+        }
+        catch (Erros e) {
+            System.out.println("NIF de cliente válido (NIF: " + nif +  ")\n");
+        }
+
+        return ret;
+    }
 
     //7
     public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, int type, int id){
