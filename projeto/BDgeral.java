@@ -149,12 +149,27 @@ public class BDgeral implements Serializable
             taxa *= (cont.getNumAgregado()*0.05 + 1);
         }
         catch (Erros e) {
-            System.out.println("fatura sem NIF  de cliente válido (NIF: " + id +  ")\n");
+            System.out.println("fatura sem NIF  de cliente válido (NIF: " + this.faturas.getFaturas().get(id).getNif_cliente() +  ")\n");
         }
 
         return taxa;
     }
 
+    public double reembolso(int nif){
+        double ret = 0;
+
+        try {
+            CIndividual cont = (CIndividual) this.individuais.getContribuinte(nif);
+            for(int id : cont.getFaturas()) {
+                ret += deduz(id);
+            }
+        }
+        catch (Erros e) {
+            System.out.println("NIF de cliente válido (NIF: " + nif +  ")\n");
+        }
+
+        return ret;
+    }
 
     //7
     public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, int type, int id){
