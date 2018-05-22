@@ -39,12 +39,13 @@ public class main
         bd.addEmpresa(e2);
 
         
+
         Fatura f1 = new Fatura(54,"",LocalDate.of(2013,6,2),1,"","",123);
         Fatura f2 = new Fatura(23,"",LocalDate.of(2013,6,21),6,"","",121);
         Fatura f4 = new Fatura(23,"",LocalDate.of(2013,6,2),1,"","",41);
         Fatura f3 = new Fatura(23,"",LocalDate.now(),1,"","",12);
                 
-        
+
         bd.addFatura(f1);
         bd.addFatura(f2);
         bd.addFatura(f3);
