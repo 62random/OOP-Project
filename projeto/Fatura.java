@@ -179,6 +179,8 @@ public class Fatura implements Serializable {
         sb.append("Descrição: ");
         sb.append(this.descricao);
         sb.append("\n");
+        sb.append(this.nextid);
+        sb.append("\n");
 
         return sb.toString();
     }
