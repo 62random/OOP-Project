@@ -252,9 +252,9 @@ public abstract class Contribuinte implements Serializable
        * Método de verificao de login do contribuinte.
        * @param Password a verificar.
     */
-    public boolean trylogin(String passe) throws Erros{
+    public boolean trylogin(String passe) throws ErroNotFound{
         if (!this.getPassword().equals(passe))
-            throw new Erros("Passe incorreta");
+            throw new ErroNotFound("Passe incorreta");
         return true;
         }
     
