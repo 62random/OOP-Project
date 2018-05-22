@@ -38,10 +38,10 @@ public class main
         bd.addEmpresa(e1);
         bd.addEmpresa(e2);
         
-        Fatura f1 = new Fatura(54,"",LocalDateTime.now(),1,"","",123);
-        Fatura f2 = new Fatura(23,"",LocalDateTime.now(),1,"","",121);
-        Fatura f4 = new Fatura(12,"",LocalDateTime.now(),1,"","",123);
-        Fatura f3 = new Fatura(23,"",LocalDateTime.now(),1,"","",12);
+        Fatura f1 = new Fatura(54,"",LocalDate.now(),1,"","",123);
+        Fatura f2 = new Fatura(23,"",LocalDate.now(),1,"","",121);
+        Fatura f4 = new Fatura(12,"",LocalDate.now(),1,"","",123);
+        Fatura f3 = new Fatura(23,"",LocalDate.now(),1,"","",12);
         
         
         bd.addFatura(f1);
