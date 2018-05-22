@@ -110,7 +110,7 @@ public class menu extends Exception
                          
         }
            catch(InputMismatchException e){
-               ac.next();
+           ac.next();
            throw new Erros("Falha ao inserir");
         }
         
@@ -256,15 +256,15 @@ public class menu extends Exception
                         bd.guardaEstado(string_1);                        
                     }
                     catch(InputMismatchException e){
-                        System.out.println("Failed");
+                        System.out.println(e.getMessage());
                         break;
                     }
                     catch(FileNotFoundException e){
-                        System.out.println("Ficheiro nao encontrado");
+                        System.out.println(e.getMessage());
                         break;  
                     }
                     catch(IOException e){
-                        System.out.println("Erro ao aceder ao ficheiro");
+                        System.out.println(e.getMessage());
                         break;  
                     }
                     System.out.println("Gravado com sucesso");
@@ -276,19 +276,19 @@ public class menu extends Exception
                         bd.carregaEstado(string_1);                        
                     }
                     catch(InputMismatchException e){
-                        System.out.println("Failed");
+                        System.out.println(e.getMessage());
                         break;
                     }
                     catch(FileNotFoundException e){
-                        System.out.println("Ficheiro nao encontrado");
+                        System.out.println(e.getMessage());
                         break;  
                     }
                     catch(IOException e){
-                        System.out.println("Erro ao aceder ao ficheiro");
-                        break;  
+                       System.out.println(e.getMessage());
+                       break;  
                     }
                     catch(ClassNotFoundException e){
-                        System.out.println("Erro ao aceder ao ficheiro");
+                        System.out.println(e.getMessage());
                         break;  
                     }
                     System.out.println("Lido com sucesso");
@@ -314,7 +314,7 @@ public class menu extends Exception
                         inserirEmpresa(bd);
                     }
                     catch(Erros e){
-                        System.out.println("Falha ao inserir");
+                        System.out.println(e.getMessage());
                         break;
                     }
                     System.out.println("Inserido com sucesso");
@@ -325,7 +325,7 @@ public class menu extends Exception
                         inserirCIndi(bd);
                     }
                     catch(Erros e){
-                        System.out.println("Falha ao inserir");
+                        System.out.println(e.getMessage());
                         break;
                     }
                     System.out.println("Inserido com sucesso");
@@ -350,7 +350,7 @@ public class menu extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println ("Numero invalido");
+                        System.out.println(e.getMessage());
                         break;
                     }
                     if (loginIndividual(bd,int_1,string_1)){
@@ -368,7 +368,7 @@ public class menu extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println ("Numero invalido");
+                        System.out.println(e.getMessage());
                         break;
                     }
                     if (loginEmpresa(bd,int_1,string_1)){
@@ -395,7 +395,7 @@ public class menu extends Exception
                     inserirFatura(bd);
                 }
                 catch(Erros e){
-                    System.out.println("Falha ao inserir");
+                    System.out.println(e.getMessage());
                     break;
                  }
                  System.out.println("Inserido com sucesso");

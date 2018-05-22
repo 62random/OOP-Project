@@ -79,12 +79,15 @@ public class BDgeral implements Serializable
         oos.close();
     }
     
-    public BDgeral carregaEstado(String nome) throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void carregaEstado(String nome) throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(nome);
         ObjectInputStream ois = new ObjectInputStream(fis);
         BDgeral h = (BDgeral) ois.readObject();
         ois.close();
-        return h;
+        this.empresas       = h.getBDEmpresas();
+        this.individuais    = h.getBDIndividuais();
+        this.faturas        = h.getBDFaturas();
+        this.setores        = h.getBDSetores();
     }
     
     

@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.Set;
+import java.io.*;
 
 /**
  * Classe Contribuinte
  */
-public class Contribuinte
+public class Contribuinte implements Serializable
 {
     private int nif;
     private String email;
