@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.*;
 
-public class BDEmpresas implements BaseFunc
+public class BDEmpresas implements BaseFunc ,Serializable 
 {
     private Map<Integer,Empresa> empresas;
     
