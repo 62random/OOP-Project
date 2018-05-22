@@ -11,7 +11,7 @@ import java.io.*;
 /**
  * Classe Contribuinte
  */
-public class Contribuinte implements Serializable
+public abstract class Contribuinte implements Serializable
 {
     private int nif;
     private String email;
@@ -124,9 +124,7 @@ public class Contribuinte implements Serializable
       * Método clone do objeto Contribuinte.
     */
     
-    public Contribuinte clone(){
-        return new Contribuinte(this);
-    }
+    public abstract Contribuinte clone();
 
     /**
       * Método toString do objeto Contribuinte.

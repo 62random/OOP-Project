@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -65,21 +66,21 @@ public class BDContribuintes implements Serializable
     }
     
     
-    public Contribuinte getContribuinte(int nif) throws Erros{
+    public Contribuinte getContribuinte(int nif) throws ErroNotFound{
         Contribuinte aux = this.dados.get(nif);
         
         if (aux == null){
             Integer i = new Integer(nif);
-            throw new Erros(i.toString());
+            throw new ErroNotFound(i.toString());
         }
         return aux.clone();
     }
     
-    public void addContribuinte(Contribuinte o) throws Erros{
+    public void addContribuinte(Contribuinte o) throws ErroNotFound{
         Integer i = new Integer(o.getNif());
         
         if (this.dados.containsKey(o.getNif()))
-            throw new Erros(i.toString());
+            throw new ErroNotFound(i.toString());
             
         this.dados.put(o.getNif(),o.clone());
     }
@@ -97,6 +98,14 @@ public class BDContribuintes implements Serializable
         Contribuinte a = this.dados.get(nif);
         a.setFatura(id);
 
+    }
+
+    public Map<Integer,Set<Integer>> getFaturas(){
+        Map<Integer,Set<Integer>> aux = new TreeMap<>();
+
+        this.dados.forEach((n,i) -> aux.put(n,i.getFaturas()));
+
+        return aux;
     }
     
     

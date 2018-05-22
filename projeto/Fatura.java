@@ -12,7 +12,7 @@ public class Fatura implements Serializable {
     private String nome_emitente;
     private String categoria;
     private String descricao;
-    private Set<String> old_desc;
+    private Set<String> old_cat;
     private LocalDate emissao;
     
     private static int nextid = 0;
@@ -25,7 +25,7 @@ public class Fatura implements Serializable {
         this.nome_emitente  = "";
         this.descricao      = "";
         this.categoria      = "";
-        this.old_desc       = new HashSet<String>();
+        this.old_cat       = new HashSet<String>();
         this.emissao        = null;
         
         nextid++;
@@ -39,7 +39,7 @@ public class Fatura implements Serializable {
         this.nif_cliente    = nif_cliente;
         this.descricao      = descricao;
         this.categoria      = categoria;
-        this.old_desc       = new HashSet<String>();
+        this.old_cat       = new HashSet<String>();
         this.valor          = valor;
         
         nextid++;
@@ -53,13 +53,13 @@ public class Fatura implements Serializable {
         this.nif_cliente    = f.getNif_cliente();
         this.descricao      = f.getDescricao();
         this.categoria      = f.getCategoria();
-        this.old_desc       = f.getOld_desc();
+        this.old_cat       = f.getOld_cat();
         this.valor          = f.getValor();
     }
     
-    public Set<String> getOld_desc(){
+    public Set<String> getOld_cat(){
         Set<String> aux = new HashSet <String>();
-        this.old_desc.forEach(a -> aux.add(a));
+        this.old_cat.forEach(a -> aux.add(a));
         
         return aux;
     }
@@ -97,11 +97,11 @@ public class Fatura implements Serializable {
     }
 
     public void setCategoria(String categoria) {
+        this.old_cat.add(this.categoria);
         this.categoria = categoria;
     }
 
     public void setDescricao(String descricao) {
-        this.old_desc.add(this.descricao);
         this.descricao = descricao;
     }
 
@@ -130,12 +130,12 @@ public class Fatura implements Serializable {
         if (object == null || getClass() != object.getClass()) return false;
         Fatura fatura = (Fatura) object;
         
-        Set<String> aux = fatura.getOld_desc();
-        if (aux.size() != this.old_desc.size())
+        Set<String> aux = fatura.getOld_cat();
+        if (aux.size() != this.old_cat.size())
             return false;
         
         for(String a : aux)
-            if (!this.old_desc.contains(a))
+            if (!this.old_cat.contains(a))
                 return false;
             
         return  this.id              == fatura.getId()           &&
@@ -197,7 +197,7 @@ public class Fatura implements Serializable {
         hash = hash*31 + this.descricao.hashCode();
         hash = hash*31 + this.emissao.hashCode();
         
-        for(String a : this.old_desc){
+        for(String a : this.old_cat){
             hash = hash*31 + a.hashCode();
         }
         
