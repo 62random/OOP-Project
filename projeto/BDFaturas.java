@@ -137,11 +137,13 @@ public class BDFaturas implements Serializable
         return true;
     }
     
-    public void valida_fatura(int id,String setor,BDSetores set) throws ErroNotFound{
+    public void valida_fatura(int id,String setor,BDSetores set) throws ErroNotFound,FaturaVal{
         Fatura a = this.faturas.get(id);
         Integer i = new Integer(id);
         if (a == null)
             throw new ErroNotFound(i.toString());
+        if (!this.faturas_porval.contains(id))
+            throw new FaturaVal(i.toString());
             
         a.setCategoria(setor);
         if(!set.existeSetor(a.getCategoria()))

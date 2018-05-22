@@ -199,7 +199,7 @@ public class BDgeral implements Serializable
     }
 
     //7 true ordena por tempo false por valor
-    public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, boolean type, int id){
+    public List<Fatura> listagem_ordenada_emp_fatura( boolean type, int id){
         Empresa e;
         try {
             e = (Empresa) this.empresas.getContribuinte(id);
@@ -209,7 +209,7 @@ public class BDgeral implements Serializable
             return new ArrayList<Fatura>();
         }
         
-        List<Fatura> list = this.faturas.faturas_no_intervalo(start,end,e.getFaturas());
+        List<Fatura> list = this.faturas.faturas_contribuinte(e.getFaturas());
         
         TreeSet<Fatura> ordena_aux;
         
@@ -386,7 +386,9 @@ public class BDgeral implements Serializable
             }
         });
 
-        faturacao.entrySet().forEach(e -> ordena.add(e));
+        faturacao.entrySet().forEach(e -> ordena.add(e)); //ordenar pelo que mais faturam
+        
+        //falta algoritmo de dedução
 
 
         return 0.0;
