@@ -37,19 +37,27 @@ public class main
         bd.addIndividual(c2);
         bd.addEmpresa(e1);
         bd.addEmpresa(e2);
+
         
-        Fatura f1 = new Fatura(54,"",LocalDate.now(),1,"","",123);
-        Fatura f2 = new Fatura(23,"",LocalDate.now(),1,"","",121);
-        Fatura f4 = new Fatura(12,"",LocalDate.now(),1,"","",123);
+
+        Fatura f1 = new Fatura(54,"",LocalDate.of(2013,6,2),1,"","",123);
+        Fatura f2 = new Fatura(23,"",LocalDate.of(2013,6,21),6,"","",121);
+        Fatura f4 = new Fatura(23,"",LocalDate.of(2013,6,2),1,"","",41);
         Fatura f3 = new Fatura(23,"",LocalDate.now(),1,"","",12);
-        
-        
+                
+
         bd.addFatura(f1);
         bd.addFatura(f2);
         bd.addFatura(f3);
         bd.addFatura(f4);
         
-        System.out.print(bd.toString());
+        System.out.print("--------------------------------\n");
+        
+        //System.out.print(bd.toString());
+        
+        System.out.print(bd.total_faturado(LocalDate.of(0,1,1),LocalDate.of(3000,1,1),23));
+        System.out.print(bd.total_faturado(LocalDate.of(0,1,1),LocalDate.of(3000,1,1),54));
+        System.out.print(bd.total_faturado(LocalDate.of(0,1,1),LocalDate.of(3000,1,1),21));
         
     }
 }

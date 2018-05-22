@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.*;
 
-public class BDFaturas implements Serializable 
+
+public class BDFaturas implements Serializable
 {
     private Map<Integer,Fatura> faturas;
     private Set<Integer> faturas_porval;
@@ -73,25 +74,30 @@ public class BDFaturas implements Serializable
     }
 
         
-    public void addFatura(Fatura a, BDIndividuais i, BDEmpresas e){
+    public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e, BDSetores d){
         Empresa aux;
-        
-        if (i.contains(a.getNif_cliente()) && e.contains(a.getNif_emitente())){
-            i.setFaturaId(a.getId(),a.getNif_cliente());
-            e.setFaturaId(a.getId(),a.getNif_emitente());
+        CIndividual aux2;
+           
             
-            try {
-                aux = (Empresa) e.getContribuinte(a.getNif_emitente());
-            }
-            catch (Erros l){
-                return;
-            }
-            
-            if (aux.getSetores().size() > 1)
-                this.faturas_porval.add(a.getId());
-            
-            this.faturas.put(a.getId(),a.clone());
+        try {
+             aux = (Empresa) e.getContribuinte(a.getNif_emitente());
+             aux2 = (CIndividual) i.getContribuinte(a.getNif_cliente());
         }
+        catch (Erros l){
+             System.out.println("Contribuinte" +  l.getMessage() +"não existe\n");
+             return;
+        }
+            
+        i.setFaturaId(a.getId(),a.getNif_cliente());
+        e.setFaturaId(a.getId(),a.getNif_emitente());
+            
+        if (aux.getSetores().size() > 1)
+            this.faturas_porval.add(a.getId());
+            
+        if(!d.existeSetor(a.getCategoria()))
+            d.addSetor(new Setor(a.getCategoria(), 0));
+            
+        this.faturas.put(a.getId(),a.clone());
     }
     
     public List<Fatura> faturas_no_intervalo(LocalDate start ,LocalDate end, Set<Integer> idlist){

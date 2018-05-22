@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Setor {
+
+public class Setor implements Serializable {
     private String nome;
     private double taxa;
 
