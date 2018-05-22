@@ -10,20 +10,14 @@ import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.File;
 import java.util.Collections;
 import java.io.*;
+import java.lang.ArithmeticException;
 
-public class BDgeral implements Serializable 
+public class BDgeral implements Serializable
 {
-    private BDEmpresas empresas;
-    private BDIndividuais individuais;
+    private BDContribuintes empresas;
+    private BDContribuintes individuais;
     private BDFaturas faturas;
     private BDSetores setores;
     
@@ -45,13 +39,15 @@ public class BDgeral implements Serializable
     
     
     public BDgeral(){
-        this.empresas       = new BDEmpresas();
-        this.individuais    = new BDIndividuais();
-        this.faturas        = new BDFaturas();
-        this.setores        = new BDSetores();
+        this.empresas = new BDContribuintes();
+        this.individuais = new BDContribuintes();
+        this.faturas = new BDFaturas();
+        this.setores = new BDSetores();
     }
     
-    public BDgeral(BDEmpresas a,BDIndividuais b,BDFaturas c, BDSetores d){
+
+    
+    public BDgeral(BDContribuintes a,BDContribuintes b,BDFaturas c, BDSetores d){
         this.empresas       = a.clone();
         this.individuais    = b.clone();
         this.faturas        = c.clone();
@@ -91,11 +87,11 @@ public class BDgeral implements Serializable
     }
     
     
-    public BDEmpresas getBDEmpresas(){
+    public BDContribuintes getBDEmpresas(){
         return this.empresas.clone();
     }
     
-    public BDIndividuais getBDIndividuais(){
+    public BDContribuintes getBDIndividuais(){
         return this.individuais.clone();
     }
     
@@ -108,26 +104,57 @@ public class BDgeral implements Serializable
     }
     
     public void addIndividual(CIndividual i){
-        this.individuais.addContribuinte(i);
+        try{
+            this.individuais.addContribuinte(i);
+        }
+        catch (Erros l){
+            System.out.println("Contribuinte " + l.getMessage() + " já inserido");
+        }
     }
     
     public void addEmpresa(Empresa i){
+        try{
+            this.empresas.addContribuinte(i);
+        }
+        catch (Erros l){
+            System.out.println("Contribuinte " + l.getMessage() + " já inserido");
+        }
 
-        Set<String> setores = i.getSetores();
-        for(String s: setores)
-            if(this.setores.existeSetor(s))
-                addSetor(new Setor(s, 0));
-
-        this.empresas.addContribuinte(i);
     }
     
     public void addFatura(Fatura i){
-        if(!this.setores.existeSetor(i.getCategoria()))
-            addSetor(new Setor(i.getCategoria(), 0));
-        this.faturas.addFatura(i,this.individuais,this.empresas);
+        this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
     }
 
     public void addSetor(Setor s){this.setores.addSetor(s);}
+    
+    public Empresa getEmpresa(int nif) throws Erros{
+        Empresa aux;
+        Integer i = new Integer(nif);
+        
+        try{
+            aux = (Empresa) this.empresas.getContribuinte(nif);
+        }
+        catch (Erros l){
+            throw new Erros(i.toString());
+        }
+        
+        return aux;
+    }
+    
+    public CIndividual getCIndividual(int nif) throws Erros{
+        CIndividual aux;
+        Integer i = new Integer(nif);
+        
+        try{
+            aux = (CIndividual) this.individuais.getContribuinte(nif);
+        }
+        catch (Erros l){
+            throw new Erros(i.toString());
+        }
+        
+        return aux;
+    }
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -145,7 +172,7 @@ public class BDgeral implements Serializable
         taxa *= this.faturas.getFaturas().get(id).getValor();
 
         try {
-            CIndividual cont = (CIndividual) this.getBDIndividuais().getContribuinte( this.faturas.getFaturas().get(id).getNif_cliente());
+            CIndividual cont = (CIndividual) this.individuais.getContribuinte( this.faturas.getFaturas().get(id).getNif_cliente());
             taxa *= (cont.getNumAgregado()*0.05 + 1);
         }
         catch (Erros e) {
@@ -171,42 +198,31 @@ public class BDgeral implements Serializable
         return ret;
     }
 
-    //7
-    public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, int type, int id){
+    //7 true ordena por tempo false por valor
+    public List<Fatura> listagem_ordenada_emp_fatura(LocalDate start,LocalDate end, boolean type, int id){
         Empresa e;
         try {
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
             return new ArrayList<Fatura>();
         }
         
         List<Fatura> list = this.faturas.faturas_no_intervalo(start,end,e.getFaturas());
         
-        if (type == 1){
-            Collections.sort(list, new Comparator<Fatura>(){
-                
-                public int compare(Fatura f1,Fatura f2){
-                    if (f1.getEmissao().isAfter(f2.getEmissao()))
-                        return -1;
-                    else if (f1.getEmissao().equals(f2.getEmissao()))
-                        return 0;
-                    return 1;
-                }
-            });
+        TreeSet<Fatura> ordena_aux;
+        
+        if (type){
+            ordena_aux = new TreeSet<>(new CompFatTime());
+            list.forEach( a -> ordena_aux.add(a));
+            list = ordena_aux.stream().collect(Collectors.toList());
         }
-        else if (type == 0){
-            Collections.sort(list, new Comparator<Fatura>(){
-                
-                public int compare(Fatura f1,Fatura f2){
-                    if (f1.getValor() < f2.getValor())
-                        return -1;
-                    else if (f1.getValor() == f2.getValor())
-                        return 0;
-                    return 1;
-                }
-            });
+        else {
+            ordena_aux = new TreeSet<>(new CompValor());
+            list.forEach( a -> ordena_aux.add(a));
+            list = ordena_aux.stream().collect(Collectors.toList());
+            
         }
         
         return list;
@@ -220,7 +236,7 @@ public class BDgeral implements Serializable
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
             return listagem;
         }
         
@@ -248,7 +264,7 @@ public class BDgeral implements Serializable
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
             return listagem;
         }
         
@@ -264,17 +280,9 @@ public class BDgeral implements Serializable
             aux1.add(f);
         }
         
+        
         for(List<Fatura> a : listagem.values()){
-           Collections.sort(a, new Comparator<Fatura>(){
-                
-                public int compare(Fatura f1,Fatura f2){
-                    if (f1.getValor() < f2.getValor())
-                        return -1;
-                    else if (f1.getValor() == f2.getValor())
-                        return 0;
-                    return 1;
-                }
-            });
+           a.sort(new CompValor());
         }
         
         return listagem;
@@ -286,8 +294,8 @@ public class BDgeral implements Serializable
             e = (Empresa) this.empresas.getContribuinte(id);
         }
         catch (Erros aux){
-            System.out.println("Empresa nao encontrada");
-            return -1;
+            System.out.println("Empresa " + aux.getMessage() + " nao encontrada");
+            return 0;
         }
         
         List<Fatura> list = this.faturas.faturas_no_intervalo(start,end,e.getFaturas());
@@ -297,7 +305,7 @@ public class BDgeral implements Serializable
                    .sum();
     }
     //11
-    public double rel_top10(){
+    public double rel_top10() throws ArithmeticException{
         Map <Integer,List<Fatura>> listagem = new HashMap<>();
         
         List<Fatura> aux = new ArrayList<>();
@@ -311,11 +319,7 @@ public class BDgeral implements Serializable
             aux.add(a);
         }
         
-        List <Double> aux2 = new ArrayList <>();
-        
-        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor()).sum()));
-        
-        Collections.sort(aux2, new Comparator<Double>(){
+        TreeSet <Double> aux2 = new TreeSet <Double>(new Comparator<Double>(){
                 
                 public int compare(Double f1,Double f2){
                     if (f2 == f1)
@@ -323,6 +327,9 @@ public class BDgeral implements Serializable
                     return f2 > f1 ? -1 : 1;
                 }
             });
+        
+        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor()).sum()));
+        
         
             
         int i = 0;
@@ -335,6 +342,10 @@ public class BDgeral implements Serializable
                 top10_total += k;
             }
             total += k;
+        }
+        
+        if (total == 0){
+            throw new ArithmeticException();
         }
         
         return top10_total / total;

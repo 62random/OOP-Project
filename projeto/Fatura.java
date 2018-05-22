@@ -3,9 +3,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.io.*;
 
+public class Fatura implements Serializable {
 
-
-public class Fatura implements Serializable  {
     private int id;
     private int nif_emitente;
     private int nif_cliente;
@@ -203,6 +202,10 @@ public class Fatura implements Serializable  {
         }
         
         return hash;
+    }
+    
+    public int compareTo(Fatura h) {
+        return h.getId() - this.id;
     }
 
 
