@@ -156,9 +156,6 @@ public class menu extends Exception
                          string_3 = ac.next();
                          System.out.println("Password: ");
                          string_4 = ac.next();
-                         System.out.println("Coeficiente de decução fiscal: ");
-                         double_1 = ac.nextDouble();
-                         
                          System.out.println("Adicionar Setores (minimo 1 setor)");
                          while(!string_5.equals("done") || int_6 == 0 ){
                              System.out.println("Setor (done para terminar):");
@@ -175,7 +172,7 @@ public class menu extends Exception
            throw new Erros("Falha ao inserir");
         }
         Empresa empresa_aux = null;            
-        empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,double_1,faturas); 
+        empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,1,faturas); 
         bd.addEmpresa(empresa_aux);
     }
     
@@ -220,8 +217,6 @@ public class menu extends Exception
                          }
         
                             
-                         System.out.println("Coeficiente de decução fiscal: ");
-                         double_1 = ac.nextDouble();
                          
                          
                          
@@ -230,7 +225,7 @@ public class menu extends Exception
            throw new Erros("Falha ao inserir");
         }
         CIndividual individual_aux = null;            
-        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, double_1, setores, faturas);
+        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, 1, setores, faturas);
         bd.addIndividual(individual_aux);
     }
     
@@ -482,7 +477,47 @@ public class menu extends Exception
                  }
                  System.out.println("Inserido com sucesso");
                  break;
-                
+                 
+                case 3:
+                    try{
+                         System.out.println("----Data inicial---- ");
+                         System.out.println("Dia: ");
+                         int_1=ac.nextInt();
+                         System.out.println("Mes: ");
+                         int_2=ac.nextInt();
+                         System.out.println("Ano: ");
+                         int_3=ac.nextInt();
+                         System.out.println("----Data final---- ");
+                         System.out.println("Dia: ");
+                         int_4=ac.nextInt();
+                         System.out.println("Mes: ");
+                         int_5=ac.nextInt();
+                         System.out.println("Ano: ");
+                         int_6=ac.nextInt();
+                    
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    try{
+                        System.out.println(bd.listagem_cont_fatura_time(LocalDate.of(int_3,int_2,int_1),LocalDate.of(int_6,int_5,int_4),empresa_atual.getNif()).toString()) ;
+                    }
+                    catch(java.time.DateTimeException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                    
+                case 4:
+                    
+                    try{
+                        System.out.println(bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif()).toString()) ;
+                    }
+                    catch(java.time.DateTimeException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                 
                 case 5:
                     try{
                          System.out.println("----Data inicial---- ");
@@ -523,7 +558,15 @@ public class menu extends Exception
         else if (flag == 5){
             switch(choice){
                 case 1:
-                    System.out.println( individual_atual.getFaturas()    .toString());                   
+                    System.out.println( bd.getFaturas_de_Id(individual_atual.getFaturas())    .toString());                   
+                    break;
+                    
+                case 2 :
+                    
+                    break;
+                    
+                case 3:
+                    
                     break;
                 
                 case 4:
