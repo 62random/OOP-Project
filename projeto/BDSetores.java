@@ -108,4 +108,11 @@ public class BDSetores implements Serializable {
         }
         this.por_aprovar = new HashSet<>();
     }
+    
+    public double getBonificacao(String s){
+        if (!this.setores.containsKey(s.toUpperCase()))
+            return 0;
+        Setor a = this.setores.get(s.toUpperCase());
+        return a.getTaxa();
+    }
 }

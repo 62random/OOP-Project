@@ -16,8 +16,8 @@ public class Setor implements Serializable {
     }
 
     public Setor(Setor setor){
-        this.nome   = setor.nome;
-        this.taxa   = setor.taxa;
+        this.nome   = setor.getNome();
+        this.taxa   = setor.getTaxa();
     }
 
 

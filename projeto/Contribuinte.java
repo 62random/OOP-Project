@@ -125,6 +125,12 @@ public abstract class Contribuinte implements Serializable
     */
     
     public abstract Contribuinte clone();
+    
+    /**
+     * Método abstrato para calcular o bonús do contribuinte.
+     */
+    
+    public abstract double bonus();
 
     /**
       * Método toString do objeto Contribuinte.
@@ -262,6 +268,8 @@ public abstract class Contribuinte implements Serializable
     public void setFatura(int id){
         this.faturas.add(id);
     }
+    
+    public abstract boolean verificaSetor(String s);
     
     
     

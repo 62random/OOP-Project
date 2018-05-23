@@ -177,7 +177,7 @@ public class BDgeral implements Serializable
         
         return sb.toString();
     }
-    
+    //ainda nao foi usado
     public double deduz(int id){
         String setor = this.faturas.getFaturas().get(id).getCategoria();
         double taxa = this.setores.getSetores().get(setor).getTaxa();
@@ -193,7 +193,7 @@ public class BDgeral implements Serializable
 
         return taxa;
     }
-
+    //ainda nao foi usado
     public double reembolso(int nif){
         double ret = 0;
 
@@ -208,6 +208,56 @@ public class BDgeral implements Serializable
         }
 
         return ret;
+    }
+    
+    public double deduz_montante(Contribuinte e){
+        Set<Integer> idfaturas = e.getFaturas();
+        
+        double montante = 0;
+        
+        for(Integer i : idfaturas){
+            try{
+                Fatura a = this.faturas.getFatura(i);
+                if (e.verificaSetor(a.getCategoria()))
+                    montante += a.getValor() * this.setores.getBonificacao(a.getCategoria());
+            }
+            catch(ErroNotFound a){
+                System.out.println("Fatura " + a.getMessage() + " não encontrada.");
+            }
+        }
+        montante *= e.bonus();
+        
+        return montante;
+    }
+    
+    public double deduz_montante_Individual(int nif) throws ErroNotFound{
+        CIndividual e;
+        
+        try{
+            e = (CIndividual) this.individuais.getContribuinte(nif);
+        }
+        catch (ErroNotFound l){
+            throw l;
+        }
+        
+        Set<Integer> idfaturas = e.getFaturas();
+        
+        double montante = 0;
+        
+        for(Integer i : idfaturas){
+            try{
+                Fatura a = this.faturas.getFatura(i);
+                if (e.verificaSetor(a.getCategoria()))
+                    montante += a.getValor() * this.setores.getBonificacao(a.getCategoria());
+            }
+            catch(ErroNotFound a){
+                System.out.println("Fatura " + a.getMessage() + " não encontrada.");
+            }
+        }
+        montante *= e.bonus();
+        
+        return montante;
+        
     }
 
     //7 true ordena por tempo false por valor
@@ -503,5 +553,6 @@ public class BDgeral implements Serializable
     public List<Fatura> getFaturas_de_Id(Set<Integer> a){
         return this.faturas.faturas_contribuinte(a);
     }
+    
     
 }

@@ -164,5 +164,13 @@ public class Empresa extends Contribuinte implements Serializable
         return hash;
     }
     
+    public double bonus(){
+        return (this.fatorcal + 0.005*this.setores.size());
+    }
+    
+    public boolean verificaSetor(String s){
+        return this.setores.contains(s);
+    }
+    
     
 }

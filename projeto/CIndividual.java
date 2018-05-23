@@ -230,6 +230,14 @@ public class CIndividual extends Contribuinte implements Serializable
         return hash;
     }
     
+    public double bonus(){
+        return (1+0.01*this.n_agregado + 0.0025*this.setores.size() + this.coeficientefiscal);
+    }
+    
+    public boolean verificaSetor(String s){
+        return this.setores.contains(s);
+    }
+    
     
     
 }
