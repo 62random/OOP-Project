@@ -125,14 +125,13 @@ public class menu extends Exception
         
         Set<String> categorias = new TreeSet<>();
         categorias = emp.getSetores();
-        Fatura faturaaux = new Fatura();
         if (categorias.size() == 1)
             for(String a : categorias)
                 string_3 = a;
         else{
             string_3 = "";
         }
-        faturaaux = new Fatura(emp.getNif(),emp.getNome(),LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
+        Fatura faturaaux = new Fatura(emp.getNif(),emp.getNome(),LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
         bd.addFatura(faturaaux);
     }
     
@@ -511,10 +510,11 @@ public class menu extends Exception
                     catch(java.time.DateTimeException e){
                         System.out.println(e.getMessage());
                     }
+                    break;
                 case 6:
                     flag = 1;
                     break;
-                    
+                   
                 default:
                     System.out.println("Opçao Invalida");
                 }
