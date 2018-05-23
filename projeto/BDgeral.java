@@ -495,9 +495,13 @@ public class BDgeral implements Serializable
             this.setores.admin_aprov();
         }
         catch (AdminAprov e){
-            throw (new AdminAprov());
+            throw (new AdminAprov("Tudo aprovado"));
         }
         
+    }
+    
+    public List<Fatura> getFaturas_de_Id(Set<Integer> a){
+        return this.faturas.faturas_contribuinte(a);
     }
     
 }

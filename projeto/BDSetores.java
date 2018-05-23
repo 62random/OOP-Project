@@ -68,6 +68,12 @@ public class BDSetores implements Serializable {
         
         for(Setor s : this.setores.values())
             sb.append(s.toString() + "\n");
+            
+        sb.append("Setores por aprovar: ");
+        for(String a : this.por_aprovar){
+            sb.append(a + ": ");
+        }
+        sb.append("\n");
 
         return sb.toString();
     }
@@ -83,10 +89,16 @@ public class BDSetores implements Serializable {
         for(String a : this.por_aprovar){
             System.out.println("Setor: " + a + " Valor:");
             while(aux == -1){
-                aux = in.nextDouble();
+                try{
+                    aux = in.nextDouble();
+                }
+                catch (InputMismatchException e){
+                    System.out.println("Valor inválido");
+                    in.nextDouble();
+                }
                 if (aux < 0 || aux > 0.23){
                     aux = -1;
-                    System.out.println("Valor inválido. Por favor insira um valor entre 0 e 0.23");
+                    System.out.println("Valor inválido. Por favor insira um valor entre 0 e 0,23");
                 }
                 else{
                     Setor s = this.setores.get(a);
