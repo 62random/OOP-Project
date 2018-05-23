@@ -287,7 +287,7 @@ public class menu extends Exception
         BDgeral bd = new BDgeral(); 
         
         
-        int int_1,int_2,int_3,int_4,int_5 = 0;
+        int int_1,int_2,int_3,int_4,int_5, int_6 = 0;
         long long1,long2 = 0;
         double double1, double2 = 0;
         String string_1,string_2 ,string_3= null;
@@ -484,8 +484,33 @@ public class menu extends Exception
                  break;
                 
                 case 5:
-                   // bd.total_faturado(,,empresa_atual.getNif());
-                 
+                    try{
+                         System.out.println("----Data inicial---- ");
+                         System.out.println("Dia: ");
+                         int_1=ac.nextInt();
+                         System.out.println("Mes: ");
+                         int_2=ac.nextInt();
+                         System.out.println("Ano: ");
+                         int_3=ac.nextInt();
+                         System.out.println("----Data final---- ");
+                         System.out.println("Dia: ");
+                         int_4=ac.nextInt();
+                         System.out.println("Mes: ");
+                         int_5=ac.nextInt();
+                         System.out.println("Ano: ");
+                         int_6=ac.nextInt();
+                    
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    try{
+                        System.out.println(Double.toString(bd.total_faturado(LocalDate.of(int_3,int_2,int_1),LocalDate.of(int_6,int_5,int_4),empresa_atual.getNif())));
+                    }
+                    catch(java.time.DateTimeException e){
+                        System.out.println(e.getMessage());
+                    }
                 case 6:
                     flag = 1;
                     break;
