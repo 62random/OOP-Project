@@ -174,7 +174,7 @@ public class CIndividual extends Contribuinte implements Serializable
         StringBuilder sb = new StringBuilder();
         
         
-        sb.append(super.toString()+"\n");
+        sb.append(super.toString());
         sb.append("Nº elementos no agregado: ");
         sb.append(this.n_agregado +"\n");
         sb.append("Nif dos agregados: ");

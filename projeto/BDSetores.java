@@ -64,7 +64,7 @@ public class BDSetores implements Serializable {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
+        
         for(Setor s : this.setores.values())
             sb.append(s.toString() + "\n");
 

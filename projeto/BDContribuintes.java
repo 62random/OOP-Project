@@ -101,7 +101,7 @@ public class BDContribuintes implements Serializable
     }
 
     public Map<Integer,Set<Integer>> getFaturas(){
-        Map<Integer,Set<Integer>> aux = new TreeMap<>();
+        Map<Integer,Set<Integer>> aux = new HashMap<>();
 
         this.dados.forEach((n,i) -> aux.put(n,i.getFaturas()));
 
