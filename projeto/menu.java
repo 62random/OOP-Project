@@ -96,22 +96,16 @@ public class menu extends Exception
         System.out.println("3-Log out");
     }
     
-    private static void inserirFatura(BDgeral bd) throws Erros{
+    private static void inserirFatura(BDgeral bd,Empresa emp) throws Erros{
         int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
         double double_1=0;
         String string_1, string_2, string_3 = null;
         Scanner ac = new Scanner(System.in).useDelimiter("\\n");
         try{
-                         System.out.println("NIF da Empresa: ");
-                         int_1=ac.nextInt();
-                         System.out.println("Nome do Emitente: ");
-                         string_1=ac.next();
                          System.out.println("NIF cliente: ");
                          int_2=ac.nextInt();
                          System.out.println("Descricao : ");
                          string_2=ac.next();
-                         System.out.println("Categoria : ");
-                         string_3=ac.next();
                          System.out.println("Valor : ");
                          double_1 = ac.nextDouble();
                          
@@ -129,8 +123,16 @@ public class menu extends Exception
            throw new Erros("Falha ao inserir");
         }
         
-        Fatura faturaaux = null;            
-        faturaaux = new Fatura(int_1,string_1,LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
+        Set<String> categorias = new TreeSet<>();
+        categorias = emp.getSetores();
+        Fatura faturaaux = new Fatura();
+        if (categorias.size() == 1)
+            for(String a : categorias)
+                string_3 = a;
+        else{
+            string_3 = "";
+        }
+        faturaaux = new Fatura(emp.getNif(),emp.getNome(),LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
         bd.addFatura(faturaaux);
     }
     
@@ -157,12 +159,15 @@ public class menu extends Exception
                          System.out.println("Coeficiente de decução fiscal: ");
                          double_1 = ac.nextDouble();
                          
-                         System.out.println("Adicionar Setores");
-                         while(!string_5.equals("done")){
+                         System.out.println("Adicionar Setores (minimo 1 setor)");
+                         while(!string_5.equals("done") || int_6 == 0 ){
                              System.out.println("Setor (done para terminar):");
                              string_5 = ac.next();
-                             if (!string_5.equals("done"))
+                             if (!string_5.equals("done")){
                                 setores.add(string_5);
+                                int_6++;
+                            }
+                             
                          }
         
         }
@@ -469,7 +474,7 @@ public class menu extends Exception
             switch(choice){
                 case 1:
                 try{
-                    inserirFatura(bd);
+                    inserirFatura(bd,empresa_atual);
                 }
                 catch(Erros e){
                     System.out.println(e.getMessage());
