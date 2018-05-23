@@ -11,7 +11,7 @@ import java.io.*;
 /**
  * Classe Contribuinte
  */
-public class Contribuinte implements Serializable
+public abstract class Contribuinte implements Serializable
 {
     private int nif;
     private String email;
@@ -124,9 +124,7 @@ public class Contribuinte implements Serializable
       * Método clone do objeto Contribuinte.
     */
     
-    public Contribuinte clone(){
-        return new Contribuinte(this);
-    }
+    public abstract Contribuinte clone();
 
     /**
       * Método toString do objeto Contribuinte.
@@ -254,9 +252,11 @@ public class Contribuinte implements Serializable
        * Método de verificao de login do contribuinte.
        * @param Password a verificar.
     */
-    public boolean trylogin(String passe){
-        return this.getPassword().equals(passe);
-    }
+    public boolean trylogin(String passe) throws ErroNotFound{
+        if (!this.getPassword().equals(passe))
+            throw new ErroNotFound("Passe incorreta");
+        return true;
+        }
     
     
     public void setFatura(int id){

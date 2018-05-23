@@ -79,7 +79,7 @@ public class BDFaturas implements Serializable
              aux = (Empresa) e.getContribuinte(a.getNif_emitente());
              aux2 = (CIndividual) i.getContribuinte(a.getNif_cliente());
         }
-        catch (Erros l){
+        catch (ErroNotFound l){
              System.out.println("Contribuinte" +  l.getMessage() +"não existe\n");
              return;
         }
@@ -87,13 +87,28 @@ public class BDFaturas implements Serializable
         i.setFaturaId(a.getId(),a.getNif_cliente());
         e.setFaturaId(a.getId(),a.getNif_emitente());
             
-        if (aux.getSetores().size() > 1)
+        if (aux.getSetores().size() > 1){
             this.faturas_porval.add(a.getId());
             
-        if(!d.existeSetor(a.getCategoria()))
-            d.addSetor(new Setor(a.getCategoria(), 0));
+        }
+        else if (aux.getSetores().size()==1){
+            if(!d.existeSetor(a.getCategoria()))
+                d.addSetor(new Setor(a.getCategoria(), 0));
+        }
             
         this.faturas.put(a.getId(),a.clone());
+    }
+
+    public Fatura getFatura(int id) throws ErroNotFound {
+        Fatura a;
+
+        a = this.faturas.get(id);
+        Integer i = new Integer(id);
+
+        if (a == null)
+            throw new ErroNotFound (i.toString());
+
+        return a;
     }
     
     public List<Fatura> faturas_no_intervalo(LocalDate start ,LocalDate end, Set<Integer> idlist){
@@ -110,5 +125,24 @@ public class BDFaturas implements Serializable
                                     .filter( b -> idlist.contains(b.getId()))
                                     .map( b -> b.clone())
                                     .collect(Collectors.toList());
+    }
+    
+    public boolean check_val_fatura(int id){
+        if (this.faturas_porval.contains(id))
+            return false;
+        return true;
+    }
+    
+    public void valida_fatura(int id,String setor,BDSetores set) throws ErroNotFound,FaturaVal{
+        Fatura a = this.faturas.get(id);
+        Integer i = new Integer(id);
+        if (a == null)
+            throw new ErroNotFound(i.toString());
+        if (!this.faturas_porval.contains(id))
+            throw new FaturaVal(i.toString());
+            
+        a.setCategoria(setor);
+        if(!set.existeSetor(a.getCategoria()))
+                set.addSetor(new Setor(a.getCategoria(), 0));
     }
 }

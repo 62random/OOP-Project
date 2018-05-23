@@ -78,7 +78,7 @@ public class menu extends Exception
         System.out.println("4-Validar faturas");
         System.out.println("5-Alterar atividade economica");
         
-        System.out.println("6-Voltar Menu anterior");
+        System.out.println("6-Log out");
     }
     
     private static void inserirFatura(BDgeral bd) throws Erros{
@@ -87,7 +87,7 @@ public class menu extends Exception
         String string_1, string_2, string_3 = null;
         Scanner ac = new Scanner(System.in).useDelimiter("\\n");
         try{
-                         System.out.println("Id da Fatura : ");
+                         System.out.println("NIF da Empresa: ");
                          int_1=ac.nextInt();
                          System.out.println("Nome do Emitente: ");
                          string_1=ac.next();
@@ -185,29 +185,49 @@ public class menu extends Exception
         bd.addIndividual(individual_aux);
     }
     
-    private static boolean loginEmpresa(BDgeral bd, int nif, String passe) {
+    private static Empresa loginEmpresa(BDgeral bd, int nif, String passe) throws Erros{
+        Empresa aux;
+        try {
+            aux = bd.getEmpresa(nif);
+        }
         
-        return true;
-        // metodo do ambrosio
-        
-        
-                         
+        catch(Erros e){
+            throw new Erros("Nif inexistente");
+        }
     
+        try{
+            bd.getEmpresa(nif).trylogin(passe);
+        }
+        
+        catch(Erros e){
+            throw new Erros("Passe errada");
+        }
     
+        return aux;
+        
     }
     
-    private static boolean loginIndividual(BDgeral bd, int nif, String passe) {
-        
-        
-        
-        
-        return true;
-        // metodo do ambrosio
-        
-        
-                         
     
+    private static CIndividual loginIndividual(BDgeral bd, int nif, String passe) throws Erros{
+        CIndividual aux;
+        try {
+            aux = bd.getCIndividual(nif);
+        }
+        
+        catch(Erros e){
+            throw new Erros("Nif inexistente");
+        }
     
+        try{
+            bd.getCIndividual(nif).trylogin(passe);
+        }
+        
+        catch(Erros e){
+            throw new Erros("Passe errada");
+        }
+    
+        return aux;
+            
     }
     // instance variables - replace the example below with your own
     public static void menu()
@@ -223,6 +243,8 @@ public class menu extends Exception
         double double1, double2 = 0;
         String string_1,string_2 ,string_3= null;
         Fatura faturaaux = null;
+        Empresa empresa_atual = null;
+        CIndividual individual_atual = null;
         
         
         while(flag != 0){
@@ -353,11 +375,17 @@ public class menu extends Exception
                         System.out.println(e.getMessage());
                         break;
                     }
-                    if (loginIndividual(bd,int_1,string_1)){
-                        flag = 5;
-                    
+                    try{
+                        individual_atual = loginIndividual(bd,int_1,string_1);
                     }
+                    catch(Erros e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    flag = 5;
                     break;
+                    
+                    
                     
                 case 2:
                     System.out.println("NIF: ");
@@ -371,10 +399,14 @@ public class menu extends Exception
                         System.out.println(e.getMessage());
                         break;
                     }
-                    if (loginEmpresa(bd,int_1,string_1)){
-                        flag = 4; 
-                    
+                    try{
+                        empresa_atual = loginEmpresa(bd,int_1,string_1);
                     }
+                    catch(Erros e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    flag = 4;
                     break;
                     
                 case 3:
@@ -413,8 +445,11 @@ public class menu extends Exception
         else if (flag == 5){
             switch(choice){
                 case 1:
+                    System.out.println( bd.listagem_ordenada_emp_fatura(LocalDate.of(1,1,1),LocalDate.of(3000,1,1),true,individual_atual.getNif())   .toString());                   
                     break;
-                    
+                
+                case 2:
+                
                 case 6:
                     flag = 1;
                     break;
