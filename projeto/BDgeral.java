@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.Collections;
 import java.io.*;
 import java.lang.ArithmeticException;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class BDgeral implements Serializable
 {
@@ -104,6 +106,11 @@ public class BDgeral implements Serializable
     }
     
     public void addIndividual(CIndividual i){
+        if (this.empresas.contains(i.getNif())){
+            System.out.println("Contribuinte " + i.getNif() + " já inserido");
+            return;
+        }
+        
         try{
             this.individuais.addContribuinte(i);
         }
@@ -113,6 +120,11 @@ public class BDgeral implements Serializable
     }
     
     public void addEmpresa(Empresa i){
+        if (this.individuais.contains(i.getNif())){
+            System.out.println("Contribuinte " + i.getNif() + " já inserido");
+            return;
+        }
+        
         try{
             this.empresas.addContribuinte(i);
         }
@@ -392,6 +404,83 @@ public class BDgeral implements Serializable
 
 
         return 0.0;
+    }
+    
+    private String escolheSetor(int nif){
+        Empresa aux;
+        String fim,fim2 = null;
+        Scanner in = new Scanner(System.in);
+        
+        try{
+            aux= (Empresa) this.individuais.getContribuinte(nif);
+        }
+        catch (ErroNotFound l){
+            System.out.println("Contribuinte " + l.getMessage() + "não inserido");
+            return null;
+        }
+        
+        
+        boolean choosen = false;
+        int k;
+        System.out.println("Escolha da categoria da fatura. 1 para escolher");
+        while(!choosen){
+            Iterator i = aux.getSetores().iterator();
+            
+            while(i.hasNext() && (!choosen)){
+                fim = (String) i.next();
+                if (fim2 == null)
+                    fim2 = null;
+                System.out.println("Setor: " + fim);
+                try{
+                    k = in.nextInt();
+                }
+                catch (InputMismatchException e){
+                    k = 4;
+                }
+                if (k == 1){
+                    fim2 = fim;
+                    choosen = true;
+                }    
+            }
+            
+        }
+        
+        return fim2;
+        
+    }
+    
+    public void valida_faturas_contribuinte(int nif)throws ErroNotFound{
+        CIndividual aux;
+        try{
+            aux= (CIndividual) this.individuais.getContribuinte(nif);
+        }
+        catch (ErroNotFound l){
+            System.out.println("Contribuinte " + l.getMessage() + "não inserido");
+            return;
+        }
+        
+        Set<Integer> fact = aux.getFaturas();
+        String a;
+        Fatura b;
+        
+        for(Integer i : fact){
+            if (!this.faturas.check_val_fatura(i)){
+                try{
+                    b = this.faturas.getFatura(i);
+                    a = escolheSetor(b.getNif_emitente());
+                    try{
+                        this.faturas.valida_fatura(i,a,this.setores);
+                    }
+                    catch(FaturaVal k){
+                        System.out.println("Fatura " + k + " já validada");
+                    }
+                }
+                catch (ErroNotFound e){
+                    System.out.println("Fatura " + i + "não encontrada.");
+                }
+            }
+        }
+        
     }
     
 }

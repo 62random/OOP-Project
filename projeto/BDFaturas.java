@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.io.*;
+import java.util.Scanner;
 
 
 public class BDFaturas implements Serializable
@@ -142,6 +143,8 @@ public class BDFaturas implements Serializable
             throw new FaturaVal(i.toString());
             
         a.setCategoria(setor);
+        this.faturas_porval.remove(id);
+        
         if(!set.existeSetor(a.getCategoria()))
                 set.addSetor(new Setor(a.getCategoria(), 0));
     }

@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.io.*;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class BDSetores implements Serializable {
     private Map<String, Setor> setores;
