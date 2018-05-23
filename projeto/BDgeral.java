@@ -412,7 +412,7 @@ public class BDgeral implements Serializable
         Scanner in = new Scanner(System.in);
         
         try{
-            aux= (Empresa) this.individuais.getContribuinte(nif);
+            aux= (Empresa) this.empresas.getContribuinte(nif);
         }
         catch (ErroNotFound l){
             System.out.println("Contribuinte " + l.getMessage() + "não inserido");
@@ -421,7 +421,7 @@ public class BDgeral implements Serializable
         
         
         boolean choosen = false;
-        int k;
+        int k= 1000;
         System.out.println("Escolha da categoria da fatura. 1 para escolher");
         while(!choosen){
             Iterator i = aux.getSetores().iterator();
@@ -435,7 +435,8 @@ public class BDgeral implements Serializable
                     k = in.nextInt();
                 }
                 catch (InputMismatchException e){
-                    k = 4;
+                    in.next();
+               
                 }
                 if (k == 1){
                     fim2 = fim;
@@ -471,6 +472,7 @@ public class BDgeral implements Serializable
                     b = this.faturas.getFatura(i);
                     System.out.print(b.toString());
                     a = escolheSetor(b.getNif_emitente());
+                    
                     try{
                         this.faturas.valida_fatura(i,a,this.setores);
                     }

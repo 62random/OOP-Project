@@ -92,8 +92,9 @@ public class menu extends Exception
         System.out.println("Opçoes");
         System.out.println("1-Relacao entre os 10 contribuintes que mais gastam");
         System.out.println("2-Relacao entre as X empresas que mais faturam");
+        System.out.println("3-Validar Setores");
         
-        System.out.println("3-Log out");
+        System.out.println("4-Log out");
     }
     
     private static void inserirFatura(BDgeral bd,Empresa emp) throws Erros{
@@ -525,7 +526,10 @@ public class menu extends Exception
                     System.out.println( individual_atual.getFaturas()    .toString());                   
                     break;
                 
-                case 2:
+                case 4:
+                    bd.valida_faturas_contribuinte(individual_atual.getNif());
+                    
+                    break;
                 
                 case 7:
                     flag = 1;
@@ -540,7 +544,7 @@ public class menu extends Exception
         
         else if (flag == 6){
             switch(choice){
-                case 3:
+                case 4:
                     flag = 1;
                     break;
                 
