@@ -356,7 +356,7 @@ public class BDgeral implements Serializable
     public double top_X_faturacao (int x){
         Map<Integer,Double> faturacao = new HashMap<>();
 
-        Map<Integer,Set<Integer>> database = this.empresas.getFaturas();
+        Map<Integer,Set<Integer>> database = this.empresas.getFaturasIds();
 
         Double singlefac;
 
