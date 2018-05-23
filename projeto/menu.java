@@ -544,6 +544,15 @@ public class menu extends Exception
         
         else if (flag == 6){
             switch(choice){
+                
+                case 3:
+                    try{
+                        bd.Setores_admin();
+                    }
+                    catch(AdminAprov e){
+                        System.out.println(e.getMessage()); 
+                    }
+                    break;
                 case 4:
                     flag = 1;
                     break;

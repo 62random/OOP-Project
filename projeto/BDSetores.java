@@ -94,7 +94,7 @@ public class BDSetores implements Serializable {
                 }
                 catch (InputMismatchException e){
                     System.out.println("Valor inválido");
-                    in.nextDouble();
+                    in.next();
                 }
                 if (aux < 0 || aux > 0.23){
                     aux = -1;
