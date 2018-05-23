@@ -1,4 +1,4 @@
-import java.util.Scanner;
+    import java.util.Scanner;
 
 import java.util.Set;
 import java.util.Map;
@@ -32,6 +32,8 @@ public class menu extends Exception
             imprimirmenu4();
         if (i == 5)
             imprimirmenu5();
+        if (i == 6)
+            imprimirmenu6();
         
             
     }
@@ -67,7 +69,11 @@ public class menu extends Exception
         System.out.println("------------------Menu de Empresas------------------");
         System.out.println("Opçoes");
         System.out.println("1-Criar faturas");
-        System.out.println("2-Log out");
+        System.out.println("2-Registo faturas");
+        System.out.println("3-Faturas por contribuinte numda dada data");
+        System.out.println("4-Faturas por contribuinte ");
+        System.out.println("5-Total faturado num dado intervalo");
+        System.out.println("6-Log out");
     }
     private static void imprimirmenu5(){
         System.out.println("------------------Menu de Contribuinte Individual------------------");
@@ -78,7 +84,16 @@ public class menu extends Exception
         System.out.println("4-Validar faturas");
         System.out.println("5-Alterar atividade economica");
         
-        System.out.println("6-Log out");
+        System.out.println("6-Registo de alteraçoes ?? ");
+        System.out.println("7-Log out");
+    }
+    private static void imprimirmenu6(){
+        System.out.println("------------------Menu de ADMIN------------------");
+        System.out.println("Opçoes");
+        System.out.println("1-Relacao entre os 10 contribuintes que mais gastam");
+        System.out.println("2-Relacao entre as X empresas que mais faturam");
+        
+        System.out.println("3-Log out");
     }
     
     private static void inserirFatura(BDgeral bd) throws Erros{
@@ -123,6 +138,7 @@ public class menu extends Exception
         int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
         double double_1=0;
         String string_1, string_2, string_3, string_4 = null;
+        String string_5 = "teste";
         Scanner ac = new Scanner(System.in).useDelimiter("\\n");
         Set<Integer> faturas = new TreeSet<>();
         Set<String> setores = new TreeSet<>();
@@ -141,6 +157,14 @@ public class menu extends Exception
                          System.out.println("Coeficiente de decução fiscal: ");
                          double_1 = ac.nextDouble();
                          
+                         System.out.println("Adicionar Setores");
+                         while(!string_5.equals("done")){
+                             System.out.println("Setor (done para terminar):");
+                             string_5 = ac.next();
+                             if (!string_5.equals("done"))
+                                setores.add(string_5);
+                         }
+        
         }
            catch(InputMismatchException e){
            throw new Erros("Falha ao inserir");
@@ -152,8 +176,9 @@ public class menu extends Exception
     
     private static void inserirCIndi(BDgeral bd) throws Erros{
         int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
+        int n_agregado = 0;
         double double_1=0;
-        String string_1, string_2, string_3, string_4 = null;
+        String string_1, string_2, string_3, string_4, string_5 = "teste";
         Scanner ac = new Scanner(System.in).useDelimiter("\\n");
         Set<Integer> faturas = new TreeSet<>();
         Set<String> setores = new TreeSet<>();
@@ -169,8 +194,27 @@ public class menu extends Exception
                          string_3 = ac.next();
                          System.out.println("Password: ");
                          string_4 = ac.next();
-                         System.out.println("Numero de elementos do agregado: ");
-                         int_2 = ac.nextInt();
+                         
+                         
+                         
+                         System.out.println("Nif do agregado");
+                         while(n_agregado >= 0){
+                             System.out.println("Próximo nif (numero negativo para parar de inserir elementos do agregado): ");
+                             n_agregado = ac.nextInt();
+                             if (n_agregado != -2 && n_agregado >= 0)
+                                agregados.add(n_agregado);
+                         }
+                         
+                         
+                         System.out.println("Adicionar Setores");
+                         while(!string_5.equals("done")){
+                             System.out.println("Setor (done para terminar):");
+                             string_5 = ac.next();
+                             if (!string_5.equals("done"))
+                                setores.add(string_5);
+                         }
+        
+                            
                          System.out.println("Coeficiente de decução fiscal: ");
                          double_1 = ac.nextDouble();
                          
@@ -181,26 +225,26 @@ public class menu extends Exception
            throw new Erros("Falha ao inserir");
         }
         CIndividual individual_aux = null;            
-        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,int_2, agregados, double_1, setores, faturas);
+        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, double_1, setores, faturas);
         bd.addIndividual(individual_aux);
     }
     
-    private static Empresa loginEmpresa(BDgeral bd, int nif, String passe) throws Erros{
+    private static Empresa loginEmpresa(BDgeral bd, int nif, String passe) throws ErroNotFound{
         Empresa aux;
         try {
             aux = bd.getEmpresa(nif);
         }
         
-        catch(Erros e){
-            throw new Erros("Nif inexistente");
+        catch(ErroNotFound e){
+            throw new ErroNotFound("Nif inexistente");
         }
     
         try{
             bd.getEmpresa(nif).trylogin(passe);
         }
         
-        catch(Erros e){
-            throw new Erros("Passe errada");
+        catch(ErroNotFound e){
+            throw new ErroNotFound("Passe errada");
         }
     
         return aux;
@@ -208,22 +252,22 @@ public class menu extends Exception
     }
     
     
-    private static CIndividual loginIndividual(BDgeral bd, int nif, String passe) throws Erros{
+    private static CIndividual loginIndividual(BDgeral bd, int nif, String passe) throws ErroNotFound{
         CIndividual aux;
         try {
             aux = bd.getCIndividual(nif);
         }
         
-        catch(Erros e){
-            throw new Erros("Nif inexistente");
+        catch(ErroNotFound e){
+            throw new ErroNotFound("Nif inexistente");
         }
     
         try{
             bd.getCIndividual(nif).trylogin(passe);
         }
         
-        catch(Erros e){
-            throw new Erros("Passe errada");
+        catch(ErroNotFound e){
+            throw new ErroNotFound("Passe errada");
         }
     
         return aux;
@@ -378,7 +422,7 @@ public class menu extends Exception
                     try{
                         individual_atual = loginIndividual(bd,int_1,string_1);
                     }
-                    catch(Erros e){
+                    catch(ErroNotFound e){
                         System.out.println(e.getMessage());
                         break;
                     }
@@ -402,7 +446,7 @@ public class menu extends Exception
                     try{
                         empresa_atual = loginEmpresa(bd,int_1,string_1);
                     }
-                    catch(Erros e){
+                    catch(ErroNotFound e){
                         System.out.println(e.getMessage());
                         break;
                     }
@@ -410,6 +454,7 @@ public class menu extends Exception
                     break;
                     
                 case 3:
+                    flag = 6;
                     break;
                 
                 case 4:
@@ -433,8 +478,10 @@ public class menu extends Exception
                  System.out.println("Inserido com sucesso");
                  break;
                 
-                    
-                case 2:
+                case 5:
+                   // bd.total_faturado(,,empresa_atual.getNif());
+                 
+                case 6:
                     flag = 1;
                     break;
                     
@@ -445,12 +492,12 @@ public class menu extends Exception
         else if (flag == 5){
             switch(choice){
                 case 1:
-                    System.out.println( bd.listagem_ordenada_emp_fatura(LocalDate.of(1,1,1),LocalDate.of(3000,1,1),true,individual_atual.getNif())   .toString());                   
+                    System.out.println( individual_atual.getFaturas()    .toString());                   
                     break;
                 
                 case 2:
                 
-                case 6:
+                case 7:
                     flag = 1;
                     break;
                 default:
@@ -461,8 +508,22 @@ public class menu extends Exception
         
         }
         
-    }
+        else if (flag == 6){
+            switch(choice){
+                case 3:
+                    flag = 1;
+                    break;
+                
+                default:
+                    System.out.println("Opçao Invalida");
+                
+            
+           }
+        
+        }
     
-        System.out.println("Saiu com sucesso");
-  }
+    }
+    System.out.println("Saiu com sucesso");
+  
+ }
 }
