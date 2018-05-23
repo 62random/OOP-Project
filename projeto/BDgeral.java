@@ -449,7 +449,7 @@ public class BDgeral implements Serializable
         
     }
     
-    public void valida_faturas_contribuinte(int nif)throws ErroNotFound{
+    public void valida_faturas_contribuinte(int nif){
         CIndividual aux;
         try{
             aux= (CIndividual) this.individuais.getContribuinte(nif);
@@ -460,6 +460,8 @@ public class BDgeral implements Serializable
         }
         
         Set<Integer> fact = aux.getFaturas();
+        
+        
         String a;
         Fatura b;
         
@@ -467,6 +469,7 @@ public class BDgeral implements Serializable
             if (!this.faturas.check_val_fatura(i)){
                 try{
                     b = this.faturas.getFatura(i);
+                    System.out.print(b.toString());
                     a = escolheSetor(b.getNif_emitente());
                     try{
                         this.faturas.valida_fatura(i,a,this.setores);
@@ -480,6 +483,8 @@ public class BDgeral implements Serializable
                 }
             }
         }
+        
+        System.out.println("Todas as faturas estão validadas");
         
     }
     
