@@ -143,7 +143,7 @@ public abstract class Contribuinte implements Serializable
         sb.append(this.email+"\n");
         sb.append("Password: ");
         sb.append(this.password+"\n");
-        
+        sb.append("Faturas: ");
         for(int a : this.faturas)
             sb.append(a +":");
         sb.append("\n");

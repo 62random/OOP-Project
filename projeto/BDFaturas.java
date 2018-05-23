@@ -57,6 +57,12 @@ public class BDFaturas implements Serializable
         for(Fatura f : this.faturas.values())
             sb.append(f.toString() + "\n");
             
+        sb.append("Por validar: ");
+        for(Integer i : this.faturas_porval)
+            sb.append(i + ": ");
+            
+        sb.append("\n");
+            
         return sb.toString();
     }
     

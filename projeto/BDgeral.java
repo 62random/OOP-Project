@@ -483,4 +483,14 @@ public class BDgeral implements Serializable
         
     }
     
+    public void Setores_admin() throws AdminAprov{
+        try{
+            this.setores.admin_aprov();
+        }
+        catch (AdminAprov e){
+            throw (new AdminAprov());
+        }
+        
+    }
+    
 }
