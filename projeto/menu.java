@@ -132,7 +132,8 @@ public class menu extends Exception
     }
     
     private static void inserirEmpresa(BDgeral bd) throws Erros{
-        int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
+        int int_1,int_2,int_3,int_4, int_5, int_6, int_7 = 0;
+        int_6 = 0;
         double double_1=0;
         String string_1, string_2, string_3, string_4 = null;
         String string_5 = "teste";
@@ -161,18 +162,33 @@ public class menu extends Exception
                             }
                              
                          }
+                         System.out.println("Rendimento Anual: ");
+                         double_1=ac.nextDouble();
         
         }
            catch(InputMismatchException e){
            throw new Erros("Falha ao inserir");
         }
         Empresa empresa_aux = null;            
-        empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,1,faturas); 
+        empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,calculaBenE(double_1),faturas); 
         bd.addEmpresa(empresa_aux);
     }
     
+    private static double calculaBenE(double i){
+        if (i < 50000)
+            i = 50000;
+        i=-0.00001 * i + 0.5;
+            
+            
+        return i;
+    
+    
+    }
+    
+    
     private static void inserirCIndi(BDgeral bd) throws Erros{
         int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
+        int int_7 = 0;
         int n_agregado = 0;
         double double_1=0;
         String string_1, string_2, string_3, string_4, string_5 = "teste";
@@ -211,6 +227,8 @@ public class menu extends Exception
                                 setores.add(string_5);
                          }
         
+                         System.out.println("Rendimento Anual: ");
+                         double_1=ac.nextDouble();
                             
                          
                          
@@ -220,7 +238,7 @@ public class menu extends Exception
            throw new Erros("Falha ao inserir");
         }
         CIndividual individual_aux = null;            
-        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, 1, setores, faturas);
+        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, calculaBenE(double_1), setores, faturas);
         bd.addIndividual(individual_aux);
     }
     
