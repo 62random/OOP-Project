@@ -16,14 +16,15 @@ import java.lang.ArithmeticException;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+
 public class BDgeral implements Serializable
 {
+    
+    
     private BDContribuintes empresas;
     private BDContribuintes individuais;
     private BDFaturas faturas;
     private BDSetores setores;
-    
-  
     
     
     public BDgeral(){
@@ -48,6 +49,7 @@ public class BDgeral implements Serializable
         this.faturas        = a.getBDFaturas();
         this.setores        = a.getBDSetores();
     }
+    
     
     public void guardaEstado(String nome) throws FileNotFoundException ,IOException{
         File f = new File(nome);
@@ -198,7 +200,10 @@ public class BDgeral implements Serializable
     public double deduz_montante(Contribuinte e){
         Set<Integer> idfaturas = e.getFaturas();
         
+        EmpInterior aux1;
+        FamiliaNum aux2;
         double montante = 0;
+        double bonus;
         
         for(Integer i : idfaturas){
             try{
@@ -210,13 +215,24 @@ public class BDgeral implements Serializable
                 System.out.println("Fatura " + a.getMessage() + " não encontrada.");
             }
         }
-        montante *= e.bonus();
+        bonus = e.bonus();
+        if (e instanceof FamiliaNum){
+            aux2 = (FamiliaNum) e;
+            bonus += aux2.reducaoImposto();
+        }
+        else if (e instanceof EmpInterior){
+            aux1 = (EmpInterior) e;
+            bonus += aux1.reducaoImposto();
+        }
+        
+        montante *= bonus;
         
         return montante;
     }
     
     public double deduz_montante_Individual(int nif) throws ErroNotFound{
         CIndividual e;
+        FamiliaNum aux2;
         
         try{
             e = (CIndividual) this.individuais.getContribuinte(nif);
@@ -227,7 +243,7 @@ public class BDgeral implements Serializable
         
         Set<Integer> idfaturas = e.getFaturas();
         
-        double montante = 0;
+        double montante = 0,bonus;
         
         for(Integer i : idfaturas){
             try{
@@ -239,7 +255,13 @@ public class BDgeral implements Serializable
                 System.out.println("Fatura " + a.getMessage() + " não encontrada.");
             }
         }
-        montante *= e.bonus();
+        bonus = e.bonus();
+        if (e instanceof FamiliaNum){
+            aux2 = (FamiliaNum) e;
+            bonus += aux2.reducaoImposto();
+        }
+        
+        montante *= bonus;
         
         return montante;
         
