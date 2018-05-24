@@ -1,5 +1,4 @@
     import java.util.Scanner;
-
 import java.util.Set;
 import java.util.Map;
 import java.util.HashSet;
@@ -41,8 +40,7 @@ public class menu extends Exception
         System.out.println("------------------Java Fatura------------------");
         System.out.println("Opçoes");
         System.out.println("1-Registar contribuintes");
-        System.out.println("2-Fazer Login");
-        
+        System.out.println("2-Fazer Login");        
         System.out.println("3-Guardar Ficheiro");
         System.out.println("4-Importar Ficheiro");
         System.out.println("5-Sair");
@@ -52,7 +50,6 @@ public class menu extends Exception
         System.out.println("Opçoes");
         System.out.println("1-Registar Contribuinte Individual");
         System.out.println("2-Registar Empresa");
-        
         System.out.println("3-Voltar Menu anterior");
     }
     private static void imprimirmenu3(){
@@ -61,7 +58,6 @@ public class menu extends Exception
         System.out.println("1-Login de Contribuinte Individual");
         System.out.println("2-Login de Empresa");
         System.out.println("3-Login de Contribuinte Admin");
-
         System.out.println("4-Voltar Menu anterior");
     }
     private static void imprimirmenu4(){
@@ -72,7 +68,8 @@ public class menu extends Exception
         System.out.println("3-Faturas por contribuinte numda dada data");
         System.out.println("4-Faturas por contribuinte ");
         System.out.println("5-Total faturado num dado intervalo");
-        System.out.println("6-Log out");
+        System.out.println("6-Total faturado num dado intervalo");
+        System.out.println("7-Log out");
     }
     private static void imprimirmenu5(){
         System.out.println("------------------Menu de Contribuinte Individual------------------");
@@ -91,8 +88,7 @@ public class menu extends Exception
         System.out.println("1-Relacao entre os 10 contribuintes que mais gastam");
         System.out.println("2-Relacao entre as X empresas que mais faturam");
         System.out.println("3-Validar Setores");
-        System.out.println("4-Imprimir base de dados");
-        
+        System.out.println("4-Imprimir base de dados");        
         System.out.println("5-Log out");
     }
     
@@ -562,7 +558,27 @@ public class menu extends Exception
                         System.out.println(e.getMessage());
                     }
                     break;
+                 
                 case 6:
+                    try{
+                         System.out.println("Setor a inserir : ");
+                         string_1=ac.next();
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    
+                
+                    try{
+                        bd.addSetor(empresa_atual.getNif(),string_1,false) ;
+                    }
+                    catch( ErroNotFound e){
+                        System.out.println("Contribuinte nao encontrado" + e.getMessage());
+                    }
+                    System.out.println("Inserido com sucesso");
+                    break;
+                case 7:
                     flag = 1;
                     break;
                    
@@ -591,11 +607,43 @@ public class menu extends Exception
                     break;
                     
                 case 3:
-                    //adicionar agregado
+                    try{
+                         System.out.println("NIF a inserir no agregado: ");
+                         int_1=ac.nextInt();
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    
+                
+                    try{
+                        bd.addAgregado(individual_atual.getNif(),int_1) ;
+                    }
+                    catch( ErroNotFound e){
+                        System.out.println("Contribuinte nao encontrado" + e.getMessage());
+                    }
+                    System.out.println("Inserido com sucesso");
                     break;
                    
                 case 4:
-                    //adicionar setor
+                    try{
+                         System.out.println("Setor a inserir : ");
+                         string_1=ac.next();
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    
+                
+                    try{
+                        bd.addSetor(individual_atual.getNif(),string_1,true) ;
+                    }
+                    catch( ErroNotFound e){
+                        System.out.println("Contribuinte nao encontrado" + e.getMessage());
+                    }
+                    System.out.println("Inserido com sucesso");
                     break;
                 
                 case 5:
