@@ -417,16 +417,17 @@ public class BDgeral implements Serializable
     // falta fazer
     public double top_X_faturacao (int x){
         Map<Integer,Double> faturacao = new HashMap<>();
+        Map<Integer,Double> deducao = new HashMap<>();
 
-        Map<Integer,Set<Integer>> database = this.empresas.getFaturasIds();
+        Map<Integer,Contribuinte> database = this.empresas.getDados();
 
         Double singlefac;
 
         //total faturado
-        for(Map.Entry<Integer,Set<Integer>> c : database.entrySet()) {
+        for(Map.Entry<Integer,Contribuinte> c : database.entrySet()) {
             singlefac = 0.0;
 
-            for (int i : c.getValue()) {
+            for (int i : c.getValue().getFaturas()) {
                 try{
                     Fatura aux = this.faturas.getFatura(i);
                     singlefac += aux.getValor();
@@ -437,6 +438,7 @@ public class BDgeral implements Serializable
 
             }
             faturacao.put(c.getKey(),singlefac);
+            deducao.put(c.getKey(),deduz_montante(c.getValue()));
             singlefac = 0.0;
         }
         
@@ -451,9 +453,18 @@ public class BDgeral implements Serializable
         faturacao.entrySet().forEach(e -> ordena.add(e)); //ordenar pelo que mais faturam
         
         //falta algoritmo de dedução
+        Iterator i = ordena.iterator();
+        int k = 0;
+        double faturado = 0, deduzido = 0;
+        
+        while(i.hasNext() && k < x){
+            Map.Entry<Integer,Double> a = (Map.Entry<Integer,Double>) i.next();
+            faturado += a.getValue();
+            deduzido += deducao.get(a.getKey());
+        }
 
 
-        return 0.0;
+        return (deduzido / faturado)*100;
     }
     
     private String escolheSetor(int nif){
