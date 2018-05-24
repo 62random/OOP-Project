@@ -82,10 +82,8 @@ public class menu extends Exception
         System.out.println("2-Montagem fiscal e do agregado");
         System.out.println("3-Adicionar agregado");
         System.out.println("4-Validar faturas");
-        System.out.println("5-Alterar atividade economica");
-        
-        System.out.println("6-Registo de alteraçoes ?? ");
-        System.out.println("7-Log out");
+        System.out.println("5-Montagem fiscal individual");
+        System.out.println("6-Log out");
     }
     private static void imprimirmenu6(){
         System.out.println("------------------Menu de ADMIN------------------");
@@ -580,7 +578,17 @@ public class menu extends Exception
                     System.out.println( bd.getFaturas_de_Id(individual_atual.getFaturas())    .toString());                   
                     break;
                     
-                case 2 :
+                case 2:
+                    
+                    System.out.println("Individual " + Double.toString(bd.deduz_montante(individual_atual)));
+                    for(Integer i : individual_atual.getNifsAgregado() ){
+                        try{
+                            System.out.println(i.toString() + " : " + Double.toString(bd.deduz_montante_Individual(i)));
+                        }
+                        catch(ErroNotFound e){
+                            System.out.println("Contribuinte nao encontrado " + e.getMessage());
+                        }
+                    }
                     
                     break;
                     
@@ -592,8 +600,12 @@ public class menu extends Exception
                     bd.valida_faturas_contribuinte(individual_atual.getNif());
                     
                     break;
-                
-                case 7:
+                case 5:
+                    
+                    System.out.println(Double.toString(bd.deduz_montante(individual_atual)));
+                    break;
+                    
+                case 6:
                     flag = 1;
                     break;
                 default:
