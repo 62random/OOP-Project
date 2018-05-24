@@ -407,7 +407,7 @@ public class BDgeral implements Serializable
         }
         
         if (total == 0){
-            throw new ArithmeticException();
+            throw new ArithmeticException("Total = 0");
         }
         
         return top10_total / total;

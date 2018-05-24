@@ -284,7 +284,8 @@ public class menu extends Exception
         
         int int_1,int_2,int_3,int_4,int_5, int_6 = 0;
         long long1,long2 = 0;
-        double double1, double2 = 0;
+        double  double2 = 0;
+        double double_1 = 0;
         String string_1,string_2 ,string_3= null;
         Fatura faturaaux = null;
         Empresa empresa_atual = null;
@@ -478,6 +479,24 @@ public class menu extends Exception
                  System.out.println("Inserido com sucesso");
                  break;
                  
+                case 2:
+                    try{
+                         System.out.println("Ordenar por data?");
+                         
+                         System.out.println("1 - Sim , outro numero - Ordenar por valor");
+                         int_1=ac.nextInt();
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    if (int_1 == 1) 
+                        bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif());
+                    else
+                        bd.listagem_ordenada_emp_fatura(true,empresa_atual.getNif());
+
+                    break;
+                 
                 case 3:
                     try{
                          System.out.println("----Data inicial---- ");
@@ -587,6 +606,34 @@ public class menu extends Exception
         
         else if (flag == 6){
             switch(choice){
+                case 1:
+                    try{
+                        double_1 = (bd.rel_top10());
+                    }
+                    catch (ArithmeticException e){
+                        System.out.println(e.getMessage());
+                    }
+                    System.out.println(Double.toString(double_1));
+                    
+                    break;
+                case 2:
+                    try{
+                        System.out.println("Numero de empresas: ");
+                        int_1=ac.nextInt();
+                        System.out.println(Double.toString(bd.rel_top10()));
+                    }
+                    
+                    catch (ArithmeticException e){
+                        System.out.println(e.getMessage());
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+
+                    
+                    
+                    break;
                 
                 case 3:
                     try{
