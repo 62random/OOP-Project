@@ -108,6 +108,26 @@ public class BDContribuintes implements Serializable
         return aux;
     }
     
+    public void addSetor(String s, int nif) throws ErroNotFound{
+        Contribuinte aux = this.dados.get(nif);
+        Integer i = new Integer(nif);
+        if (aux == null)
+            throw new ErroNotFound(i.toString());
+        aux.addSetor(s);
+    }
+    
+    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound{
+        Contribuinte aux = this.dados.get(nif);
+        Integer i = new Integer(nif);
+        if (aux == null)
+            throw new ErroNotFound(i.toString());
+            
+        if (aux.getClass().getSimpleName().equals("CIndividual")){
+            CIndividual aux2 = (CIndividual) aux;
+            aux2.addAgregado(nif_agregado);
+        }
+    }
+    
     
     
     

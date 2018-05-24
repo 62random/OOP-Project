@@ -238,6 +238,14 @@ public class CIndividual extends Contribuinte implements Serializable
         return this.setores.contains(s);
     }
     
+    public void addSetor(String s){
+        this.setores.add(s);
+    }
+    
+    public void addAgregado(int nif){
+        this.nifs_agregado.add(nif);
+    }
+    
     
     
 }

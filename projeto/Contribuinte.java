@@ -271,6 +271,8 @@ public abstract class Contribuinte implements Serializable
     
     public abstract boolean verificaSetor(String s);
     
+    public abstract void addSetor(String S);
+    
     
     
 }
