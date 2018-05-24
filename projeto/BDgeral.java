@@ -375,7 +375,7 @@ public class BDgeral implements Serializable
                 }
             });
         
-        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor()).sum()));
+        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor() ).sum()));
         
         
             
