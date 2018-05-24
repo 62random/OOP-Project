@@ -25,6 +25,7 @@ public class BDFaturas implements Serializable
     }
     
     public BDFaturas(BDFaturas a){
+        this.faturas_porval = a.getFaturas_porval();
         this.faturas = a.getFaturas();
     }
     

@@ -45,8 +45,7 @@ public class menu extends Exception
         
         System.out.println("3-Guardar Ficheiro");
         System.out.println("4-Importar Ficheiro");
-        System.out.println("5-Imprimir BD");
-        System.out.println("6-Sair");
+        System.out.println("5-Sair");
     }
     private static void imprimirmenu2(){
         System.out.println("------------------Registar contribuintes------------------");
@@ -81,9 +80,10 @@ public class menu extends Exception
         System.out.println("1-Listagem de faturas");
         System.out.println("2-Montagem fiscal e do agregado");
         System.out.println("3-Adicionar agregado");
-        System.out.println("4-Validar faturas");
-        System.out.println("5-Montagem fiscal individual");
-        System.out.println("6-Log out");
+        System.out.println("4-Adicionar setores");
+        System.out.println("5-Validar faturas");
+        System.out.println("6-Montagem fiscal individual");
+        System.out.println("7-Log out");
     }
     private static void imprimirmenu6(){
         System.out.println("------------------Menu de ADMIN------------------");
@@ -91,8 +91,9 @@ public class menu extends Exception
         System.out.println("1-Relacao entre os 10 contribuintes que mais gastam");
         System.out.println("2-Relacao entre as X empresas que mais faturam");
         System.out.println("3-Validar Setores");
+        System.out.println("4-Imprimir base de dados");
         
-        System.out.println("4-Log out");
+        System.out.println("5-Log out");
     }
     
     private static void inserirFatura(BDgeral bd,Empresa emp) throws Erros{
@@ -201,7 +202,7 @@ public class menu extends Exception
                          while(n_agregado >= 0){
                              System.out.println("Próximo nif (numero negativo para parar de inserir elementos do agregado): ");
                              n_agregado = ac.nextInt();
-                             if (n_agregado != -2 && n_agregado >= 0)
+                             if (n_agregado != -2 && n_agregado >= 0 && n_agregado != int_1)
                                 agregados.add(n_agregado);
                          }
                          
@@ -359,9 +360,6 @@ public class menu extends Exception
                     System.out.println("Lido com sucesso");
                     break;
                
-                case 5:
-                    System.out.print(bd.toString());
-                    break;
                 case 6:
                     System.out.println("A sair");
                     flag = 0;
@@ -489,9 +487,9 @@ public class menu extends Exception
                         break;
                     }
                     if (int_1 == 1) 
-                        bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif());
+                        System.out.println(bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif()));
                     else
-                        bd.listagem_ordenada_emp_fatura(true,empresa_atual.getNif());
+                        System.out.println(bd.listagem_ordenada_emp_fatura(true,empresa_atual.getNif()));
 
                     break;
                  
@@ -593,19 +591,23 @@ public class menu extends Exception
                     break;
                     
                 case 3:
-                    
+                    //adicionar agregado
+                    break;
+                   
+                case 4:
+                    //adicionar setor
                     break;
                 
-                case 4:
+                case 5:
                     bd.valida_faturas_contribuinte(individual_atual.getNif());
                     
                     break;
-                case 5:
+                case 6:
                     
                     System.out.println(Double.toString(bd.deduz_montante(individual_atual)));
                     break;
                     
-                case 6:
+                case 7:
                     flag = 1;
                     break;
                 default:
@@ -655,7 +657,12 @@ public class menu extends Exception
                         System.out.println(e.getMessage()); 
                     }
                     break;
+                    
                 case 4:
+                    System.out.print(bd.toString());
+                    break;
+                    
+                case 5:
                     flag = 1;
                     break;
                 

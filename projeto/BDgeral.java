@@ -23,21 +23,7 @@ public class BDgeral implements Serializable
     private BDFaturas faturas;
     private BDSetores setores;
     
-    
-    public static void createFile(String path) {
-        try {
-            File file = new File(path);
-            if (!file.exists()) {
-                file.createNewFile();   
-            } else {
-                FileOutputStream writer = new FileOutputStream(path);
-                writer.write(("").getBytes());
-                writer.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+  
     
     
     public BDgeral(){
@@ -68,7 +54,6 @@ public class BDgeral implements Serializable
         if(!f.exists()){
             f.createNewFile();
         }
-        //createFile(nome);
         FileOutputStream fos = new FileOutputStream(f);
 
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -306,7 +291,7 @@ public class BDgeral implements Serializable
         List<Fatura> aux1;
         
         for(Fatura f : list){
-            if (listagem.containsKey(f.getNif_cliente())){
+            if (!listagem.containsKey(f.getNif_cliente())){
                 aux1 = new ArrayList<>();
                 listagem.put(f.getNif_cliente(),aux1);
             }
