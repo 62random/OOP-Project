@@ -105,6 +105,7 @@ public class BDSetores implements Serializable {
                     s.setTaxa(aux);
                 }
             }
+            aux = -1;
         }
         this.por_aprovar = new HashSet<>();
     }

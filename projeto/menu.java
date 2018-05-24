@@ -360,7 +360,7 @@ public class menu extends Exception
                     System.out.println("Lido com sucesso");
                     break;
                
-                case 6:
+                case 5:
                     System.out.println("A sair");
                     flag = 0;
                     break;
