@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 public class EmpInterior extends Empresa implements Serializable
 {
     
-    private static Map<String,Double> conselhos = new HashMap<>();
-    
     private String conselho;
     
     public EmpInterior(){
@@ -72,35 +70,8 @@ public class EmpInterior extends Empresa implements Serializable
         return hash;
     }
     
-    private void adicionaConselhos(){
-        this.conselhos.put("Alvito",0.2);
-        this.conselhos.put("Cuba",0.2);
-        this.conselhos.put("Ourique",0.4);
-        this.conselhos.put("Serpa",0.1);
-        this.conselhos.put("Almeida",0.2);
-        this.conselhos.put("Belmonte",0.1);
-        this.conselhos.put("Covilhã",0.4);
-        this.conselhos.put("Fundão",0.2);
-        this.conselhos.put("Guarda",0.05);
-        this.conselhos.put("Gouveia",0.1);
-        this.conselhos.put("Manteigas",0.5);
-        this.conselhos.put("Oleiros",0.1);
-        this.conselhos.put("Seia",0.4);
-        this.conselhos.put("Pinhel",0.1);
-        this.conselhos.put("Penamacor",0.2);
-        this.conselhos.put("Tondela",0.1);
-        this.conselhos.put("Viseu",0.3);
+    public double reducaoImposto(Map<String,Double> a){
+        return a.get(this.conselho);
     }
     
-    public double reducaoImposto(){
-        return EmpInterior.conselhos.get(this.conselho);
-    }
-    
-    public static boolean containsConselho(String s){
-        return EmpInterior.conselhos.containsKey(s);
-    }
-    
-    public static List<String> getConselhos(){
-        return EmpInterior.conselhos.keySet().stream().collect(Collectors.toList());
-    }
 }

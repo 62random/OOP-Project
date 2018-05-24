@@ -25,6 +25,8 @@ public class BDgeral implements Serializable
     private BDContribuintes individuais;
     private BDFaturas faturas;
     private BDSetores setores;
+    private Map<String,Double> conselhos = new HashMap<>();
+    
     
     
     public BDgeral(){
@@ -32,6 +34,7 @@ public class BDgeral implements Serializable
         this.individuais = new BDContribuintes();
         this.faturas = new BDFaturas();
         this.setores = new BDSetores();
+        adicionaConselhos();
     }
     
 
@@ -41,6 +44,7 @@ public class BDgeral implements Serializable
         this.individuais    = b.clone();
         this.faturas        = c.clone();
         this.setores        = d.clone();
+        adicionaConselhos();
     }
     
     public BDgeral(BDgeral a){
@@ -48,6 +52,7 @@ public class BDgeral implements Serializable
         this.individuais    = a.getBDIndividuais();
         this.faturas        = a.getBDFaturas();
         this.setores        = a.getBDSetores();
+        adicionaConselhos();
     }
     
     
@@ -90,6 +95,34 @@ public class BDgeral implements Serializable
 
     public BDSetores getBDSetores() {
         return this.setores.clone();
+    }
+    
+    private void adicionaConselhos(){
+        this.conselhos.put("Alvito",0.2);
+        this.conselhos.put("Cuba",0.2);
+        this.conselhos.put("Ourique",0.4);
+        this.conselhos.put("Serpa",0.1);
+        this.conselhos.put("Almeida",0.2);
+        this.conselhos.put("Belmonte",0.1);
+        this.conselhos.put("Covilhã",0.4);
+        this.conselhos.put("Fundão",0.2);
+        this.conselhos.put("Guarda",0.05);
+        this.conselhos.put("Gouveia",0.1);
+        this.conselhos.put("Manteigas",0.5);
+        this.conselhos.put("Oleiros",0.1);
+        this.conselhos.put("Seia",0.4);
+        this.conselhos.put("Pinhel",0.1);
+        this.conselhos.put("Penamacor",0.2);
+        this.conselhos.put("Tondela",0.1);
+        this.conselhos.put("Viseu",0.3);
+    }
+    
+    public boolean containsConselho(String s){
+        return this.conselhos.containsKey(s);
+    }
+    
+    public List<String> getConselhos(){
+        return this.conselhos.keySet().stream().collect(Collectors.toList());
     }
     
     public void addIndividual(CIndividual i){
@@ -222,7 +255,7 @@ public class BDgeral implements Serializable
         }
         else if (e instanceof EmpInterior){
             aux1 = (EmpInterior) e;
-            bonus += aux1.reducaoImposto();
+            bonus += aux1.reducaoImposto(this.conselhos);
         }
         
         montante *= bonus;
