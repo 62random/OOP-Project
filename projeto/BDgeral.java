@@ -549,6 +549,34 @@ public class BDgeral implements Serializable
     public List<Fatura> getFaturas_de_Id(Set<Integer> a){
         return this.faturas.faturas_contribuinte(a);
     }
+    //individuais //empresa
+    public void addSetor(int nif,String s, boolean type) throws ErroNotFound{
+        if (type){
+            try{
+                this.individuais.addSetor(s,nif);
+            }
+            catch(ErroNotFound l){
+                throw l;
+            }
+        }
+        else{
+            try{
+                this.empresas.addSetor(s,nif);
+            }
+            catch(ErroNotFound a){
+                throw a;
+            }
+        }
+    }
+    
+    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound{
+        try{
+            this.individuais.addAgregado(nif,nif_agregado);
+        }
+        catch(ErroNotFound l){
+            throw l;
+        }
+    }
     
     
 }

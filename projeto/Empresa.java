@@ -172,5 +172,9 @@ public class Empresa extends Contribuinte implements Serializable
         return this.setores.contains(s);
     }
     
+    public void addSetor(String s){
+        this.setores.add(s);
+    }
+    
     
 }
