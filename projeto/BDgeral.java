@@ -15,6 +15,7 @@ import java.io.*;
 import java.lang.ArithmeticException;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.lang.String;
 
 
 public class BDgeral implements Serializable
@@ -98,23 +99,23 @@ public class BDgeral implements Serializable
     }
     
     private void adicionaConselhos(){
-        this.conselhos.put("Alvito",0.2);
-        this.conselhos.put("Cuba",0.2);
-        this.conselhos.put("Ourique",0.4);
-        this.conselhos.put("Serpa",0.1);
-        this.conselhos.put("Almeida",0.2);
-        this.conselhos.put("Belmonte",0.1);
-        this.conselhos.put("Covilhã",0.4);
-        this.conselhos.put("Fundão",0.2);
-        this.conselhos.put("Guarda",0.05);
-        this.conselhos.put("Gouveia",0.1);
-        this.conselhos.put("Manteigas",0.5);
-        this.conselhos.put("Oleiros",0.1);
-        this.conselhos.put("Seia",0.4);
-        this.conselhos.put("Pinhel",0.1);
-        this.conselhos.put("Penamacor",0.2);
-        this.conselhos.put("Tondela",0.1);
-        this.conselhos.put("Viseu",0.3);
+        this.conselhos.put("Alvito".toUpperCase(),0.2);
+        this.conselhos.put("Cuba".toUpperCase(),0.2);
+        this.conselhos.put("Ourique".toUpperCase(),0.4);
+        this.conselhos.put("Serpa".toUpperCase(),0.1);
+        this.conselhos.put("Almeida".toUpperCase(),0.2);
+        this.conselhos.put("Belmonte".toUpperCase(),0.1);
+        this.conselhos.put("Covilhã".toUpperCase(),0.4);
+        this.conselhos.put("Fundão".toUpperCase(),0.2);
+        this.conselhos.put("Guarda".toUpperCase(),0.05);
+        this.conselhos.put("Gouveia".toUpperCase(),0.1);
+        this.conselhos.put("Manteigas".toUpperCase(),0.5);
+        this.conselhos.put("Oleiros".toUpperCase(),0.1);
+        this.conselhos.put("Seia".toUpperCase(),0.4);
+        this.conselhos.put("Pinhel".toUpperCase(),0.1);
+        this.conselhos.put("Penamacor".toUpperCase(),0.2);
+        this.conselhos.put("Tondela".toUpperCase(),0.1);
+        this.conselhos.put("Viseu".toUpperCase(),0.3);
     }
     
     public boolean containsConselho(String s){

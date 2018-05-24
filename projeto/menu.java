@@ -43,7 +43,8 @@ public class menu extends Exception
         System.out.println("2-Fazer Login");        
         System.out.println("3-Guardar Ficheiro");
         System.out.println("4-Importar Ficheiro");
-        System.out.println("5-Sair");
+        System.out.println("5-Imprimir Conselhos bonificados");
+        System.out.println("6-Sair");
     }
     private static void imprimirmenu2(){
         System.out.println("------------------Registar contribuintes------------------");
@@ -164,13 +165,21 @@ public class menu extends Exception
                          }
                          System.out.println("Rendimento Anual: ");
                          double_1=ac.nextDouble();
-        
+                         
+                         System.out.println("Conselho: ");
+                         string_5=ac.next();
         }
            catch(InputMismatchException e){
            throw new Erros("Falha ao inserir");
         }
-        Empresa empresa_aux = null;            
-        empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,calculaBenE(double_1),faturas); 
+        Empresa empresa_aux = null;
+        if (bd.containsConselho(string_5.toUpperCase()) ) {
+            empresa_aux = new EmpInterior(int_1, string_1, string_2, string_3, string_4, setores,calculaBenE(double_1),faturas, string_5); 
+        }
+        else{   
+            empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,calculaBenE(double_1),faturas); 
+        }
+        
         bd.addEmpresa(empresa_aux);
     }
     
@@ -237,9 +246,16 @@ public class menu extends Exception
            catch(InputMismatchException e){
            throw new Erros("Falha ao inserir");
         }
-        CIndividual individual_aux = null;            
-        individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, calculaBenE(double_1), setores, faturas);
+        
+        CIndividual individual_aux = null;   
+        if(agregados.size() < 4){            
+            individual_aux = new CIndividual(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, calculaBenE(double_1), setores, faturas);
+        }
+        else{         
+            individual_aux = new FamiliaNum(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, calculaBenE(double_1), setores, faturas);
+        }
         bd.addIndividual(individual_aux);
+    
     }
     
     private static Empresa loginEmpresa(BDgeral bd, int nif, String passe) throws ErroNotFound{
@@ -375,10 +391,14 @@ public class menu extends Exception
                     break;
                
                 case 5:
+                    System.out.println(bd.getConselhos().toString());
+                    break;
+                
+                case 6:
                     System.out.println("A sair");
                     flag = 0;
                     break;
-                    
+                
                 default:
                     System.out.println("Opçao Invalida");
                 }
