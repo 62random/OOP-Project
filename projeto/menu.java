@@ -84,7 +84,7 @@ public class menu extends Exception
         System.out.println("3-Faturas por contribuinte numda dada data");
         System.out.println("4-Faturas por contribuinte ");
         System.out.println("5-Total faturado num dado intervalo");
-        System.out.println("6-Total faturado num dado intervalo");
+        System.out.println("6-Adicionar setor");
         System.out.println("7-Log out");
     }
     /**
@@ -94,7 +94,7 @@ public class menu extends Exception
         System.out.println("------------------Menu de Contribuinte Individual------------------");
         System.out.println("Opçoes");
         System.out.println("1-Listagem de faturas");
-        System.out.println("2-Montagem fiscal e do agregado");
+        System.out.println("2-Montagem fiscal do agregado");
         System.out.println("3-Adicionar agregado");
         System.out.println("4-Adicionar setores");
         System.out.println("5-Validar faturas");
@@ -572,9 +572,9 @@ public class menu extends Exception
                         break;
                     }
                     if (int_1 == 1) 
-                        System.out.println(bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif()));
-                    else
                         System.out.println(bd.listagem_ordenada_emp_fatura(true,empresa_atual.getNif()));
+                    else
+                        System.out.println(bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif()));
 
                     break;
                  
@@ -650,7 +650,7 @@ public class menu extends Exception
                  
                 case 6:
                     try{
-                         System.out.println("Setor a inserir : ");
+                         System.out.println("Setor a inserir(cancel para cancelar)   : ");
                          string_1=ac.next();
                     }
                     catch(InputMismatchException e){
@@ -658,7 +658,11 @@ public class menu extends Exception
                         break;
                     }
                     
-                
+                    if(string_1.toUpperCase().equals("CANCEL")){
+                        System.out.println("Cancelado");
+                        break;
+                    }
+                    
                     try{
                         bd.addSetor(empresa_atual.getNif(),string_1,false) ;
                     }
@@ -683,7 +687,6 @@ public class menu extends Exception
                     
                 case 2:
                     
-                    System.out.println("Individual " + Double.toString(bd.deduz_montante(individual_atual)));
                     for(Integer i : individual_atual.getNifsAgregado() ){
                         try{
                             System.out.println(i.toString() + " : " + Double.toString(bd.deduz_montante_Individual(i)));
@@ -697,7 +700,7 @@ public class menu extends Exception
                     
                 case 3:
                     try{
-                         System.out.println("NIF a inserir no agregado: ");
+                         System.out.println("NIF a inserir no agregado (-1 para cancelar): ");
                          int_1=ac.nextInt();
                     }
                     catch(InputMismatchException e){
@@ -705,7 +708,12 @@ public class menu extends Exception
                         break;
                     }
                     
-                
+                    if(int_1 == -1){
+                        System.out.println("Cancelado");
+                        break;
+                    }
+                        
+                    
                     try{
                         bd.addAgregado(individual_atual.getNif(),int_1) ;
                     }
@@ -717,7 +725,7 @@ public class menu extends Exception
                    
                 case 4:
                     try{
-                         System.out.println("Setor a inserir : ");
+                         System.out.println("Setor a inserir (cancel para cancelar): ");
                          string_1=ac.next();
                     }
                     catch(InputMismatchException e){
@@ -725,7 +733,11 @@ public class menu extends Exception
                         break;
                     }
                     
-                
+                    if(string_1.toUpperCase().equals("CANCEL")){
+                        System.out.println("Cancelado");
+                        break;
+                    }
+                    
                     try{
                         bd.addSetor(individual_atual.getNif(),string_1,true) ;
                     }
