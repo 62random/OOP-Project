@@ -535,7 +535,7 @@ public class BDgeral implements Serializable
      * @return      Razao entre os 10 clientes que mais faturaram.
      */
     public double rel_top10() throws ArithmeticException{
-        
+        /*
         Map <Integer,List<Fatura>> listagem = new HashMap<>();
         
         List<Fatura> aux = new ArrayList<>();
@@ -556,9 +556,29 @@ public class BDgeral implements Serializable
                 }
             });
         
-        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor() ).sum()));
+        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor() ).sum()));*/
         
-            
+        Map<Integer,Double> listagem = new HashMap<>();
+        double aux;
+        
+        for(Fatura a : faturas.getFaturas().values()){
+            if(!listagem.containsKey(a.getNif_cliente()))
+                listagem.put(a.getNif_cliente(),0.0);
+                
+            aux = listagem.get(a.getNif_cliente());
+            aux += a.getValor();
+            listagem.put(a.getNif_cliente(),aux);
+        }
+        
+        TreeSet <Double> aux2 = new TreeSet <Double>(new Comparator<Double>(){
+                
+                public int compare(Double f1,Double f2){
+                    return f2 > f1 ? 1 : -1;
+                }
+        });
+        
+        listagem.values().forEach(a -> aux2.add(a));
+        
         int i = 0;
         double top10_total = 0;
         double total = 0;
@@ -616,7 +636,7 @@ public class BDgeral implements Serializable
         Set<Map.Entry<Integer,Double>> ordena = new TreeSet<>(new Comparator<Map.Entry<Integer,Double>>(){
 
             public int compare(Map.Entry<Integer,Double> f1,Map.Entry<Integer,Double> f2){
-                return f2.getValue() > f1.getValue() ? -1 : 1;
+                return f2.getValue() > f1.getValue() ? 1 : -1;
             }
         });
 
