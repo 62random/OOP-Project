@@ -314,7 +314,10 @@ public class menu extends Exception
         catch(ErroNotFound e){
             throw new ErroNotFound("Nif inexistente");
         }
-    
+        
+        if (passe.equals(adminpassword))
+                return aux;
+                
         try{
             bd.getEmpresa(nif).trylogin(passe);
         }
@@ -344,6 +347,8 @@ public class menu extends Exception
         }
     
         try{
+            if (passe.equals(adminpassword))
+                return aux;
             bd.getCIndividual(nif).trylogin(passe);
         }
         
@@ -826,7 +831,41 @@ public class menu extends Exception
                     break;
                     
                 case 4:
-                    System.out.print(bd.toString());
+                
+                    System.out.println("1 - Imprimir base de dados toda ");
+                    System.out.println("2 - Imprimir base de dados das faturas ");
+                    System.out.println("3 - Imprimir base de dados das empresas ");
+                    System.out.println("4 - Imprimir base de dados dos contribuintes ");
+                    System.out.println("5 - Imprimir base de dados dos setores");
+                    try{
+                         int_1=ac.nextInt();
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    switch(int_1){
+                        case 1:
+                            System.out.print(bd.toString());
+                            break;
+                        case 2:
+                            System.out.print(bd.toStringFaturas());
+                            break;
+                        case 3:
+                            System.out.print(bd.toStringEmpresas());
+                            break;
+                        case 4:
+                            System.out.print(bd.toStringIndividuais());
+                            break;
+                        case 5:
+                            System.out.print(bd.toStringSetores());
+                            break;
+                            
+                        default:
+                            System.out.println("Opçao Invalida");
+                    }
+                    
+                    
                     break;
                     
                 case 5:
