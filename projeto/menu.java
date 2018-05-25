@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 
 public class menu extends Exception
 {
+    private final static String adminpassword = "515462";
     /**
       * Metodo que imprime o menu com base no submenu que esta.
       * @param i         Submenu atual.
@@ -538,7 +539,22 @@ public class menu extends Exception
                     break;
                     
                 case 3:
-                    flag = 6;
+                    try{        
+                        System.out.println("Password do admin: ");
+                        string_1 = ac.next();
+                    
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    if (string_1.equals(adminpassword)){
+                        flag = 6;
+                    }
+                    else{
+                        System.out.println("Password errada");
+                    }
+                        
                     break;
                 
                 case 4:
