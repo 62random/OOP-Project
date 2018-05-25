@@ -271,12 +271,52 @@ public class BDgeral implements Serializable
     */
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        sb.append("==============Contribuintes individuais========================= \n");
         sb.append(this.individuais.toString() +"\n");
+        sb.append("==============Empresas========================================== \n");
         sb.append(this.empresas.toString() + "\n");
+        sb.append("==============Faturas=========================================== \n");
         sb.append(this.faturas.toString() + "\n");
+        sb.append("==============Setores de Dedução================================ \n");
         sb.append(this.setores.toString() + "\n");
         
         return sb.toString();
+    }
+    
+    /**
+      * Método toString do objeto que guarda os contribuinte individuais.
+      * @return Objeto em modo string.
+    */
+    
+    public String toStringIndividuais(){
+        return this.individuais.toString() + "\n";
+    }
+    
+    /**
+      * Método toString do objeto guarda as empresas.
+      * @return Objeto em modo string.
+    */
+    
+    public String toStringEmpresas(){
+        return this.empresas.toString() + "\n";
+    }
+    
+    /**
+      * Método toString do objeto guarda os setores de dedução.
+      * @return Objeto em modo string.
+    */
+    
+    public String toStringSetores(){
+        return this.setores.toString() + "\n";
+    }
+    
+    /**
+      * Método toString do objeto guarda as faturas.
+      * @return Objeto em modo string.
+    */
+    
+    public String toStringFaturas(){
+        return this.faturas.toString() + "\n";
     }
     
     /**
@@ -495,6 +535,7 @@ public class BDgeral implements Serializable
      * @return      Razao entre os 10 clientes que mais faturaram.
      */
     public double rel_top10() throws ArithmeticException{
+        
         Map <Integer,List<Fatura>> listagem = new HashMap<>();
         
         List<Fatura> aux = new ArrayList<>();
@@ -516,7 +557,6 @@ public class BDgeral implements Serializable
             });
         
         listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor() ).sum()));
-        
         
             
         int i = 0;
