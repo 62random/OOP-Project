@@ -219,8 +219,10 @@ public class menu extends Exception
       * @param i         Rendimento anual.
     */
     private static double calculaBenE(double i){
-        if (i < 50000)
+        if (i > 50000)
             i = 50000;
+        if (i < 0)
+            i = 0;
         i=-0.00001 * i + 0.5;
             
             
