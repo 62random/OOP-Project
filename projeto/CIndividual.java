@@ -282,6 +282,7 @@ public class CIndividual extends Contribuinte implements Serializable
      */
     public void addAgregado(int nif){
         this.nifs_agregado.add(nif);
+        this.n_agregado = this.nifs_agregado.size();
     }
     
     

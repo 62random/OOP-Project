@@ -511,8 +511,6 @@ public class BDgeral implements Serializable
         TreeSet <Double> aux2 = new TreeSet <Double>(new Comparator<Double>(){
                 
                 public int compare(Double f1,Double f2){
-                    if (f2 == f1)
-                        return 0;
                     return f2 > f1 ? -1 : 1;
                 }
             });
@@ -593,6 +591,7 @@ public class BDgeral implements Serializable
             Map.Entry<Integer,Double> a = (Map.Entry<Integer,Double>) i.next();
             faturado += a.getValue();
             deduzido += deducao.get(a.getKey());
+            k++;
         }
 
 

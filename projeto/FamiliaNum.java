@@ -33,10 +33,19 @@ public class FamiliaNum extends CIndividual implements Serializable
     }
     
     /**
-      * Construtor da classe FamliaNum com argumentos.
+      * Construtor da classe FamliaNum com o mesmo objeto.
       * @param c  FamliaNum a copiar.
     */
     public FamiliaNum(FamiliaNum a){
+        super(a);
+    }
+    
+    /**
+      * Construtor da classe FamliaNum com um objeto CIndividual.
+      * @param c  FamliaNum a copiar.
+    */
+    
+    public FamiliaNum(CIndividual a){
         super(a);
     }
     

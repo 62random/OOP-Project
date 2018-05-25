@@ -183,13 +183,22 @@ public class BDContribuintes implements Serializable
     public void addAgregado(int nif, int nif_agregado) throws ErroNotFound{
         Contribuinte aux = this.dados.get(nif);
         Integer i = new Integer(nif);
+        FamiliaNum nova;
+        int r1,r2 = 0;
         if (aux == null)
             throw new ErroNotFound(i.toString());
             
-        if (aux.getClass().getSimpleName().equals("CIndividual")){
+        if (aux.getClass().getSimpleName().equals("CIndividual") || aux.getClass().getSimpleName().equals("FamiliaNum")){
             CIndividual aux2 = (CIndividual) aux;
+            r1 = aux2.getNumAgregado();
             aux2.addAgregado(nif_agregado);
+            r2 = aux2.getNumAgregado();
+            if (r1 != r2 && r1 == 3){
+                nova = new FamiliaNum(aux2);
+                this.dados.put(nova.getNif(),nova);
+            }
         }
+        
     }
     
     
