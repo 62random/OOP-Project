@@ -634,7 +634,8 @@ public class menu extends Exception
                 case 4:
                     
                     try{
-                        System.out.println(bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif()).toString()) ;
+                       // System.out.println(bd.listagem_ordenada_emp_fatura(false,empresa_atual.getNif()).toString()) ;
+                       System.out.println(bd.listagem_cont_fatura(empresa_atual.getNif()).toString()) ;
                     }
                     catch(java.time.DateTimeException e){
                         System.out.println(e.getMessage());
@@ -742,6 +743,11 @@ public class menu extends Exception
                     }
                     catch( ErroNotFound e){
                         System.out.println("Contribuinte nao encontrado" + e.getMessage());
+                        break;
+                    }
+                    catch( ErroContains l){
+                        System.out.println("Contribuinte " + l.getMessage() + " ou não está inserido ou existe uma empresa com este nif.");
+                        break;
                     }
                     System.out.println("Inserido com sucesso");
                     break;
@@ -766,6 +772,7 @@ public class menu extends Exception
                     }
                     catch( ErroNotFound e){
                         System.out.println("Contribuinte nao encontrado" + e.getMessage());
+                        break;
                     }
                     System.out.println("Inserido com sucesso");
                     break;

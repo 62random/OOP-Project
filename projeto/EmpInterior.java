@@ -79,6 +79,7 @@ public class EmpInterior extends Empresa implements Serializable
         StringBuilder sb = new StringBuilder();
         
         sb.append(super.toString());
+        sb.append("Conselho: ");
         sb.append(this.conselho + "\n");
         
         return sb.toString();

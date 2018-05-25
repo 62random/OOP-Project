@@ -179,10 +179,21 @@ public class BDgeral implements Serializable
      * @param i     Contribuinte a inserir
      */
     public void addIndividual(CIndividual i){
+        StringBuilder sb = new StringBuilder();
+        
         if (this.empresas.contains(i.getNif())){
             System.out.println("Contribuinte " + i.getNif() + " já inserido");
             return;
         }
+
+        Set<Integer> agregados = i.getNifsAgregado();
+        for(Integer k : agregados){
+            if (!this.individuais.contains(i.getNif())){
+                i.removeAgregado(k);
+                sb.append("Contribuinte "+ k + " não inserido -> nif no agregado removido.\n");
+            }
+        }
+        System.out.print(sb.toString());
         
         try{
             this.individuais.addContribuinte(i);
@@ -289,7 +300,10 @@ public class BDgeral implements Serializable
     */
     
     public String toStringIndividuais(){
-        return this.individuais.toString() + "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("==============Contribuintes individuais========================= \n");
+        sb.append(this.individuais.toString() + "\n");
+        return sb.toString();
     }
     
     /**
@@ -298,7 +312,10 @@ public class BDgeral implements Serializable
     */
     
     public String toStringEmpresas(){
-        return this.empresas.toString() + "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("==============Empresas========================================== \n");
+        sb.append(this.empresas.toString() + "\n");
+        return sb.toString();
     }
     
     /**
@@ -307,7 +324,10 @@ public class BDgeral implements Serializable
     */
     
     public String toStringSetores(){
-        return this.setores.toString() + "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("==============Setores de Dedução================================ \n");
+        sb.append(this.setores.toString() + "\n");
+        return sb.toString();
     }
     
     /**
@@ -316,7 +336,10 @@ public class BDgeral implements Serializable
     */
     
     public String toStringFaturas(){
-        return this.faturas.toString() + "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("==============Faturas=========================================== \n");
+        sb.append(this.faturas.toString() + "\n");
+        return sb.toString();
     }
     
     /**
@@ -490,7 +513,7 @@ public class BDgeral implements Serializable
         List<Fatura> aux1;
         
         for(Fatura f : list){
-            if (listagem.containsKey(f.getNif_cliente())){
+            if (!listagem.containsKey(f.getNif_cliente())){
                 aux1 = new ArrayList<>();
                 listagem.put(f.getNif_cliente(),aux1);
             }
@@ -595,7 +618,7 @@ public class BDgeral implements Serializable
             throw new ArithmeticException("Total = 0");
         }
         
-        return top10_total / total;
+        return (top10_total / total)*100;
     }
 
     //12
@@ -803,7 +826,17 @@ public class BDgeral implements Serializable
      * @param nif_agregado  Nif a ser adicionar ao agregado.
      * @return              Lista de faturas.
      */
-    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound{
+    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound,ErroContains{
+        Integer i = new Integer(nif_agregado);
+        if (this.empresas.contains(nif_agregado)){
+            throw new ErroContains(i.toString());
+            //System.out.println(nif_agregado + " pertence a uma empresa");
+        }
+        if (!this.individuais.contains(nif_agregado)){
+            throw new ErroContains(i.toString());
+            //System.out.println(nif_agregado + " não foi inserido na base de dados ainda.");
+        }
+            
         try{
             this.individuais.addAgregado(nif,nif_agregado);
         }

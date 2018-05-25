@@ -277,11 +277,21 @@ public class CIndividual extends Contribuinte implements Serializable
     
     
     /**
-     * Método que verifica se uma data string pertence ao set de setores da classe CIndividual
+     * Método que adiciona um nif de um agregado da classe CIndividual
      * @param s    String a verificar
      */
     public void addAgregado(int nif){
         this.nifs_agregado.add(nif);
+        this.n_agregado = this.nifs_agregado.size();
+    }
+    
+    /**
+     * Método que remova um nif de um agregado da classe CIndividual
+     * @param s    String a verificar
+     */
+    
+    public void removeAgregado(int nif){
+        this.nifs_agregado.remove(nif);
         this.n_agregado = this.nifs_agregado.size();
     }
     
