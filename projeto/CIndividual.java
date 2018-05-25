@@ -41,6 +41,7 @@ public class CIndividual extends Contribuinte implements Serializable
       * @param agregados    Conjunto com os nifs dos agredados.
       * @param ncoefiente   Coeficiente de dedução.
       * @param nsetores     Conjunto de setores em que pode haver descontos.
+      * @param faturas      Conjunto de faturas.
     */
     
     public CIndividual(int nif1,String nemail,String nnome,String nmorada,String npassword,int nn_agregado,Set<Integer> agregados,double ncoeficiente,Set<String> nsetores,Set<Integer> faturas){
@@ -50,6 +51,11 @@ public class CIndividual extends Contribuinte implements Serializable
         this.coeficientefiscal = ncoeficiente;
         setSetores(nsetores);
     }
+    
+    /**
+      * Construtor da classe CIndividual com argumentos.
+      * @param c  CIndividual a copiar.
+    */
     
     public CIndividual(CIndividual c){
         super(c);
@@ -61,6 +67,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que devolve o número de elementos no agregado familiar.
+     * @return numero de elementos do agregado
      */
     
     public int getNumAgregado(){
@@ -77,6 +84,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que devolve o valor do coeficiente fiscal.
+     * @return valor do coeficiente fiscal
      */
     
     public double getCoeficientefiscal(){
@@ -126,6 +134,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que devolve uma cópia do conjunto de setores
+     * @ return copia do conjunto de setores
      */
     
     public Set<String> getSetores(){
@@ -143,6 +152,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que devolve uma cópia do conjunto de nifs do agregado.
+     * @return copia do conjunto de nifs do agregado
      */
     
     public Set<Integer> getNifsAgregado(){
@@ -160,6 +170,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que produz um clone do objeto.
+     * @return clone do objeto
      */
     
     public CIndividual clone(){
@@ -168,6 +179,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método toString.
+     * @return objeto em modo string
      */
     
     public String toString(){
@@ -195,6 +207,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método equals da classe CIndividual
+     * @booelan que representa se o objeto e igual 
      */
     
     public boolean equals(Object o){
@@ -214,6 +227,11 @@ public class CIndividual extends Contribuinte implements Serializable
         
     }
     
+    /**
+     * Método hashCode da classe CIndividual
+     * @return hashcode do objeto
+     */
+    
     public int hashCode(){
         int hash = 7;
         long aux;
@@ -230,18 +248,38 @@ public class CIndividual extends Contribuinte implements Serializable
         return hash;
     }
     
+    /**
+     * Método que calcula a bonificacao da classe CIndividual
+     * @return bonificacao do objeto
+     */    
     public double bonus(){
         return (1+0.01*this.n_agregado + 0.0025*this.setores.size() + this.coeficientefiscal);
     }
+    
+    /**
+     * Método que verifica se uma data string pertence ao set de setores da classe CIndividual
+     * @param s    String a verificar
+     * @return     boolean que representa a existencai do dado setor
+     */
     
     public boolean verificaSetor(String s){
         return this.setores.contains(s);
     }
     
+    
+    /**
+     * Método que adiciona uma setor aos Sets de setores
+     * @param s    String a verificar
+     */
     public void addSetor(String s){
         this.setores.add(s);
     }
     
+    
+    /**
+     * Método que verifica se uma data string pertence ao set de setores da classe CIndividual
+     * @param s    String a verificar
+     */
     public void addAgregado(int nif){
         this.nifs_agregado.add(nif);
     }

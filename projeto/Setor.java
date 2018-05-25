@@ -4,41 +4,71 @@ import java.io.Serializable;
 public class Setor implements Serializable {
     private String nome;
     private double taxa;
-
+    
+    /**
+     * Construtor sem argumentos.
+     */
     public Setor(){
         this.nome   = "";
         this.taxa   = 0;
     }
-
+    
+    /**
+     * Construtor com argumentos.
+      * @param nome         Nome do setor.
+      * @param tax          Taxa do setor.
+     */
     public Setor(String nome, double taxa) {
         this.nome   = nome;
         this.taxa   = taxa;
     }
-
+    
+    /**
+     * Construtor com outra Fatura.
+     * @param f    Fatura a copir.
+     */
     public Setor(Setor setor){
         this.nome   = setor.getNome();
         this.taxa   = setor.getTaxa();
     }
 
 
-
+    /**
+     * Metodo que nome do setor.
+     * @return Nome do setor
+     */
     public String getNome() {
         return nome;
     }
-
+    
+    /**
+     * Metodo altera o nome do setor.
+     * @param nome  Nome do setor
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
+    /**
+     * Metodo que taxa do setor.
+     * @return Taxa do setor
+     */
     public double getTaxa() {
         return taxa;
     }
-
+    
+    /**
+     * Metodo altera a taxa do setor.
+     * @param taxa  Taxa do setor
+     */
     public void setTaxa(double taxa) {
         this.taxa = taxa;
     }
 
-
+    /**
+     * Método equal do objeto.
+     * @return booelan que verifica se o objeto e igual
+     */
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
@@ -46,7 +76,11 @@ public class Setor implements Serializable {
         return  this.getNome() == setor.getNome() &&
                 this.getTaxa() == setor.getTaxa();
     }
-
+    
+    /**
+     * Método hashCode do objeto.
+     * @return hascode do objeto
+     */
     public int hashCode() {
 
         int hash = 7;
@@ -59,11 +93,19 @@ public class Setor implements Serializable {
 
         return hash;
     }
-
+    
+    /**
+     * Método que clona este objeto.
+     * @return clone do objeto
+     */
     public Setor clone(){
         return new Setor(this);
     }
-
+    
+    /**
+     * Método toString do objeto.
+     * @return objeto em modo string
+     */
     public String toString(){
         StringBuilder sb = new StringBuilder();
 

@@ -57,6 +57,7 @@ public class Empresa extends Contribuinte implements Serializable
     
     /**
      * Método que devolve o fator de calculo.
+     * @return coeficiente de deducao fiscal
      */
     
     public double getfatorcal(){
@@ -91,6 +92,7 @@ public class Empresa extends Contribuinte implements Serializable
     
     /**
      * Método que devolve uma cópia do conjunto de setores
+     * @return conjunto de setores
      */
     
     public Set<String> getSetores(){
@@ -107,6 +109,7 @@ public class Empresa extends Contribuinte implements Serializable
     }
     /**
      * Método que clona este objeto.
+     * @return clone do objeto
      */
     
     public Empresa clone(){
@@ -115,6 +118,7 @@ public class Empresa extends Contribuinte implements Serializable
     
     /**
      * Método toString do objeto.
+     * @return objeto em modo string
      */
     
     public String toString(){
@@ -134,6 +138,7 @@ public class Empresa extends Contribuinte implements Serializable
     
     /**
      * Método equal do objeto.
+     * @return booelan que verifica se o objeto e igual
      */
     
     public boolean equals(Object o){
@@ -150,6 +155,10 @@ public class Empresa extends Contribuinte implements Serializable
             && this.fatorcal == aux.getfatorcal();
     }
     
+    /**
+     * Método hashCode do objeto.
+     * @return hascode do objeto
+     */
     public int hashCode(){
         int hash = 7;
         long aux;
@@ -164,14 +173,28 @@ public class Empresa extends Contribuinte implements Serializable
         return hash;
     }
     
+    /**
+     * Método que calcula a bonificacao da classe Empresa
+     * @return bonificacao do objeto
+     */
     public double bonus(){
         return (this.fatorcal + 0.005*this.setores.size());
     }
     
+    
+    /**
+     * Método que verifica um dada string pertence aos setores do objeto
+     * @param       s  setor a vereficar 
+     * @return booelan que representa se o a string pertence ao objeto
+     */
     public boolean verificaSetor(String s){
         return this.setores.contains(s);
     }
     
+    /**
+     * Método que adiciona um setor ao set de setores do objeto
+     * @param       s  setor a adicionar
+     */
     public void addSetor(String s){
         this.setores.add(s);
     }

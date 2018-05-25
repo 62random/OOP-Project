@@ -8,26 +8,58 @@ import java.io.*;
 
 public class FamiliaNum extends CIndividual implements Serializable
 {
+    /**
+     * Contrutor sem argumentos da classe FamiliaNum.
+     */
     public FamiliaNum(){
         super();
     }
     
+    /**
+      * Construtor com argumentos.
+      * @param nif1         Nif a introduzir.
+      * @param nemail       Email a introduzir.
+      * @param nnome        Nome a introduzir.
+      * @param nmorada      Morada a introduzir.
+      * @param npassword    Password a introduzir.
+      * @param nn_agregado  Número de elementos no agregado.
+      * @param agregados    Conjunto com os nifs dos agredados.
+      * @param ncoefiente   Coeficiente de dedução.
+      * @param nsetores     Conjunto de setores em que pode haver descontos.
+      * @param faturas      Conjunto de faturas.
+    */
     public FamiliaNum(int nif1,String nemail,String nnome,String nmorada,String npassword,int nn_agregado,Set<Integer> agregados,double ncoeficiente,Set<String> nsetores,Set<Integer> faturas){
         super(nif1,nemail,nnome,nmorada,npassword,nn_agregado,agregados,ncoeficiente,nsetores,faturas);
     }
     
+    /**
+      * Construtor da classe FamliaNum com argumentos.
+      * @param c  FamliaNum a copiar.
+    */
     public FamiliaNum(FamiliaNum a){
         super(a);
     }
     
+    /**
+     * Método que produz um clone do objeto.
+     * @return clone do objeto
+     */
     public FamiliaNum clone(){
         return new FamiliaNum(this);
     }
     
+    /**
+     * Método toString.
+     * @return objeto em modo string
+     */
     public String toString(){
         return super.toString();
     }
     
+    /**
+     * Método equals da classe FamiliaNum
+     * @booelan que representa se o objeto e igual 
+     */
     public boolean equals(Object o){
         if(this == o)
             return true;
@@ -40,10 +72,18 @@ public class FamiliaNum extends CIndividual implements Serializable
         return super.equals(aux);
     }
     
+    /**
+     * Método hashCode da classe FamiliaNum
+     * @return hashcode do objeto
+     */
     public int hashCode(){
         return super.hashCode();
     }
     
+    /**
+     * Método de reducao de imposto da classe FamliaNum
+     * @return bonificacao do objeto
+     */
     public double reducaoImposto(){
         return 0.05*getNumAgregado();
     }

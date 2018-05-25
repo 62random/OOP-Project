@@ -30,6 +30,9 @@ public class BDgeral implements Serializable
     
     
     
+    /**
+      * Construtor sem argumentos.
+    */
     public BDgeral(){
         this.empresas = new BDContribuintes();
         this.individuais = new BDContribuintes();
@@ -39,7 +42,13 @@ public class BDgeral implements Serializable
     }
     
 
-    
+    /**
+      * Construtor com argumentos.
+      * @param a         Base de Dados de empresas a introduzir.
+      * @param b         Base de Dados de contribuintes individuais a introduzir.
+      * @param c         Base de Dados de faturas a introduzir.
+      * @param d         Base de dados dos setores a introduzir.
+    */
     public BDgeral(BDContribuintes a,BDContribuintes b,BDFaturas c, BDSetores d){
         this.empresas       = a.clone();
         this.individuais    = b.clone();
@@ -48,6 +57,10 @@ public class BDgeral implements Serializable
         adicionaConselhos();
     }
     
+    /**
+      * Construtor com argumentos.
+      * @param a  Contribuinte a copiar.
+    */
     public BDgeral(BDgeral a){
         this.empresas       = a.getBDEmpresas();
         this.individuais    = a.getBDIndividuais();
@@ -56,7 +69,10 @@ public class BDgeral implements Serializable
         adicionaConselhos();
     }
     
-    
+    /**
+      * Metodo para guardar o estado do objeto.
+      * @param a  Nome do ficheiro a guardar.
+    */
     public void guardaEstado(String nome) throws FileNotFoundException ,IOException{
         File f = new File(nome);
         if(!f.exists()){
@@ -70,6 +86,10 @@ public class BDgeral implements Serializable
         oos.close();
     }
     
+    /**
+      * Metodo para carregar o estado de um dado ficheiro.
+      * @param a  Nome do ficheiro a carregar.
+    */
     public void carregaEstado(String nome) throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(nome);
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -81,23 +101,42 @@ public class BDgeral implements Serializable
         this.setores        = h.getBDSetores();
     }
     
-    
+    /**
+      * Get para a variável empresas do objeto.
+      * @return  Base de dados de empresas do objeto.
+    */    
     public BDContribuintes getBDEmpresas(){
         return this.empresas.clone();
     }
     
+    /**
+      * Get para a variável contribuintes individuais do objeto.
+      * @return  Base de dados de contribuintes individuais do objeto.
+    */
     public BDContribuintes getBDIndividuais(){
         return this.individuais.clone();
     }
     
+    /**
+      * Get para a variável faturas do objeto.
+      * @return  Base de dados de faturas do objeto.
+    */
     public BDFaturas getBDFaturas(){
         return this.faturas.clone();
     }
 
+    /**
+      * Get para a variável setores do objeto.
+      * @return  Base de dados dos setores do objeto.
+    */
     public BDSetores getBDSetores() {
         return this.setores.clone();
     }
     
+    
+    /**
+     * Metodo que adiciona conselhos a base de dados de setores.
+     */
     private void adicionaConselhos(){
         this.conselhos.put("Alvito".toUpperCase(),0.2);
         this.conselhos.put("Cuba".toUpperCase(),0.2);
@@ -118,14 +157,27 @@ public class BDgeral implements Serializable
         this.conselhos.put("Viseu".toUpperCase(),0.3);
     }
     
+    /**
+     * Metodo que verifica se um conselho esta inserido na base de dados de setores.
+     * @param s     Setor a verificar.
+     * @return      Boolean que confirma a existencia do conselho.
+     */
     public boolean containsConselho(String s){
         return this.conselhos.containsKey(s);
     }
     
+    /**
+      * Get para a lista de conselhos inseridos no objeto.
+      * @return  Lista de conselhos inseridos no objeto.
+    */
     public List<String> getConselhos(){
         return this.conselhos.keySet().stream().collect(Collectors.toList());
     }
     
+    /**
+     * Metodo que adiciona um contribuinte individual na base de dados
+     * @param i     Contribuinte a inserir
+     */
     public void addIndividual(CIndividual i){
         if (this.empresas.contains(i.getNif())){
             System.out.println("Contribuinte " + i.getNif() + " já inserido");
@@ -140,6 +192,10 @@ public class BDgeral implements Serializable
         }
     }
     
+    /**
+     * Metodo que adiciona uma empresa na base de dados
+     * @param i     Empresa a inserir
+     */
     public void addEmpresa(Empresa i){
         if (this.individuais.contains(i.getNif())){
             System.out.println("Contribuinte " + i.getNif() + " já inserido");
@@ -155,12 +211,27 @@ public class BDgeral implements Serializable
 
     }
     
+    /**
+     * Metodo que adiciona uma fatura na base de dados
+     * @param i     Fatura a inserir
+     */
     public void addFatura(Fatura i){
         this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
     }
 
-    public void addSetor(Setor s){this.setores.addSetor(s);}
+    /**
+     * Metodo que adiciona um setor na base de dados
+     * @param i     Setor a inserir
+     */
+    public void addSetor(Setor s){
+        this.setores.addSetor(s);
+    }
     
+    /**
+      * Metodo que retorna procura uma empresa dado um nif, da throw a ErroNotFound caso nao seja encontrada.
+      * @param  nif Nif a procurar.
+      * @return     Empresa encontrada.
+    */
     public Empresa getEmpresa(int nif) throws ErroNotFound{
         Empresa aux;
         Integer i = new Integer(nif);
@@ -175,6 +246,11 @@ public class BDgeral implements Serializable
         return aux;
     }
     
+    /**
+      * Metodo que retorna procura um contribuinte individual dado um nif, da throw a ErroNotFound caso nao seja encontrado.
+      * @param  nif Nif a procurar.
+      * @return     Contribuinte individual encontrada.
+    */
     public CIndividual getCIndividual(int nif) throws ErroNotFound{
         CIndividual aux;
         Integer i = new Integer(nif);
@@ -189,6 +265,10 @@ public class BDgeral implements Serializable
         return aux;
     }
     
+    /**
+      * Método toString do objeto.
+      * @return Objeto em modo string.
+    */
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.individuais.toString() +"\n");
@@ -198,39 +278,12 @@ public class BDgeral implements Serializable
         
         return sb.toString();
     }
-    //ainda nao foi usado
-    public double deduz(int id){
-        String setor = this.faturas.getFaturas().get(id).getCategoria();
-        double taxa = this.setores.getSetores().get(setor).getTaxa();
-        taxa *= this.faturas.getFaturas().get(id).getValor();
-
-        try {
-            CIndividual cont = (CIndividual) this.individuais.getContribuinte( this.faturas.getFaturas().get(id).getNif_cliente());
-            taxa *= (cont.getNumAgregado()*0.05 + 1);
-        }
-        catch (ErroNotFound e) {
-            System.out.println("fatura sem NIF  de cliente válido (NIF: " + this.faturas.getFaturas().get(id).getNif_cliente() +  ")\n");
-        }
-
-        return taxa;
-    }
-    //ainda nao foi usado
-    public double reembolso(int nif){
-        double ret = 0;
-
-        try {
-            CIndividual cont = (CIndividual) this.individuais.getContribuinte(nif);
-            for(int id : cont.getFaturas()) {
-                ret += deduz(id);
-            }
-        }
-        catch (ErroNotFound e) {
-            System.out.println("NIF de cliente válido (NIF: " + nif +  ")\n");
-        }
-
-        return ret;
-    }
     
+    /**
+      * Método que deduz o montante de um dado contribuinte.
+      * @param  e   Contribuinte a verificar.
+      * @return     Montante a receber do contribuinte.
+    */
     public double deduz_montante(Contribuinte e){
         Set<Integer> idfaturas = e.getFaturas();
         
@@ -264,6 +317,11 @@ public class BDgeral implements Serializable
         return montante;
     }
     
+    /**
+      * Método que deduz o montante de um contribuinte individual,caso nao encontre o contribuinte da throw ErrorNotFound.
+      * @param  nif Contribuinte a verificar.
+      * @return     Montante a receber .
+    */
     public double deduz_montante_Individual(int nif) throws ErroNotFound{
         CIndividual e;
         FamiliaNum aux2;
@@ -302,6 +360,12 @@ public class BDgeral implements Serializable
     }
 
     //7 true ordena por tempo false por valor
+    /**
+     * Metodo que devolve a lista de faturas de uma empresa ordenada conforme os parametros dados.
+     * @param type  Boolean que permite a ordenacao com base o tempo/valor.
+     * @param id    ID da empresa.
+     * @return      Lista de faturas.
+     */
     public List<Fatura> listagem_ordenada_emp_fatura( boolean type, int id){
         Empresa e;
         try {
@@ -332,6 +396,13 @@ public class BDgeral implements Serializable
     }
     
     //8
+    /**
+     * Metodo que devolve a lista de faturas  (Map de <Consumidor,List<Fatura>>) de uma empresa ordenada conforme um intervalo de tempo.
+     * @param start Data inicial.
+     * @param end   Data final.
+     * @param id    ID da empresa.
+     * @return      Map de faturas.
+     */
     public Map<Integer,List<Fatura>> listagem_cont_fatura_time(LocalDate start,LocalDate end, int id){
         Empresa e;
         Map <Integer,List<Fatura>> listagem = new HashMap<>();
@@ -359,7 +430,11 @@ public class BDgeral implements Serializable
     }
     
     //9
-    
+    /**
+     * Metodo que devolve a lista de faturas  (Map de <Consumidor,List<Fatura>>) de uma empresa.
+     * @param id    ID da empresa.
+     * @return      Map de faturas.
+     */
     public Map<Integer,List<Fatura>> listagem_cont_fatura(int id){
         Empresa e;
         Map <Integer,List<Fatura>> listagem = new HashMap<>();
@@ -391,6 +466,13 @@ public class BDgeral implements Serializable
         return listagem;
     }
     //10
+    /**
+     * Metodo que devolve o total faturado de uma empresa ordenada durante um intervalo de tempo.
+     * @param start Data inicial.
+     * @param end   Data final.
+     * @param id    ID da empresa.
+     * @return      Total faturado da empresa.
+     */
     public double total_faturado(LocalDate start, LocalDate end ,int id){
         Empresa e;
         try {
@@ -408,6 +490,10 @@ public class BDgeral implements Serializable
                    .sum();
     }
     //11
+    /**
+     * Metodo que devolve a razao entre os 10 clientes que mais faturaram, da throw a ArithmeticException se o total for 0.
+     * @return      Razao entre os 10 clientes que mais faturaram.
+     */
     public double rel_top10() throws ArithmeticException{
         Map <Integer,List<Fatura>> listagem = new HashMap<>();
         
@@ -456,6 +542,11 @@ public class BDgeral implements Serializable
 
     //12
     // falta fazer
+    /**
+     * Metodo que devolve a razao entre os X clientes que mais faturaram.
+     * @param   x   Numero de clientes.
+     * @return      Total faturado da empresa.
+     */
     public double top_X_faturacao (int x){
         Map<Integer,Double> faturacao = new HashMap<>();
         Map<Integer,Double> deducao = new HashMap<>();
@@ -508,6 +599,11 @@ public class BDgeral implements Serializable
         return (deduzido / faturado)*100;
     }
     
+    /**
+     * Metodo que escolhe o setor de uma fatura faturada por uma dada empresa.
+     * @param   nif Nif da empresa.
+     * @return      Setor escolhido.
+     */
     private String escolheSetor(int nif){
         Empresa aux;
         String fim,fim2 = null;
@@ -552,6 +648,10 @@ public class BDgeral implements Serializable
         
     }
     
+    /**
+     * Metodo que valida as faturas de um dado contribuinte individual.
+     * @param   nif Nif do contribuinte individual.
+     */
     public void valida_faturas_contribuinte(int nif){
         CIndividual aux;
         try{
@@ -592,6 +692,9 @@ public class BDgeral implements Serializable
         
     }
     
+    /**
+     * Metodo que permite o admin aprovar os setores da base de dados, da throw a AdminAprov caso nao existam setores por aprovar.
+     */
     public void Setores_admin() throws AdminAprov{
         try{
             this.setores.admin_aprov();
@@ -601,11 +704,21 @@ public class BDgeral implements Serializable
         }
         
     }
-    
+    /**
+     * Metodo que devolve a listagem de faturas de um dado contribuinte.
+     * @param  a    Lista de faturas do contribuinte.
+     * @return      Lista de faturas.
+     */
     public List<Fatura> getFaturas_de_Id(Set<Integer> a){
         return this.faturas.faturas_contribuinte(a);
     }
     //individuais //empresa
+    /**
+     * Metodo que adiciona um setor a uma empresa/contribuinte individual, da throw a ErrorNotFound caso nao seja encontrado
+     * @param nif       Nif a qual vai ser adicionado o setor
+     * @param s         Setor a ser adicionado
+     * @param type      True caso seja contribuinte individual, false caso seja empresa
+     */
     public void addSetor(int nif,String s, boolean type) throws ErroNotFound{
         if (type){
             try{
@@ -625,6 +738,12 @@ public class BDgeral implements Serializable
         }
     }
     
+    /**
+     * Metodo que adiciona um agregado a um contribuinte individual.
+     * @param  nif          Nif do contribuinte a qual vai ser inserido o agregado.
+     * @param nif_agregado  Nif a ser adicionar ao agregado.
+     * @return              Lista de faturas.
+     */
     public void addAgregado(int nif, int nif_agregado) throws ErroNotFound{
         try{
             this.individuais.addAgregado(nif,nif_agregado);

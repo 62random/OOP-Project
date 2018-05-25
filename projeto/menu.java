@@ -1,4 +1,4 @@
-    import java.util.Scanner;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashSet;
@@ -19,7 +19,10 @@ import java.io.FileNotFoundException;
 
 public class menu extends Exception
 {
-
+    /**
+      * Metodo que imprime o menu com base no submenu que esta.
+      * @param i         Submenu atual.
+    */
     private static void imprimirmenu(int i){
         if (i == 1)
             imprimirmenu1();
@@ -36,6 +39,9 @@ public class menu extends Exception
         
             
     }
+    /**
+      * Metodo que imprime o submenu 1.
+    */
     private static void imprimirmenu1(){
         System.out.println("------------------Java Fatura------------------");
         System.out.println("Opçoes");
@@ -46,6 +52,9 @@ public class menu extends Exception
         System.out.println("5-Imprimir Conselhos bonificados");
         System.out.println("6-Sair");
     }
+    /**
+      * Metodo que imprime o submenu 2.
+    */
     private static void imprimirmenu2(){
         System.out.println("------------------Registar contribuintes------------------");
         System.out.println("Opçoes");
@@ -53,6 +62,9 @@ public class menu extends Exception
         System.out.println("2-Registar Empresa");
         System.out.println("3-Voltar Menu anterior");
     }
+    /**
+      * Metodo que imprime o submenu 3.
+    */
     private static void imprimirmenu3(){
         System.out.println("------------------Menu de Login------------------");
         System.out.println("Opçoes");
@@ -61,6 +73,9 @@ public class menu extends Exception
         System.out.println("3-Login de Contribuinte Admin");
         System.out.println("4-Voltar Menu anterior");
     }
+    /**
+      * Metodo que imprime o submenu 4.
+    */
     private static void imprimirmenu4(){
         System.out.println("------------------Menu de Empresas------------------");
         System.out.println("Opçoes");
@@ -72,6 +87,9 @@ public class menu extends Exception
         System.out.println("6-Total faturado num dado intervalo");
         System.out.println("7-Log out");
     }
+    /**
+      * Metodo que imprime o submenu 5.
+    */
     private static void imprimirmenu5(){
         System.out.println("------------------Menu de Contribuinte Individual------------------");
         System.out.println("Opçoes");
@@ -83,6 +101,9 @@ public class menu extends Exception
         System.out.println("6-Montagem fiscal individual");
         System.out.println("7-Log out");
     }
+    /**
+      * Metodo que imprime o submenu 6.
+    */
     private static void imprimirmenu6(){
         System.out.println("------------------Menu de ADMIN------------------");
         System.out.println("Opçoes");
@@ -93,6 +114,12 @@ public class menu extends Exception
         System.out.println("5-Log out");
     }
     
+    /**
+      * Metodo que insere uma fatura numa base de dados geral.
+      * @param bd         Base de dados onde vai ser inserida o fatura.
+      * @param emp        Empresa que cria a fatura.
+    */
+   
     private static void inserirFatura(BDgeral bd,Empresa emp) throws Erros{
         int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
         double double_1=0;
@@ -132,6 +159,10 @@ public class menu extends Exception
         bd.addFatura(faturaaux);
     }
     
+    /**
+      * Metodo que insere uma empresa numa base de dados geral.
+      * @param bd         Base de dados onde vai ser inserida a empresa.
+    */
     private static void inserirEmpresa(BDgeral bd) throws Erros{
         int int_1,int_2,int_3,int_4, int_5, int_6, int_7 = 0;
         int_6 = 0;
@@ -183,6 +214,10 @@ public class menu extends Exception
         bd.addEmpresa(empresa_aux);
     }
     
+    /**
+      * Metodo que calcula a taxa de beneficiencia com base no rendimento anual.
+      * @param i         Rendimento anual.
+    */
     private static double calculaBenE(double i){
         if (i < 50000)
             i = 50000;
@@ -194,7 +229,10 @@ public class menu extends Exception
     
     }
     
-    
+    /**
+      * Metodo que insere um contribuinte individual numa base de dados geral.
+      * @param bd         Base de dados onde vai ser inserida o contribuinte individual.
+    */
     private static void inserirCIndi(BDgeral bd) throws Erros{
         int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
         int int_7 = 0;
@@ -258,6 +296,12 @@ public class menu extends Exception
     
     }
     
+    /**
+      * Metodo que tenta fazer login de uma empresa, da throw a Erro caso falhe.
+      * @param bd         Base de dados onde vai ser feito o login.
+      * @param nif        Nif da empresa.
+      * @param passe      Password da empresa.
+    */
     private static Empresa loginEmpresa(BDgeral bd, int nif, String passe) throws ErroNotFound{
         Empresa aux;
         try {
@@ -280,7 +324,12 @@ public class menu extends Exception
         
     }
     
-    
+    /**
+      * Metodo que tenta fazer login de um contribuinte individual, da throw a Erro caso falhe.
+      * @param bd         Base de dados onde vai ser feito o login.
+      * @param nif        Nif da contribuinte individual.
+      * @param passe      Password da contribuinte individual.
+    */
     private static CIndividual loginIndividual(BDgeral bd, int nif, String passe) throws ErroNotFound{
         CIndividual aux;
         try {
@@ -302,7 +351,9 @@ public class menu extends Exception
         return aux;
             
     }
-    // instance variables - replace the example below with your own
+    /**
+      * Metodo que tenta imprime o menu e cria interacao com o utilizador .
+    */
     public static void menu()
     {
         Scanner ac = new Scanner(System.in);

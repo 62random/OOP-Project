@@ -17,18 +17,35 @@ public class BDContribuintes implements Serializable
 {
     private Map<Integer,Contribuinte> dados;
     
+    
+    /**
+     * Contrutor sem argumentos da classe BDContribuintes.
+     */
     public BDContribuintes (){
         this.dados = new HashMap<Integer,Contribuinte>();
     }
     
+    /**
+      * Construtor com argumentos.
+      * @param a            Map de contribuintes a introduzir.
+    */
     public BDContribuintes(Map<Integer,Contribuinte> a){
         setDados(a);
     }
     
+    /**
+      * Construtor da classe BDContribuintes com argumentos.
+      * @param a  BDContribuintes a copiar.
+    */
     public BDContribuintes(BDContribuintes a){
         this.dados = a.getDados();
     }
     
+    
+    /**
+     * Método que devolve a base de dados de contribuinte.
+     * @return base de dados de contribuinte
+     */
     public Map<Integer,Contribuinte> getDados(){
         return this.dados.entrySet()
                          .stream()
@@ -36,15 +53,27 @@ public class BDContribuintes implements Serializable
                                                    (e)->e.getValue().clone()));
     }
     
+    /**
+     * Método que altera a base de dados de contribuinte.
+     * @param a     Valor a inserir.
+     */ 
     public void setDados(Map<Integer,Contribuinte> a){
         this.dados = new HashMap <Integer,Contribuinte>();
         a.values().stream().forEach(e -> this.dados.put(e.getNif(),e.clone()));
     }
     
+    /**
+     * Método que clona este objeto.
+     * @return clone do objeto
+     */
     public BDContribuintes clone(){
         return new BDContribuintes(this);
     }
     
+    /**
+     * Método toString do objeto.
+     * @return objeto em modo string
+     */
     public String toString(){
         StringBuilder sb = new StringBuilder();
         
@@ -54,7 +83,10 @@ public class BDContribuintes implements Serializable
         return sb.toString();
     }
     
-    
+    /**
+     * Método equal do objeto.
+     * @return booelan que verifica se o objeto e igual
+     */
     public boolean equals(Object object){
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
@@ -65,7 +97,11 @@ public class BDContribuintes implements Serializable
         return aux1.equals(this.dados);
     }
     
-    
+    /**
+     * Método que devolve o contribuinte dado um nif, da throw a erro caso nao encontre.
+     * @param nif   nif a procurar
+     * @return coeficiente de deducao fiscal
+     */
     public Contribuinte getContribuinte(int nif) throws ErroNotFound{
         Contribuinte aux = this.dados.get(nif);
         
@@ -76,6 +112,10 @@ public class BDContribuintes implements Serializable
         return aux.clone();
     }
     
+    /**
+     * Método que adiciona um contribuinte na base de dados de contribuintes.
+     * @param o    Contribuinte a adicionar
+     */
     public void addContribuinte(Contribuinte o) throws ErroNotFound{
         Integer i = new Integer(o.getNif());
         
@@ -85,6 +125,11 @@ public class BDContribuintes implements Serializable
         this.dados.put(o.getNif(),o.clone());
     }
     
+    /**
+     * Método que verifica se contem um dado nif numa base de dados.
+     * @param nif   nif a procurar
+     * @return boolean que representa se o nif encontra-se na base de dados.
+     */
     public boolean contains(int nif){
         Contribuinte a = this.dados.get(nif);
         
@@ -94,12 +139,21 @@ public class BDContribuintes implements Serializable
         return true;
     }
     
+    /**
+     * Método que altera a fatura com base num id.
+     * @param id    id da fatura 
+     * @param nif   nif do contribuinte
+     */
     public void setFaturaId(int id,int nif){
         Contribuinte a = this.dados.get(nif);
         a.setFatura(id);
 
     }
-
+    
+    /**
+     * Método que devolve o um map de <Nif,Faturas desse nif> inseridas na base de dados.
+     * @return map de <Nif,Faturas desse Nif>
+     */
     public Map<Integer,Set<Integer>> getFaturasIds(){
         Map<Integer,Set<Integer>> aux = new HashMap<>();
 
@@ -108,6 +162,11 @@ public class BDContribuintes implements Serializable
         return aux;
     }
     
+    /**
+     * Método que adiciona um setor a um dado contribuinte.
+     * @param s         Setor a adicionar
+     * @param nif       Nif do contribuinte
+     */
     public void addSetor(String s, int nif) throws ErroNotFound{
         Contribuinte aux = this.dados.get(nif);
         Integer i = new Integer(nif);
@@ -116,6 +175,11 @@ public class BDContribuintes implements Serializable
         aux.addSetor(s);
     }
     
+    /**
+     * Método que adiciona um agregado a um dado contribuinte.
+     * @param s         agregado a adicionar
+     * @param nif       Nif do contribuinte
+     */
     public void addAgregado(int nif, int nif_agregado) throws ErroNotFound{
         Contribuinte aux = this.dados.get(nif);
         Integer i = new Integer(nif);

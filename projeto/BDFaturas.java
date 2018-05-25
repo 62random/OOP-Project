@@ -13,22 +13,37 @@ public class BDFaturas implements Serializable
 {
     private Map<Integer,Fatura> faturas;
     private Set<Integer> faturas_porval;
-
+    
+    /**
+     * Construtor sem argumentos.
+     */
     public BDFaturas (){
         this.faturas = new HashMap<Integer,Fatura>();
         this.faturas_porval = new HashSet<Integer>();
     }
     
+    /**
+      * Construtor com argumentos.
+      * @param a        Map de faturas a introduzir.
+    */
     public BDFaturas(Map<Integer,Fatura> a){
         setFaturas(a);
         this.faturas_porval = new HashSet<Integer>();
     }
     
+    /**
+     * Construtor com outra Fatura.
+     * @param f    Fatura a copir.
+     */
     public BDFaturas(BDFaturas a){
         this.faturas_porval = a.getFaturas_porval();
         this.faturas = a.getFaturas();
     }
-    
+        
+    /**
+      * Get para a variável faturas do objeto.
+      * @return  Faturas (Map<Integer,Fatura>) do objeto
+    */
     public Map<Integer,Fatura> getFaturas(){
         return this.faturas.values()
                            .stream()
@@ -36,11 +51,19 @@ public class BDFaturas implements Serializable
                                                      (e)->e.clone()));
     }
     
+    /**
+       * Método set da variável faturas.
+       * @param a       Valor a introduzir.
+    */
     public void setFaturas(Map<Integer,Fatura> a){
         this.faturas = new HashMap <Integer,Fatura>();
         a.values().stream().forEach(e -> this.faturas.put(e.getId(),e.clone()));
     }
     
+    /**
+      * Get para a variável faturas_porval do objeto.
+      * @return  Faturas por validar (Set<Integer>) do objeto
+    */
     public Set<Integer> getFaturas_porval(){
         Set<Integer> aux = new HashSet<Integer>();
         this.faturas_porval.forEach( a -> aux.add(a));
@@ -48,10 +71,18 @@ public class BDFaturas implements Serializable
         return aux;
     }
     
+    /**
+     * Método que clona este objeto.
+     * @return clone do objeto
+     */
     public BDFaturas clone(){
         return new BDFaturas(this);
     }
     
+    /**
+     * Método toString do objeto.
+     * @return objeto em modo string
+     */
     public String toString(){
         StringBuilder sb = new StringBuilder();
         
@@ -67,6 +98,10 @@ public class BDFaturas implements Serializable
         return sb.toString();
     }
     
+    /**
+     * Método equal do objeto.
+     * @return booelan que verifica se o objeto e igual
+     */
     public boolean equals(Object object){
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
@@ -77,7 +112,13 @@ public class BDFaturas implements Serializable
         return aux1.equals(this.faturas);
     }
 
-        
+    /**
+     * Método que adiciona uma fatura ao objeto.
+     * param a  Fatura a adicionar.
+     * param i  Base de dados dos contribuintes individuais.
+     * param e  Base de dados dos contribuintes empresas.
+     * param d  Base de dados dos setores.
+     */    
     public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e, BDSetores d){
         Empresa aux;
         CIndividual aux2;
@@ -107,6 +148,11 @@ public class BDFaturas implements Serializable
         this.faturas.put(a.getId(),a.clone());
     }
 
+    /**
+     * Metodo que retorna uma fatura de um dado id, caso nao encontra efetua throw ErrorNotFound
+     * @param   id  Id a efetuar procura.
+     * @return      Fatura do id.
+     */
     public Fatura getFatura(int id) throws ErroNotFound {
         Fatura a;
 
@@ -119,6 +165,13 @@ public class BDFaturas implements Serializable
         return a;
     }
     
+    /**
+     * Metodo que retorna uma lista de faturas de um dado id e numa dada data.
+     * @param   start   Id a efetuar procura.
+     * @param   end     Id a efetuar procura.
+     * @param   islist  Id a efetuar procura.
+     * @return          Lista das faturas.
+     */
     public List<Fatura> faturas_no_intervalo(LocalDate start ,LocalDate end, Set<Integer> idlist){
         return this.faturas.values().stream()
                                     .filter(b -> idlist.contains(b.getId()) 
@@ -128,6 +181,12 @@ public class BDFaturas implements Serializable
                                     .collect(Collectors.toList());
     }
     
+    
+    /**
+     * Metodo que retorna uma lista de faturas dos ids dados.
+     * @param   islist  Ids para efetuar procura.
+     * @return          Lista das faturas.
+     */
     public List<Fatura> faturas_contribuinte(Set<Integer> idlist){
         return this.faturas.values().stream()
                                     .filter( b -> idlist.contains(b.getId()))
@@ -135,12 +194,23 @@ public class BDFaturas implements Serializable
                                     .collect(Collectors.toList());
     }
     
+    /**
+     * Metodo que verifica se existe uma data fatura esta validada.
+     * @param id    Fatura a verificar.
+     * @return      Boolean que representa se a fatura foi ou nao validada.
+     */
     public boolean check_val_fatura(int id){
         if (this.faturas_porval.contains(id))
             return false;
         return true;
     }
     
+    /**
+     * Metodo que valida uma data fatura,da throw a ErrorNotFound caso nao seja encontrada a fatura e FaturaVal caso a fatura esteja valida.
+     * @param id        Fatura a validar.
+     * @param setor     Setor da fatura.
+     * @param set       Base de dados dos setores.
+     */
     public void valida_fatura(int id,String setor,BDSetores set) throws ErroNotFound,FaturaVal{
         Fatura a = this.faturas.get(id);
         Integer i = new Integer(id);

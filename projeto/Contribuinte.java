@@ -68,7 +68,8 @@ public abstract class Contribuinte implements Serializable
     }
 
     /**
-      * Get para a variável nif do objeto.
+      * Get para a variável nif do objeto
+      * @return  nif do objeto
     */
     
     public int getNif(){
@@ -77,6 +78,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável email do objeto.
+      * @return email do objeto
     */
     
     public String getEmail(){
@@ -85,6 +87,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável Nome do objeto.
+      * @return nome do objeto
     */
     
     public String getNome(){
@@ -93,6 +96,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável morada do objeto.
+      * @return morada do objeto
     */
     
     public String getMorada(){
@@ -101,12 +105,17 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável password do objeto.
+      * @return password do objeto
     */
     
     public String getPassword(){ /*Acho que isto não devia ter get, mas em vez disso uma função que recebe uma string e retorna um booleano (caso a string coincida com a pass)*/
         return this.password;
     }
     
+    /**
+      * Get para a variável faturas do objeto.
+      * @return faturas do objeto
+    */
     public Set<Integer> getFaturas(){
         Set<Integer> nova = new TreeSet<>();
         Iterator <Integer> i = this.faturas.iterator();
@@ -122,18 +131,21 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Método clone do objeto Contribuinte.
+      * @return clone do objeto
     */
     
     public abstract Contribuinte clone();
     
     /**
      * Método abstrato para calcular o bonús do contribuinte.
+     * @return bonificacao do contribuinte
      */
     
     public abstract double bonus();
 
     /**
       * Método toString do objeto Contribuinte.
+      * @return objeto em modo string
     */
     
     public String toString(){
@@ -160,8 +172,7 @@ public abstract class Contribuinte implements Serializable
     /**
        * Método set da variável nif.
        * @param a valor a introduzir.
-    */
-    
+    */    
     public void setNif(int a){
         this.nif = a;
     }
@@ -205,7 +216,10 @@ public abstract class Contribuinte implements Serializable
         this.password = p;
     }
     
-
+    /**
+       * Método set para o set de faturas.
+       * @param p valor a introduzir.
+    */
     public void setFaturas(Set<Integer> a){
         this.faturas = new TreeSet<Integer>();
 
@@ -221,6 +235,7 @@ public abstract class Contribuinte implements Serializable
     /**
        * Método equals para a classe Contribuinte.
        * @param o objeto a comparar.
+       * @return boleano que representa se a objeto e igual
     */
 
     public boolean equals(Object o){
@@ -240,6 +255,10 @@ public abstract class Contribuinte implements Serializable
             && aux.getFaturas().equals(this.faturas);
     }
     
+    /**
+       * Método hashCode para a classe Contribuinte.
+       * @return hashcode do objeto
+    */
     public int hashCode(){
         int hash = 7;
         
@@ -257,6 +276,7 @@ public abstract class Contribuinte implements Serializable
     /**
        * Método de verificao de login do contribuinte.
        * @param Password a verificar.
+       * @return booelan que representa que foi feito o login
     */
     public boolean trylogin(String passe) throws ErroNotFound{
         if (!this.getPassword().equals(passe))
@@ -264,13 +284,23 @@ public abstract class Contribuinte implements Serializable
         return true;
         }
     
-    
+    /**
+       * Método para adicionar uma fatura ao set de faturas.
+       * @param id valor a introduzir.
+    */
     public void setFatura(int id){
         this.faturas.add(id);
     }
-    
+    /**
+      * Método abstrato para vereficar a existencia de um setor do objeto Contribuinte.
+      * @param s  Fator a comparar
+    */
     public abstract boolean verificaSetor(String s);
     
+    /**
+      * Método abstrato que adiciona um setor ao objeto Contribuinte.
+      * @param s  Setor a adicionar
+    */
     public abstract void addSetor(String S);
     
     
