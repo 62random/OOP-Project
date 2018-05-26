@@ -1,4 +1,4 @@
-import java.util.Scanner;
+    import java.util.Scanner;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashSet;
@@ -757,6 +757,11 @@ public class JavaFatura extends Exception
                         System.out.println("Contribuinte " + l.getMessage() + " ou não está inserido ou existe uma empresa com este nif.");
                         break;
                     }
+                    catch( Erros l){
+                        System.out.println("Contribuinte ja pertence ao agregado.");
+                        break;
+                    }
+                    
                     System.out.println("Inserido com sucesso");
                     break;
                    
