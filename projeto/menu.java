@@ -689,9 +689,11 @@ public class menu extends Exception
                     
                     try{
                         bd.addSetor(empresa_atual.getNif(),string_1,false) ;
+                        empresa_atual = bd.getEmpresa(empresa_atual.getNif()); // isto supostamente nunca da erro
                     }
                     catch( ErroNotFound e){
-                        System.out.println("Contribuinte nao encontrado" + e.getMessage());
+                        System.out.println("Contribuinte nao encontrado " + e.getMessage());
+                        break;
                     }
                     System.out.println("Inserido com sucesso");
                     break;
@@ -740,6 +742,7 @@ public class menu extends Exception
                     
                     try{
                         bd.addAgregado(individual_atual.getNif(),int_1) ;
+                        individual_atual = bd.getCIndividual(individual_atual.getNif()); // nao deve dar erro :/
                     }
                     catch( ErroNotFound e){
                         System.out.println("Contribuinte nao encontrado" + e.getMessage());
@@ -769,6 +772,7 @@ public class menu extends Exception
                     
                     try{
                         bd.addSetor(individual_atual.getNif(),string_1,true) ;
+                        individual_atual = bd.getCIndividual(individual_atual.getNif()); // nao deve dar erro :/
                     }
                     catch( ErroNotFound e){
                         System.out.println("Contribuinte nao encontrado" + e.getMessage());
