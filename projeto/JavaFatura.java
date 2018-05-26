@@ -866,7 +866,7 @@ public class JavaFatura extends Exception
                     try{
                         System.out.println("Numero de empresas: ");
                         int_1=ac.nextInt();
-                        System.out.println(Double.toString(bd.rel_top10()));
+                        System.out.println(Double.toString(bd.top_X_faturacao(int_1)));
                     }
                     
                     catch (ArithmeticException e){
