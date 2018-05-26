@@ -178,12 +178,12 @@ public class BDgeral implements Serializable
      * Metodo que adiciona um contribuinte individual na base de dados
      * @param i     Contribuinte a inserir
      */
-    public void addIndividual(CIndividual i){
+    public void addIndividual(CIndividual i) throws ErroNotFound,ErroContains{
         StringBuilder sb = new StringBuilder();
+        Integer t = new Integer(i.getNif());
         
         if (this.empresas.contains(i.getNif())){
-            System.out.println("Contribuinte " + i.getNif() + " já inserido");
-            return;
+            throw new ErroContains(i.toString());
         }
 
         Set<Integer> agregados = i.getNifsAgregado();
@@ -199,7 +199,7 @@ public class BDgeral implements Serializable
             this.individuais.addContribuinte(i);
         }
         catch (ErroNotFound l){
-            System.out.println("Contribuinte " + l.getMessage() + " já inserido");
+            throw l;
         }
     }
     
@@ -207,17 +207,18 @@ public class BDgeral implements Serializable
      * Metodo que adiciona uma empresa na base de dados
      * @param i     Empresa a inserir
      */
-    public void addEmpresa(Empresa i){
+    public void addEmpresa(Empresa i) throws ErroNotFound,ErroContains{
+        Integer t = new Integer(i.getNif());
+        
         if (this.individuais.contains(i.getNif())){
-            System.out.println("Contribuinte " + i.getNif() + " já inserido");
-            return;
+            throw new ErroContains(i.toString());
         }
         
         try{
             this.empresas.addContribuinte(i);
         }
         catch (ErroNotFound l){
-            System.out.println("Contribuinte " + l.getMessage() + " já inserido");
+            throw l;
         }
 
     }
@@ -685,16 +686,18 @@ public class BDgeral implements Serializable
 
         Map<Integer,Contribuinte> database = this.empresas.getDados();
 
-        Double singlefac;
+        Double singlefac,singledec;
 
         //total faturado
         for(Map.Entry<Integer,Contribuinte> c : database.entrySet()) {
             singlefac = 0.0;
+            singledec = 0.0;
 
             for (int i : c.getValue().getFaturas()) {
                 try{
                     Fatura aux = this.faturas.getFatura(i);
                     singlefac += aux.getValor();
+                    singledec += deducao_fatura_total(aux);
                 }
                 catch (ErroNotFound e){
                     System.out.println("Fatura " + e.getMessage() + " não encontrada");
@@ -702,8 +705,9 @@ public class BDgeral implements Serializable
 
             }
             faturacao.put(c.getKey(),singlefac);
-            //deducao.put(c.getKey(),deduz_montante(c.getValue()));
+            deducao.put(c.getKey(),singledec);
             singlefac = 0.0;
+            singledec = 0.0;
         }
         
         //ordena
