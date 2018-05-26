@@ -786,8 +786,12 @@ public class menu extends Exception
                     
                     break;
                 case 6:
-                    
-                    System.out.println(Double.toString(bd.deduz_montante(individual_atual)));
+                    try{
+                        System.out.println(Double.toString(bd.deduz_montante(individual_atual)));
+                    }
+                    catch(ErroComum l){
+                        System.out.println("Classe passada como argumento não compatível.");
+                    }
                     break;
                     
                 case 7:

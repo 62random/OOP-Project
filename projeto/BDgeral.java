@@ -369,6 +369,26 @@ public class BDgeral implements Serializable
         return montante;
     }
     
+    public double deducao_fatura_total(Fatura a){
+        double montante = deducao_fatura_semCliente(a),bonus;
+        CIndividual aux1;
+        FamiliaNum aux2;
+        try{
+            aux1 = (CIndividual) this.individuais.getContribuinte(a.getNif_cliente());
+        }
+        catch(ErroNotFound l){
+            return 0.0;
+        }
+        bonus = aux1.bonus();
+        if (aux1 instanceof FamiliaNum){
+            aux2 = (FamiliaNum) aux1;
+            bonus += aux2.reducaoImposto();
+        }
+        
+        montante *= bonus;
+        return montante;
+    }
+    
     /**
       * Método que deduz o montante de um dado contribuinte.
       * @param  e   Contribuinte a verificar.
@@ -380,7 +400,6 @@ public class BDgeral implements Serializable
         
         Set<Integer> idfaturas = e.getFaturas();
         
-        EmpInterior aux1;
         FamiliaNum aux2;
         double montante = 0;
         double bonus;
@@ -431,7 +450,7 @@ public class BDgeral implements Serializable
             try{
                 Fatura a = this.faturas.getFatura(i);
                 if (e.verificaSetor(a.getCategoria()))
-                    montante += a.getValor() * this.setores.getBonificacao(a.getCategoria());
+                    montante += deducao_fatura_semCliente(a);
             }
             catch(ErroNotFound a){
                 System.out.println("Fatura " + a.getMessage() + " não encontrada.");
