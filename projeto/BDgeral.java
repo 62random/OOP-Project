@@ -355,6 +355,7 @@ public class BDgeral implements Serializable
             aux1 = (Empresa) this.empresas.getContribuinte(a.getNif_emitente());
         }
         catch(ErroNotFound l){
+            System.out.println("bugssssss");
             return 0.0;
         }
         
@@ -370,9 +371,13 @@ public class BDgeral implements Serializable
     }
     
     public double deducao_fatura_total(Fatura a){
+        if (!this.faturas.check_val_fatura(a.getId()))
+            return 0.0;
+            
         double montante = deducao_fatura_semCliente(a),bonus;
         CIndividual aux1;
         FamiliaNum aux2;
+        
         try{
             aux1 = (CIndividual) this.individuais.getContribuinte(a.getNif_cliente());
         }
@@ -407,7 +412,7 @@ public class BDgeral implements Serializable
         for(Integer i : idfaturas){
             try{
                 Fatura a = this.faturas.getFatura(i);
-                if (e.verificaSetor(a.getCategoria()))
+                if (e.verificaSetor(a.getCategoria()) && this.faturas.check_val_fatura(a.getId()))
                     montante += deducao_fatura_semCliente(a);
             }
             catch(ErroNotFound a){
@@ -449,7 +454,7 @@ public class BDgeral implements Serializable
         for(Integer i : idfaturas){
             try{
                 Fatura a = this.faturas.getFatura(i);
-                if (e.verificaSetor(a.getCategoria()))
+                if (e.verificaSetor(a.getCategoria()) && this.faturas.check_val_fatura(a.getId()))
                     montante += deducao_fatura_semCliente(a);
             }
             catch(ErroNotFound a){
@@ -872,7 +877,7 @@ public class BDgeral implements Serializable
      * @param nif_agregado  Nif a ser adicionar ao agregado.
      * @return              Lista de faturas.
      */
-    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound,ErroContains{
+    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound,ErroContains,Erros{
         Integer i = new Integer(nif_agregado);
         if (this.empresas.contains(nif_agregado)){
             throw new ErroContains(i.toString());
@@ -888,6 +893,9 @@ public class BDgeral implements Serializable
         }
         catch(ErroNotFound l){
             throw l;
+        }
+        catch(Erros ka){
+            throw ka;
         }
     }
     

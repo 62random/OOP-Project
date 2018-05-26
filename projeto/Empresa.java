@@ -178,7 +178,7 @@ public class Empresa extends Contribuinte implements Serializable
      * @return bonificacao do objeto
      */
     public double bonus(){
-        return (this.fatorcal + 0.005*this.setores.size());
+        return (1 + this.fatorcal + 0.005*this.setores.size());
     }
     
     

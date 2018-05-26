@@ -180,7 +180,7 @@ public class BDContribuintes implements Serializable
      * @param s         agregado a adicionar
      * @param nif       Nif do contribuinte
      */
-    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound{
+    public void addAgregado(int nif, int nif_agregado) throws ErroNotFound,Erros{
         Contribuinte aux = this.dados.get(nif);
         Integer i = new Integer(nif);
         FamiliaNum nova;
@@ -197,6 +197,8 @@ public class BDContribuintes implements Serializable
                 nova = new FamiliaNum(aux2);
                 this.dados.put(nova.getNif(),nova);
             }
+            if (r1 == r2)
+                throw new Erros();
         }
         
     }

@@ -119,7 +119,9 @@ public class EmpInterior extends Empresa implements Serializable
      * @return      Reducao do imposto
      */
     public double reducaoImposto(Map<String,Double> a){
-        return a.get(this.conselho);
+        if (a.get(this.conselho.toUpperCase()) == null)
+            return 0.0;
+        return a.get(this.conselho.toUpperCase());
     }
     
 }
