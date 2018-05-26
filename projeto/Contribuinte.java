@@ -218,7 +218,7 @@ public abstract class Contribuinte implements Serializable
     
     /**
        * Método set para o set de faturas.
-       * @param p valor a introduzir.
+       * @param a valor a introduzir.
     */
     public void setFaturas(Set<Integer> a){
         this.faturas = new TreeSet<Integer>();
@@ -275,7 +275,7 @@ public abstract class Contribuinte implements Serializable
     
     /**
        * Método de verificao de login do contribuinte.
-       * @param Password a verificar.
+       * @param passe a verificar.
        * @return booelan que representa que foi feito o login
     */
     public boolean trylogin(String passe) throws ErroNotFound{
@@ -299,7 +299,7 @@ public abstract class Contribuinte implements Serializable
     
     /**
       * Método abstrato que adiciona um setor ao objeto Contribuinte.
-      * @param s  Setor a adicionar
+      * @param S  Setor a adicionar
     */
     public abstract void addSetor(String S);
     

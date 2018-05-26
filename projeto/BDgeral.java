@@ -71,7 +71,7 @@ public class BDgeral implements Serializable
     
     /**
       * Metodo para guardar o estado do objeto.
-      * @param a  Nome do ficheiro a guardar.
+      * @param nome  Nome do ficheiro a guardar.
     */
     public void guardaEstado(String nome) throws FileNotFoundException ,IOException{
         File f = new File(nome);
@@ -88,7 +88,7 @@ public class BDgeral implements Serializable
     
     /**
       * Metodo para carregar o estado de um dado ficheiro.
-      * @param a  Nome do ficheiro a carregar.
+      * @param nome  Nome do ficheiro a carregar.
     */
     public void carregaEstado(String nome) throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(nome);
@@ -232,7 +232,7 @@ public class BDgeral implements Serializable
 
     /**
      * Metodo que adiciona um setor na base de dados
-     * @param i     Setor a inserir
+     * @param s     Setor a inserir
      */
     public void addSetor(Setor s){
         this.setores.addSetor(s);
@@ -343,7 +343,7 @@ public class BDgeral implements Serializable
     }
     /**
       * Método que deduz o montante de uma fatura sem ter em conta o cliente.
-      * @param  e   Fatura a verificar.
+      * @param  a   Fatura a verificar.
       * @return     Montante a receber do contribuinte.
     */
     

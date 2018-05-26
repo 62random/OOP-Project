@@ -39,7 +39,7 @@ public class CIndividual extends Contribuinte implements Serializable
       * @param npassword    Password a introduzir.
       * @param nn_agregado  Número de elementos no agregado.
       * @param agregados    Conjunto com os nifs dos agredados.
-      * @param ncoefiente   Coeficiente de dedução.
+      * @param ncoeficiente Coeficiente de dedução.
       * @param nsetores     Conjunto de setores em que pode haver descontos.
       * @param faturas      Conjunto de faturas.
     */
@@ -117,7 +117,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que copia um set de String para o set com os setores de dedução.
-     * @param agregados Set a copiar.
+     * @param setores Set a copiar.
      */
     
     public void setSetores(Set<String> setores){
@@ -278,7 +278,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que adiciona um nif de um agregado da classe CIndividual
-     * @param s    String a verificar
+     * @param nif Nif do agregado a adicionar.
      */
     public void addAgregado(int nif){
         this.nifs_agregado.add(nif);
@@ -287,7 +287,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que remova um nif de um agregado da classe CIndividual
-     * @param s    String a verificar
+     * @param nif  Nif do agregado a remover.
      */
     
     public void removeAgregado(int nif){

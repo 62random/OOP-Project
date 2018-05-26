@@ -177,8 +177,8 @@ public class BDContribuintes implements Serializable
     
     /**
      * Método que adiciona um agregado a um dado contribuinte.
-     * @param s         agregado a adicionar
-     * @param nif       Nif do contribuinte
+     * @param nif_agregado  Agregado a adicionar
+     * @param nif           Nif do contribuinte
      */
     public void addAgregado(int nif, int nif_agregado) throws ErroNotFound,Erros{
         Contribuinte aux = this.dados.get(nif);

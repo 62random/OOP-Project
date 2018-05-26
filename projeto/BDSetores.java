@@ -31,8 +31,8 @@ public class BDSetores implements Serializable {
     }
     
     /**
-     * Construtor com outra Fatura.
-     * @param f    Fatura a copir.
+     * Construtor com outra BDSetores.
+     * @param bdSetores    BDSetores a copiar.
      */
     public BDSetores(BDSetores bdSetores){
         this.setores = bdSetores.getSetores();

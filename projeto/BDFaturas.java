@@ -32,8 +32,8 @@ public class BDFaturas implements Serializable
     }
     
     /**
-     * Construtor com outra Fatura.
-     * @param f    Fatura a copir.
+     * Construtor com outra BDFaturas.
+     * @param a    Base de dados de faturas a copiar.
      */
     public BDFaturas(BDFaturas a){
         this.faturas_porval = a.getFaturas_porval();
@@ -169,7 +169,7 @@ public class BDFaturas implements Serializable
      * Metodo que retorna uma lista de faturas de um dado id e numa dada data.
      * @param   start   Id a efetuar procura.
      * @param   end     Id a efetuar procura.
-     * @param   islist  Id a efetuar procura.
+     * @param   idlist  Id a efetuar procura.
      * @return          Lista das faturas.
      */
     public List<Fatura> faturas_no_intervalo(LocalDate start ,LocalDate end, Set<Integer> idlist){

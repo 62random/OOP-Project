@@ -24,7 +24,7 @@ public class FamiliaNum extends CIndividual implements Serializable
       * @param npassword    Password a introduzir.
       * @param nn_agregado  Número de elementos no agregado.
       * @param agregados    Conjunto com os nifs dos agredados.
-      * @param ncoefiente   Coeficiente de dedução.
+      * @param ncoeficiente   Coeficiente de dedução.
       * @param nsetores     Conjunto de setores em que pode haver descontos.
       * @param faturas      Conjunto de faturas.
     */
@@ -34,7 +34,7 @@ public class FamiliaNum extends CIndividual implements Serializable
     
     /**
       * Construtor da classe FamliaNum com o mesmo objeto.
-      * @param c  FamliaNum a copiar.
+      * @param a  FamliaNum a copiar.
     */
     public FamiliaNum(FamiliaNum a){
         super(a);
@@ -42,7 +42,7 @@ public class FamiliaNum extends CIndividual implements Serializable
     
     /**
       * Construtor da classe FamliaNum com um objeto CIndividual.
-      * @param c  FamliaNum a copiar.
+      * @param a  FamliaNum a copiar.
     */
     
     public FamiliaNum(CIndividual a){
