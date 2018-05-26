@@ -1,4 +1,4 @@
-    import java.util.Scanner;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashSet;
@@ -169,7 +169,7 @@ public class JavaFatura extends Exception
       * Metodo que insere uma empresa numa base de dados geral.
       * @param bd         Base de dados onde vai ser inserida a empresa.
     */
-    private static void inserirEmpresa(BDgeral bd) throws Erros{
+    private static void inserirEmpresa(BDgeral bd) throws Erros, ErroNotFound, ErroContains{
         int int_1,int_2,int_3,int_4, int_5, int_6, int_7 = 0;
         int_6 = 0;
         double double_1=0;
@@ -217,7 +217,17 @@ public class JavaFatura extends Exception
             empresa_aux = new Empresa(int_1, string_1, string_2, string_3, string_4, setores,calculaBenE(double_1),faturas); 
         }
         
-        bd.addEmpresa(empresa_aux);
+        try{
+            bd.addEmpresa(empresa_aux);
+        }
+        catch(ErroNotFound e){
+            throw e;
+        }
+        catch(ErroContains e){
+            throw e;
+        }
+        
+        
     }
     
     /**
@@ -241,7 +251,7 @@ public class JavaFatura extends Exception
       * Metodo que insere um contribuinte individual numa base de dados geral.
       * @param bd         Base de dados onde vai ser inserida o contribuinte individual.
     */
-    private static void inserirCIndi(BDgeral bd) throws Erros{
+    private static void inserirCIndi(BDgeral bd) throws Erros, ErroNotFound, ErroContains{
         int int_1,int_2,int_3,int_4, int_5, int_6 = 0;
         int int_7 = 0;
         int n_agregado = 0;
@@ -300,7 +310,16 @@ public class JavaFatura extends Exception
         else{         
             individual_aux = new FamiliaNum(int_1,string_1,string_2,string_3,string_4,agregados.size(), agregados, calculaBenE(double_1), setores, faturas);
         }
-        bd.addIndividual(individual_aux);
+        try{
+            bd.addIndividual(individual_aux);
+        }
+        catch(ErroNotFound e){
+            throw e;
+        }
+        catch(ErroContains e){
+            throw e;
+        }
+        
     
     }
     
@@ -478,6 +497,14 @@ public class JavaFatura extends Exception
                         System.out.println(e.getMessage());
                         break;
                     }
+                    catch(ErroNotFound e){
+                        System.out.println("NIF " + e.getMessage() + " nao encontrado");
+                        break;
+                    }
+                    catch(ErroContains e){
+                        System.out.println("NIF ja registado na base de dados");
+                        break;
+                    }
                     System.out.println("Inserido com sucesso");
                     break;
                     
@@ -487,6 +514,14 @@ public class JavaFatura extends Exception
                     }
                     catch(Erros e){
                         System.out.println(e.getMessage());
+                        break;
+                    }
+                    catch(ErroNotFound e){
+                        System.out.println("NIF " + e.getMessage() + " nao encontrado");
+                        break;
+                    }
+                    catch(ErroContains e){
+                        System.out.println("NIF ja registado na base de dados");
                         break;
                     }
                     System.out.println("Inserido com sucesso");
