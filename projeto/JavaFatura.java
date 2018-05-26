@@ -167,7 +167,7 @@ public class JavaFatura extends Exception
         }
         catch(java.time.DateTimeException e){
             System.out.println(e.getMessage());
-            return;
+            throw new Erros("Data invalida");
         }
         bd.addFatura(faturaaux);
     }
