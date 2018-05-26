@@ -341,13 +341,43 @@ public class BDgeral implements Serializable
         sb.append(this.faturas.toString() + "\n");
         return sb.toString();
     }
+    /**
+      * Método que deduz o montante de uma fatura sem ter em conta o cliente.
+      * @param  e   Fatura a verificar.
+      * @return     Montante a receber do contribuinte.
+    */
+    
+    public double deducao_fatura_semCliente(Fatura a){
+        double montante,bonus;
+        Empresa aux1;
+        EmpInterior aux2;
+        try{
+            aux1 = (Empresa) this.empresas.getContribuinte(a.getNif_emitente());
+        }
+        catch(ErroNotFound l){
+            return 0.0;
+        }
+        
+        montante = a.getValor() * this.setores.getBonificacao(a.getCategoria());
+        bonus = aux1.bonus();
+        if (aux1 instanceof EmpInterior){
+            aux2 = (EmpInterior) aux1;
+            bonus += aux2.reducaoImposto(this.conselhos);
+        }
+        montante *= bonus;
+        
+        return montante;
+    }
     
     /**
       * Método que deduz o montante de um dado contribuinte.
       * @param  e   Contribuinte a verificar.
       * @return     Montante a receber do contribuinte.
     */
-    public double deduz_montante(Contribuinte e){
+    public double deduz_montante(Contribuinte e) throws ErroComum{
+        if ((e instanceof Empresa) || (e instanceof EmpInterior))
+            throw new ErroComum();
+        
         Set<Integer> idfaturas = e.getFaturas();
         
         EmpInterior aux1;
@@ -359,20 +389,17 @@ public class BDgeral implements Serializable
             try{
                 Fatura a = this.faturas.getFatura(i);
                 if (e.verificaSetor(a.getCategoria()))
-                    montante += a.getValor() * this.setores.getBonificacao(a.getCategoria());
+                    montante += deducao_fatura_semCliente(a);
             }
             catch(ErroNotFound a){
                 System.out.println("Fatura " + a.getMessage() + " não encontrada.");
             }
         }
+        
         bonus = e.bonus();
         if (e instanceof FamiliaNum){
             aux2 = (FamiliaNum) e;
             bonus += aux2.reducaoImposto();
-        }
-        else if (e instanceof EmpInterior){
-            aux1 = (EmpInterior) e;
-            bonus += aux1.reducaoImposto(this.conselhos);
         }
         
         montante *= bonus;
@@ -651,7 +678,7 @@ public class BDgeral implements Serializable
 
             }
             faturacao.put(c.getKey(),singlefac);
-            deducao.put(c.getKey(),deduz_montante(c.getValue()));
+            //deducao.put(c.getKey(),deduz_montante(c.getValue()));
             singlefac = 0.0;
         }
         
