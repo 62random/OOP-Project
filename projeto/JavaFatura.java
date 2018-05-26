@@ -161,7 +161,14 @@ public class JavaFatura extends Exception
         else{
             string_3 = "";
         }
-        Fatura faturaaux = new Fatura(emp.getNif(),emp.getNome(),LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
+        Fatura faturaaux;
+        try{
+            faturaaux = new Fatura(emp.getNif(),emp.getNome(),LocalDate.of(int_6,int_5,int_4),int_2,string_2,string_3,double_1);
+        }
+        catch(java.time.DateTimeException e){
+            System.out.println(e.getMessage());
+            return;
+        }
         bd.addFatura(faturaaux);
     }
     
