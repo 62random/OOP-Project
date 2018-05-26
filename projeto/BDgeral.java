@@ -356,7 +356,6 @@ public class BDgeral implements Serializable
             aux1 = (Empresa) this.empresas.getContribuinte(a.getNif_emitente());
         }
         catch(ErroNotFound l){
-            System.out.println("bugssssss");
             return 0.0;
         }
         
@@ -370,6 +369,10 @@ public class BDgeral implements Serializable
         
         return montante;
     }
+    /**
+     * Método que dado uma fatura calcula do valor que o cliente deduz da mesma.
+     * @param a Fatura
+     */
     
     public double deducao_fatura_total(Fatura a){
         if (!this.faturas.check_val_fatura(a.getId()))
@@ -385,6 +388,9 @@ public class BDgeral implements Serializable
         catch(ErroNotFound l){
             return 0.0;
         }
+        if (!aux1.verificaSetor(a.getCategoria()))
+            montante = 0;
+        
         bonus = aux1.bonus();
         if (aux1 instanceof FamiliaNum){
             aux2 = (FamiliaNum) aux1;
@@ -610,28 +616,6 @@ public class BDgeral implements Serializable
      * @return      Razao entre os 10 clientes que mais faturaram.
      */
     public double rel_top10() throws ArithmeticException{
-        /*
-        Map <Integer,List<Fatura>> listagem = new HashMap<>();
-        
-        List<Fatura> aux = new ArrayList<>();
-        
-        for(Fatura a : faturas.getFaturas().values()){
-            if (!listagem.containsKey(a.getNif_cliente())){
-                aux = new ArrayList<>();
-                listagem.put(a.getNif_cliente(),aux);
-            }
-            aux = listagem.get(a.getNif_cliente());
-            aux.add(a);
-        }
-        
-        TreeSet <Double> aux2 = new TreeSet <Double>(new Comparator<Double>(){
-                
-                public int compare(Double f1,Double f2){
-                    return f2 > f1 ? -1 : 1;
-                }
-            });
-        
-        listagem.forEach((k,v) -> aux2.add(v.stream().mapToDouble(b -> b.getValor() ).sum()));*/
         
         Map<Integer,Double> listagem = new HashMap<>();
         double aux;
@@ -676,11 +660,11 @@ public class BDgeral implements Serializable
     //12
     // falta fazer
     /**
-     * Metodo que devolve a razao entre os X clientes que mais faturaram.
-     * @param   x   Numero de clientes.
-     * @return      Total faturado da empresa.
+     * Metodo que devolve a razao entre o valor deduzido pelas faturas de X empresas que mais faturam e o valor faturado.
+     * @param   x   Numero de empresas.
+     * @return      Total faturado das empresas.
      */
-    public double top_X_faturacao (int x){
+    public double top_X_faturacao (int x) throws ArithmeticException{
         Map<Integer,Double> faturacao = new HashMap<>();
         Map<Integer,Double> deducao = new HashMap<>();
 
@@ -718,9 +702,8 @@ public class BDgeral implements Serializable
             }
         });
 
-        faturacao.entrySet().forEach(e -> ordena.add(e)); //ordenar pelo que mais faturam
+        faturacao.entrySet().forEach(e -> ordena.add(e));
         
-        //falta algoritmo de dedução
         Iterator i = ordena.iterator();
         int k = 0;
         double faturado = 0, deduzido = 0;
@@ -731,6 +714,8 @@ public class BDgeral implements Serializable
             deduzido += deducao.get(a.getKey());
             k++;
         }
+        if (faturado == 0)
+            throw new ArithmeticException();
 
 
         return (deduzido / faturado)*100;
