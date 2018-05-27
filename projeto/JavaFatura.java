@@ -169,7 +169,12 @@ public class JavaFatura extends Exception
             System.out.println(e.getMessage());
             throw new Erros("Data invalida");
         }
-        bd.addFatura(faturaaux);
+        try{
+            bd.addFatura(faturaaux);
+        }
+        catch(ErroNotFound l){
+            System.out.println("O contribuinte " + l.getMessage() + " não está inserido.");
+        }
     }
     
     /**

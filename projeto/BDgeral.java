@@ -227,8 +227,13 @@ public class BDgeral implements Serializable
      * Metodo que adiciona uma fatura na base de dados
      * @param i     Fatura a inserir
      */
-    public void addFatura(Fatura i){
-        this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
+    public void addFatura(Fatura i) throws ErroNotFound{
+        try{
+            this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
+        }
+        catch(ErroNotFound l){
+            throw l;
+        }
     }
 
     /**
@@ -859,11 +864,9 @@ public class BDgeral implements Serializable
         Integer i = new Integer(nif_agregado);
         if (this.empresas.contains(nif_agregado)){
             throw new ErroContains(i.toString());
-            //System.out.println(nif_agregado + " pertence a uma empresa");
         }
         if (!this.individuais.contains(nif_agregado)){
             throw new ErroContains(i.toString());
-            //System.out.println(nif_agregado + " não foi inserido na base de dados ainda.");
         }
             
         try{

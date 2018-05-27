@@ -119,7 +119,7 @@ public class BDFaturas implements Serializable
      * param e  Base de dados dos contribuintes empresas.
      * param d  Base de dados dos setores.
      */    
-    public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e, BDSetores d){
+    public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e, BDSetores d) throws ErroNotFound{
         Empresa aux;
         CIndividual aux2;
            
@@ -129,8 +129,7 @@ public class BDFaturas implements Serializable
              aux2 = (CIndividual) i.getContribuinte(a.getNif_cliente());
         }
         catch (ErroNotFound l){
-             System.out.println("Contribuinte" +  l.getMessage() +"não existe\n");
-             return;
+            throw l;
         }
             
         i.setFaturaId(a.getId(),a.getNif_cliente());
