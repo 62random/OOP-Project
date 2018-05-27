@@ -501,17 +501,11 @@ public class BDgeral implements Serializable
         
         TreeSet<Fatura> ordena_aux;
         
-        if (type){
-            ordena_aux = new TreeSet<>(new CompFatTime());
-            list.forEach( a -> ordena_aux.add(a));
-            list = ordena_aux.stream().collect(Collectors.toList());
-        }
-        else {
-            ordena_aux = new TreeSet<>(new CompValor());
-            list.forEach( a -> ordena_aux.add(a));
-            list = ordena_aux.stream().collect(Collectors.toList());
-            
-        }
+        
+        ordena_aux = new TreeSet<>(type ? new CompFatTime() : new CompValor());
+        
+        list.forEach( a -> ordena_aux.add(a));
+        list = ordena_aux.stream().collect(Collectors.toList());
         
         return list;
     }
