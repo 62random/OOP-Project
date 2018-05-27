@@ -26,7 +26,7 @@ public class BDgeral implements Serializable
     private BDContribuintes individuais;
     private BDFaturas faturas;
     private BDSetores setores;
-    private Map<String,Double> conselhos = new HashMap<>();
+    private Map<String,Double> Concelhos = new HashMap<>();
     
     
     
@@ -38,7 +38,7 @@ public class BDgeral implements Serializable
         this.individuais = new BDContribuintes();
         this.faturas = new BDFaturas();
         this.setores = new BDSetores();
-        adicionaConselhos();
+        adicionaConcelhos();
     }
     
 
@@ -54,7 +54,7 @@ public class BDgeral implements Serializable
         this.individuais    = b.clone();
         this.faturas        = c.clone();
         this.setores        = d.clone();
-        adicionaConselhos();
+        adicionaConcelhos();
     }
     
     /**
@@ -66,7 +66,7 @@ public class BDgeral implements Serializable
         this.individuais    = a.getBDIndividuais();
         this.faturas        = a.getBDFaturas();
         this.setores        = a.getBDSetores();
-        adicionaConselhos();
+        adicionaConcelhos();
     }
     
     /**
@@ -135,43 +135,43 @@ public class BDgeral implements Serializable
     
     
     /**
-     * Metodo que adiciona conselhos a base de dados de setores.
+     * Metodo que adiciona Concelhos a base de dados de setores.
      */
-    private void adicionaConselhos(){
-        this.conselhos.put("Alvito".toUpperCase(),0.2);
-        this.conselhos.put("Cuba".toUpperCase(),0.2);
-        this.conselhos.put("Ourique".toUpperCase(),0.4);
-        this.conselhos.put("Serpa".toUpperCase(),0.1);
-        this.conselhos.put("Almeida".toUpperCase(),0.2);
-        this.conselhos.put("Belmonte".toUpperCase(),0.1);
-        this.conselhos.put("Covilhã".toUpperCase(),0.4);
-        this.conselhos.put("Fundão".toUpperCase(),0.2);
-        this.conselhos.put("Guarda".toUpperCase(),0.05);
-        this.conselhos.put("Gouveia".toUpperCase(),0.1);
-        this.conselhos.put("Manteigas".toUpperCase(),0.5);
-        this.conselhos.put("Oleiros".toUpperCase(),0.1);
-        this.conselhos.put("Seia".toUpperCase(),0.4);
-        this.conselhos.put("Pinhel".toUpperCase(),0.1);
-        this.conselhos.put("Penamacor".toUpperCase(),0.2);
-        this.conselhos.put("Tondela".toUpperCase(),0.1);
-        this.conselhos.put("Viseu".toUpperCase(),0.3);
+    private void adicionaConcelhos(){
+        this.Concelhos.put("Alvito".toUpperCase(),0.2);
+        this.Concelhos.put("Cuba".toUpperCase(),0.2);
+        this.Concelhos.put("Ourique".toUpperCase(),0.4);
+        this.Concelhos.put("Serpa".toUpperCase(),0.1);
+        this.Concelhos.put("Almeida".toUpperCase(),0.2);
+        this.Concelhos.put("Belmonte".toUpperCase(),0.1);
+        this.Concelhos.put("Covilhã".toUpperCase(),0.4);
+        this.Concelhos.put("Fundão".toUpperCase(),0.2);
+        this.Concelhos.put("Guarda".toUpperCase(),0.05);
+        this.Concelhos.put("Gouveia".toUpperCase(),0.1);
+        this.Concelhos.put("Manteigas".toUpperCase(),0.5);
+        this.Concelhos.put("Oleiros".toUpperCase(),0.1);
+        this.Concelhos.put("Seia".toUpperCase(),0.4);
+        this.Concelhos.put("Pinhel".toUpperCase(),0.1);
+        this.Concelhos.put("Penamacor".toUpperCase(),0.2);
+        this.Concelhos.put("Tondela".toUpperCase(),0.1);
+        this.Concelhos.put("Viseu".toUpperCase(),0.3);
     }
     
     /**
-     * Metodo que verifica se um conselho esta inserido na base de dados de setores.
+     * Metodo que verifica se um Concelho esta inserido na base de dados de setores.
      * @param s     Setor a verificar.
-     * @return      Boolean que confirma a existencia do conselho.
+     * @return      Boolean que confirma a existencia do Concelho.
      */
-    public boolean containsConselho(String s){
-        return this.conselhos.containsKey(s);
+    public boolean containsConcelho(String s){
+        return this.Concelhos.containsKey(s);
     }
     
     /**
-      * Get para a lista de conselhos inseridos no objeto.
-      * @return  Lista de conselhos inseridos no objeto.
+      * Get para a lista de Concelhos inseridos no objeto.
+      * @return  Lista de Concelhos inseridos no objeto.
     */
-    public List<String> getConselhos(){
-        return this.conselhos.keySet().stream().collect(Collectors.toList());
+    public List<String> getConcelhos(){
+        return this.Concelhos.keySet().stream().collect(Collectors.toList());
     }
     
     /**
@@ -363,7 +363,7 @@ public class BDgeral implements Serializable
         bonus = aux1.bonus();
         if (aux1 instanceof EmpInterior){
             aux2 = (EmpInterior) aux1;
-            bonus += aux2.reducaoImposto(this.conselhos);
+            bonus += aux2.reducaoImposto(this.Concelhos);
         }
         montante *= bonus;
         
@@ -612,59 +612,57 @@ public class BDgeral implements Serializable
     }
     //11
     /**
-     * Metodo que devolve a razao entre os 10 clientes que mais faturaram, da throw a ArithmeticException se o total for 0.
-     * @return      Razao entre os 10 clientes que mais faturaram.
-     */
-    public double rel_top10() throws ArithmeticException{
+     * Metodo que devolve o nif dos 10 clientes que mais faturaram.
+     * @return      List com os 10 cliente que mais faturaram.
+    */
+    public List<Integer> rel_top10(){
         
         Map<Integer,Double> listagem = new HashMap<>();
         double aux;
+        for(Contribuinte c : this.individuais.getDados().values()){
+            listagem.put(c.getNif(),0.0);
+        }
         
-        for(Fatura a : faturas.getFaturas().values()){
-            if(!listagem.containsKey(a.getNif_cliente()))
-                listagem.put(a.getNif_cliente(),0.0);
-                
+        for(Fatura a : faturas.getFaturas().values()){               
             aux = listagem.get(a.getNif_cliente());
             aux += a.getValor();
             listagem.put(a.getNif_cliente(),aux);
         }
         
-        TreeSet <Double> aux2 = new TreeSet <Double>(new Comparator<Double>(){
+        TreeSet <Map.Entry<Integer,Double>> aux2 = new TreeSet <>(new Comparator<Map.Entry<Integer,Double>>(){
                 
-                public int compare(Double f1,Double f2){
-                    return f2 > f1 ? 1 : -1;
+                public int compare(Map.Entry<Integer,Double> f1,Map.Entry<Integer,Double> f2){
+                    return f2.getValue() > f1.getValue() ? 1 : -1;
                 }
         });
         
-        listagem.values().forEach(a -> aux2.add(a));
+        listagem.entrySet().forEach(a -> aux2.add(a));
         
+        Iterator k = aux2.iterator();
+        
+        
+        Map.Entry<Integer,Double> t;
         int i = 0;
-        double top10_total = 0;
-        double total = 0;
+        List<Integer> result = new ArrayList<>();
         
-        for(Double k : aux2){
-            if (i < 10){
-                i++;
-                top10_total += k;
-            }
-            total += k;
+        while(k.hasNext() && i < 10){
+            t = (Map.Entry<Integer,Double>) k.next();
+            result.add(t.getKey());
+            i++;
         }
         
-        if (total == 0){
-            throw new ArithmeticException("Total = 0");
-        }
         
-        return (top10_total / total)*100;
+        return result;
     }
 
     //12
     // falta fazer
     /**
-     * Metodo que devolve a razao entre o valor deduzido pelas faturas de X empresas que mais faturam e o valor faturado.
+     * Metodo que devolve um map com associando o nif das X empresas que mais faturaram com o montante deduzido pelas suas faturas.
      * @param   x   Numero de empresas.
-     * @return      Total faturado das empresas.
+     * @return      Map com a associação.
      */
-    public double top_X_faturacao (int x) throws ArithmeticException{
+    public Map<Integer,Double> top_X_faturacao (int x){
         Map<Integer,Double> faturacao = new HashMap<>();
         Map<Integer,Double> deducao = new HashMap<>();
 
@@ -706,19 +704,16 @@ public class BDgeral implements Serializable
         
         Iterator i = ordena.iterator();
         int k = 0;
-        double faturado = 0, deduzido = 0;
+        Map<Integer,Double> result = new HashMap<>();
         
         while(i.hasNext() && k < x){
             Map.Entry<Integer,Double> a = (Map.Entry<Integer,Double>) i.next();
-            faturado += a.getValue();
-            deduzido += deducao.get(a.getKey());
+            result.put(a.getKey(),deducao.get(a.getKey()));
             k++;
         }
-        if (faturado == 0)
-            throw new ArithmeticException();
 
 
-        return (deduzido / faturado)*100;
+        return result;
     }
     
     /**

@@ -217,7 +217,7 @@ public class JavaFatura extends Exception
            throw new Erros("Falha ao inserir");
         }
         Empresa empresa_aux = null;
-        if (bd.containsConselho(string_5.toUpperCase()) ) {
+        if (bd.containsConcelho(string_5.toUpperCase()) ) {
             empresa_aux = new EmpInterior(int_1, string_1, string_2, string_3, string_4, setores,calculaBenE(double_1),faturas, string_5); 
         }
         else{   
@@ -481,7 +481,7 @@ public class JavaFatura extends Exception
                     break;
                
                 case 5:
-                    System.out.println(bd.getConselhos().toString());
+                    System.out.println(bd.getConcelhos().toString());
                     break;
                 
                 case 6:
@@ -860,24 +860,14 @@ public class JavaFatura extends Exception
         else if (flag == 6){
             switch(choice){
                 case 1:
-                    try{
-                        double_1 = (bd.rel_top10());
-                    }
-                    catch (ArithmeticException e){
-                        System.out.println(e.getMessage());
-                    }
-                    System.out.println(Double.toString(double_1));
+                    System.out.println(bd.rel_top10().toString());
                     
                     break;
                 case 2:
                     try{
                         System.out.println("Numero de empresas: ");
                         int_1=ac.nextInt();
-                        System.out.println(Double.toString(bd.top_X_faturacao(int_1)));
-                    }
-                    
-                    catch (ArithmeticException e){
-                        System.out.println(e.getMessage());
+                        System.out.println(bd.top_X_faturacao(int_1).toString());
                     }
                     catch(InputMismatchException e){
                         System.out.println(e.getMessage());
