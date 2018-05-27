@@ -37,6 +37,7 @@ public class Empresa extends Contribuinte implements Serializable
       * @param npassword    Password a introduzir.
       * @param setores      Conjunto de setores.
       * @param ncoeficiente Coeficiente de decução fiscal.
+      * @param faturas      Faturas da empresa.
      */
     public Empresa(int nif1,String nemail,String nnome,String nmorada,String npassword,Set<String> setores,double ncoeficiente,Set<Integer> faturas){
         super(nif1,nemail,nnome,nmorada,npassword,faturas);
@@ -138,7 +139,8 @@ public class Empresa extends Contribuinte implements Serializable
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param   o   Objeto a comparar
+     * @return      booelan que verifica se o objeto e igual
      */
     
     public boolean equals(Object o){

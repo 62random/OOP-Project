@@ -87,7 +87,8 @@ public class EmpInterior extends Empresa implements Serializable
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param  o    Objeto a comparar
+     * @return      Booelan que verifica se o objeto e igual
      */
     public boolean equals(Object o){
         if(this == o)

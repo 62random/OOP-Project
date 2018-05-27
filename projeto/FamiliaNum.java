@@ -67,7 +67,8 @@ public class FamiliaNum extends CIndividual implements Serializable
     
     /**
      * Método equals da classe FamiliaNum
-     * @booelan que representa se o objeto e igual 
+     * @param   Objeto a comparar.
+     * @return  Booelan que representa se o objeto e igual 
      */
     public boolean equals(Object o){
         if(this == o)

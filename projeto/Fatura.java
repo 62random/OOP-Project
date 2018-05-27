@@ -209,7 +209,8 @@ public class Fatura implements Serializable {
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param object    Objeto a comparar
+     * @return          Booelan que verifica se o objeto e igual
      */
     public boolean equals(Object object) {
         if (this == object) return true;

@@ -30,6 +30,7 @@ public class JavaFatura extends Exception
       * @param i         Submenu atual.
     */
     private static void imprimirmenu(int i){
+        //System.out.print('\u000C');
         if (i == 1)
             imprimirmenu1();
         if (i == 2)
@@ -245,6 +246,7 @@ public class JavaFatura extends Exception
     /**
       * Metodo que calcula a taxa de beneficiencia com base no rendimento anual.
       * @param i         Rendimento anual.
+      * @return          Taxa de beneficiencia.
     */
     private static double calculaBenE(double i){
         if (i > 50000)
@@ -260,7 +262,7 @@ public class JavaFatura extends Exception
     }
     
     /**
-      * Metodo que insere um contribuinte individual numa base de dados geral.
+      * Metodo que insere um contribuinte individual numa base de dados geral da throw a Erros,ErroNotFound e ErroContains.
       * @param bd         Base de dados onde vai ser inserida o contribuinte individual.
     */
     private static void inserirCIndi(BDgeral bd) throws Erros, ErroNotFound, ErroContains{
@@ -336,10 +338,11 @@ public class JavaFatura extends Exception
     }
     
     /**
-      * Metodo que tenta fazer login de uma empresa, da throw a Erro caso falhe.
+      * Metodo que tenta fazer login de uma empresa, da throw a ErroNotFound caso falhe.
       * @param bd         Base de dados onde vai ser feito o login.
       * @param nif        Nif da empresa.
       * @param passe      Password da empresa.
+      * @return           Clasee empresa caso o login seja validado.
     */
     private static Empresa loginEmpresa(BDgeral bd, int nif, String passe) throws ErroNotFound{
         Empresa aux;
@@ -367,10 +370,11 @@ public class JavaFatura extends Exception
     }
     
     /**
-      * Metodo que tenta fazer login de um contribuinte individual, da throw a Erro caso falhe.
+      * Metodo que tenta fazer login de um contribuinte individual, da throw a ErroNotFound caso falhe.
       * @param bd         Base de dados onde vai ser feito o login.
       * @param nif        Nif da contribuinte individual.
       * @param passe      Password da contribuinte individual.
+      * @return           Classe contribuinte individual em caso de sucesso
     */
     private static CIndividual loginIndividual(BDgeral bd, int nif, String passe) throws ErroNotFound{
         CIndividual aux;
