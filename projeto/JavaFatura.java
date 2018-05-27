@@ -150,7 +150,7 @@ public class JavaFatura extends Exception
         }
            catch(InputMismatchException e){
            ac.next();
-           throw new Erros("Falha ao inserir");
+           throw new Erros("Erro no input passado");
         }
         
         Set<String> categorias = new TreeSet<>();
@@ -219,7 +219,7 @@ public class JavaFatura extends Exception
                          string_5=ac.next();
         }
            catch(InputMismatchException e){
-           throw new Erros("Falha ao inserir");
+           throw new Erros("Erro no input passado");
         }
         Empresa empresa_aux = null;
         if (bd.containsConcelho(string_5.toUpperCase()) ) {
@@ -312,7 +312,7 @@ public class JavaFatura extends Exception
                          
            }
            catch(InputMismatchException e){
-           throw new Erros("Falha ao inserir");
+           throw new Erros("Erro no input passado");
         }
         
         CIndividual individual_aux = null;   
@@ -558,7 +558,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -582,7 +582,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -602,7 +602,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     if (string_1.equals(adminpassword)){
@@ -643,7 +643,7 @@ public class JavaFatura extends Exception
                          int_1=ac.nextInt();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     if (int_1 == 1) 
@@ -672,7 +672,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -713,7 +713,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -730,7 +730,7 @@ public class JavaFatura extends Exception
                          string_1=ac.next();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     
@@ -782,7 +782,7 @@ public class JavaFatura extends Exception
                          int_1=ac.nextInt();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     
@@ -818,7 +818,7 @@ public class JavaFatura extends Exception
                          string_1=ac.next();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     
@@ -875,7 +875,7 @@ public class JavaFatura extends Exception
                         System.out.println(bd.top_X_faturacao(int_1).toString());
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
 
@@ -903,7 +903,7 @@ public class JavaFatura extends Exception
                          int_1=ac.nextInt();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     switch(int_1){
