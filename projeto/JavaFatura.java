@@ -173,7 +173,7 @@ public class JavaFatura extends Exception
             bd.addFatura(faturaaux);
         }
         catch(ErroNotFound l){
-            System.out.println("O contribuinte " + l.getMessage() + " não está inserido.");
+            throw new Erros ("O contribuinte " + l.getMessage() + " não está inserido.");
         }
     }
     

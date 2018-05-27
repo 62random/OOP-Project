@@ -1,4 +1,4 @@
-
+    
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +130,7 @@ public abstract class Contribuinte implements Serializable
     }
 
     /**
-      * Método clone do objeto Contribuinte.
+      * Método abstrato de clone do objeto Contribuinte.
       * @return clone do objeto
     */
     
