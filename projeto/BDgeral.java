@@ -34,10 +34,10 @@ public class BDgeral implements Serializable
       * Construtor sem argumentos.
     */
     public BDgeral(){
-        this.empresas = new BDContribuintes();
-        this.individuais = new BDContribuintes();
-        this.faturas = new BDFaturas();
-        this.setores = new BDSetores();
+        this.empresas 		= new BDContribuintes();
+        this.individuais 	= new BDContribuintes();
+        this.faturas 		= new BDFaturas();
+        this.setores 		= new BDSetores();
         adicionaConcelhos();
     }
     
