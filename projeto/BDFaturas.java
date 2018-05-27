@@ -175,8 +175,8 @@ public class BDFaturas implements Serializable
     public List<Fatura> faturas_no_intervalo(LocalDate start ,LocalDate end, Set<Integer> idlist){
         return this.faturas.values().stream()
                                     .filter(b -> idlist.contains(b.getId()) 
-                                    && b.getEmissao().isAfter(start)
-                                    && b.getEmissao().isBefore(end))
+                                    && (start.compareTo(b.getEmissao()) <= 0)
+                                    && (end.compareTo(b.getEmissao()) >= 0))
                                     .map( b -> b.clone())
                                     .collect(Collectors.toList());
     }
