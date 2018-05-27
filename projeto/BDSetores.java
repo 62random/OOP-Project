@@ -8,6 +8,9 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * Classe que funciona como uma base de dados onde se encontram os dados acerca dos setores.
+ */
 public class BDSetores implements Serializable {
     private Map<String, Setor> setores;
     private Set<String> por_aprovar;

@@ -9,7 +9,7 @@ import java.io.*;
 
 
 /**
- * Classe Contribuinte
+ * Classe Contribuinte abstrata usada para tornar as informacao das empresas e dos contribuintes individuais compativeis.
  */
 public abstract class Contribuinte implements Serializable
 {

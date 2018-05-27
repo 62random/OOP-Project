@@ -1,9 +1,7 @@
 
 /**
- * Escreva a descrição da classe CIndividual aqui.
+ * Classe que armazena a informacao de um contribuinte individual.
  * 
- * @author (seu nome) 
- * @version (número de versão ou data)
  */
 import java.util.Set;
 import java.util.HashSet;
@@ -11,6 +9,10 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+
+/**
+ * Classe que armazena a informacao de um contribuinte individual.
+ */
 
 public class CIndividual extends Contribuinte implements Serializable
 {

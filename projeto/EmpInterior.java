@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que extende a classe Empresa para ser possivel a criacao de empresas com previlegios em termos de deducao com base na sua localizacao geografica.
+ */
 public class EmpInterior extends Empresa implements Serializable
 {
     

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
+/**
+ * Classe que extende a classe CIndividual para ser possivel a criacao de contribuintes com familias numerosas.
+ */
 public class FamiliaNum extends CIndividual implements Serializable
 {
     /**

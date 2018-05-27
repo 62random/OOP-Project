@@ -1,6 +1,8 @@
 import java.io.Serializable;
 
-
+/**
+ * Classe que armazena a informacao de um setor.
+ */
 public class Setor implements Serializable {
     private String nome;
     private double taxa;

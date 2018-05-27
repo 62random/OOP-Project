@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.io.*;
 import java.util.Scanner;
 
-
+/**
+ * Classe que funciona como uma base de dados onde se encontram os dados acerca das faturas.
+ */
 public class BDFaturas implements Serializable
 {
     private Map<Integer,Fatura> faturas;

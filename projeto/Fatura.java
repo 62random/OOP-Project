@@ -3,6 +3,9 @@ import java.util.Set;
 import java.util.HashSet;
 import java.io.*;
 
+/**
+ * Classe que armazena a informacao de uma fatura.
+ */
 public class Fatura implements Serializable {
 
     private int id;

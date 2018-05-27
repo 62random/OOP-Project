@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.Serializable;
 
+/**
+ * Classe que funciona como uma base de dados onde se encontram os dados acerca dos contribuintes.
+ */
 public class BDContribuintes implements Serializable
 {
     private Map<Integer,Contribuinte> dados;

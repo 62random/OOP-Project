@@ -17,7 +17,9 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.lang.String;
 
-
+/**
+ * Classe onde sao armazenadas todas as bases de dados relativas a aplicaçao.
+ */
 public class BDgeral implements Serializable
 {
     

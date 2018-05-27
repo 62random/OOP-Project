@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 
+/**
+ * Classe que funciona como menu da aplicacao e faz mariotariamente todo o input/output do programa.
+ */
+
 public class JavaFatura extends Exception
 {
     
