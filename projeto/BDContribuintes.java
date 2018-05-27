@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.Serializable;
 
+/**
+ * Classe que funciona como uma base de dados onde se encontram os dados acerca dos contribuintes.
+ */
 public class BDContribuintes implements Serializable
 {
     private Map<Integer,Contribuinte> dados;
@@ -44,7 +47,7 @@ public class BDContribuintes implements Serializable
     
     /**
      * Método que devolve a base de dados de contribuinte.
-     * @return base de dados de contribuinte
+     * @return Base de dados de contribuinte
      */
     public Map<Integer,Contribuinte> getDados(){
         return this.dados.entrySet()
@@ -64,7 +67,7 @@ public class BDContribuintes implements Serializable
     
     /**
      * Método que clona este objeto.
-     * @return clone do objeto
+     * @return Clone do objeto
      */
     public BDContribuintes clone(){
         return new BDContribuintes(this);
@@ -72,7 +75,7 @@ public class BDContribuintes implements Serializable
     
     /**
      * Método toString do objeto.
-     * @return objeto em modo string
+     * @return Objeto em modo string
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -85,7 +88,8 @@ public class BDContribuintes implements Serializable
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param  object   Objeto a comparar
+     * @return          Booelan que verifica se o objeto e igual
      */
     public boolean equals(Object object){
         if (this == object) return true;
@@ -98,9 +102,9 @@ public class BDContribuintes implements Serializable
     }
     
     /**
-     * Método que devolve o contribuinte dado um nif, da throw a erro caso nao encontre.
-     * @param nif   nif a procurar
-     * @return coeficiente de deducao fiscal
+     * Método que devolve o contribuinte dado um nif, da throw a erro caso nao encontre, da throw a ErroNotFound em caso de falha.
+     * @param nif   Nif a procurar
+     * @return Coeficiente de deducao fiscal
      */
     public Contribuinte getContribuinte(int nif) throws ErroNotFound{
         Contribuinte aux = this.dados.get(nif);
@@ -113,7 +117,7 @@ public class BDContribuintes implements Serializable
     }
     
     /**
-     * Método que adiciona um contribuinte na base de dados de contribuintes.
+     * Método que adiciona um contribuinte na base de dados de contribuintes, da throw a ErroNotFound em caso de falha.
      * @param o    Contribuinte a adicionar
      */
     public void addContribuinte(Contribuinte o) throws ErroNotFound{
@@ -127,8 +131,8 @@ public class BDContribuintes implements Serializable
     
     /**
      * Método que verifica se contem um dado nif numa base de dados.
-     * @param nif   nif a procurar
-     * @return boolean que representa se o nif encontra-se na base de dados.
+     * @param nif   Nif a procurar
+     * @return Noolean que representa se o nif encontra-se na base de dados.
      */
     public boolean contains(int nif){
         Contribuinte a = this.dados.get(nif);
@@ -141,8 +145,8 @@ public class BDContribuintes implements Serializable
     
     /**
      * Método que altera a fatura com base num id.
-     * @param id    id da fatura 
-     * @param nif   nif do contribuinte
+     * @param id    Id da fatura 
+     * @param nif   Nif do contribuinte
      */
     public void setFaturaId(int id,int nif){
         Contribuinte a = this.dados.get(nif);
@@ -163,7 +167,7 @@ public class BDContribuintes implements Serializable
     }
     
     /**
-     * Método que adiciona um setor a um dado contribuinte.
+     * Método que adiciona um setor a um dado contribuinte, da throw a ErroNotFound em caso de falha.
      * @param s         Setor a adicionar
      * @param nif       Nif do contribuinte
      */
@@ -176,7 +180,7 @@ public class BDContribuintes implements Serializable
     }
     
     /**
-     * Método que adiciona um agregado a um dado contribuinte.
+     * Método que adiciona um agregado a um dado contribuinte da throw a ErroNtFound/Erros em caso de falha.
      * @param nif_agregado  Agregado a adicionar
      * @param nif           Nif do contribuinte
      */

@@ -8,6 +8,9 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * Classe que funciona como uma base de dados onde se encontram os dados acerca dos setores.
+ */
 public class BDSetores implements Serializable {
     private Map<String, Setor> setores;
     private Set<String> por_aprovar;
@@ -93,7 +96,8 @@ public class BDSetores implements Serializable {
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param  o    Objeto a comparar.
+     * @return      Booelan que verifica se o objeto e igual
      */
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,7 +108,7 @@ public class BDSetores implements Serializable {
     
     /**
      * Método toString do objeto.
-     * @return objeto em modo string
+     * @return Objeto em modo string
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();

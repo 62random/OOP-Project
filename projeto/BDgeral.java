@@ -17,7 +17,9 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.lang.String;
 
-
+/**
+ * Classe onde sao armazenadas todas as bases de dados relativas a aplicaçao.
+ */
 public class BDgeral implements Serializable
 {
     
@@ -175,7 +177,7 @@ public class BDgeral implements Serializable
     }
     
     /**
-     * Metodo que adiciona um contribuinte individual na base de dados
+     * Metodo que adiciona um contribuinte individual na base de dados, da throw a ErrorNotFound ou ErroContains em caso de falha.
      * @param i     Contribuinte a inserir
      */
     public void addIndividual(CIndividual i) throws ErroNotFound,ErroContains{
@@ -204,7 +206,7 @@ public class BDgeral implements Serializable
     }
     
     /**
-     * Metodo que adiciona uma empresa na base de dados
+     * Metodo que adiciona uma empresa na base de dados, da throw a ErroNotFound ou ErroContains em caso de falha
      * @param i     Empresa a inserir
      */
     public void addEmpresa(Empresa i) throws ErroNotFound,ErroContains{
@@ -224,11 +226,16 @@ public class BDgeral implements Serializable
     }
     
     /**
-     * Metodo que adiciona uma fatura na base de dados
+     * Metodo que adiciona uma fatura na base de dados da throw a ErroNotFound em caso de falha
      * @param i     Fatura a inserir
      */
-    public void addFatura(Fatura i){
-        this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
+    public void addFatura(Fatura i) throws ErroNotFound{
+        try{
+            this.faturas.addFatura(i,this.individuais,this.empresas,this.setores);
+        }
+        catch(ErroNotFound l){
+            throw l;
+        }
     }
 
     /**
@@ -372,6 +379,7 @@ public class BDgeral implements Serializable
     /**
      * Método que dado uma fatura calcula do valor que o cliente deduz da mesma.
      * @param a Fatura
+     * @return  Valor que o cliente deduz.
      */
     
     public double deducao_fatura_total(Fatura a){
@@ -850,7 +858,7 @@ public class BDgeral implements Serializable
     }
     
     /**
-     * Metodo que adiciona um agregado a um contribuinte individual.
+     * Metodo que adiciona um agregado a um contribuinte individual da throw a ErroNotFound/ErroContains/Erros em caso de falha.
      * @param  nif          Nif do contribuinte a qual vai ser inserido o agregado.
      * @param nif_agregado  Nif a ser adicionar ao agregado.
      * @return              Lista de faturas.
@@ -859,11 +867,9 @@ public class BDgeral implements Serializable
         Integer i = new Integer(nif_agregado);
         if (this.empresas.contains(nif_agregado)){
             throw new ErroContains(i.toString());
-            //System.out.println(nif_agregado + " pertence a uma empresa");
         }
         if (!this.individuais.contains(nif_agregado)){
             throw new ErroContains(i.toString());
-            //System.out.println(nif_agregado + " não foi inserido na base de dados ainda.");
         }
             
         try{

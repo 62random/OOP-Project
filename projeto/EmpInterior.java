@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que extende a classe Empresa para ser possivel a criacao de empresas com previlegios em termos de deducao com base na sua localizacao geografica.
+ */
 public class EmpInterior extends Empresa implements Serializable
 {
     
@@ -87,7 +90,8 @@ public class EmpInterior extends Empresa implements Serializable
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param  o    Objeto a comparar
+     * @return      Booelan que verifica se o objeto e igual
      */
     public boolean equals(Object o){
         if(this == o)

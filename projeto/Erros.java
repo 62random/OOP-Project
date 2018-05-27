@@ -1,10 +1,9 @@
 
+
 /**
- * Escreva a descrição da classe Erros aqui.
- * 
- * @author (seu nome) 
- * @version (número de versão ou data)
+ * Classe de controlo de erros.
  */
+
 public class Erros extends Exception
 {
     public Erros(String a){

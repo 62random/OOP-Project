@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.io.*;
 import java.util.Scanner;
 
-
+/**
+ * Classe que funciona como uma base de dados onde se encontram os dados acerca das faturas.
+ */
 public class BDFaturas implements Serializable
 {
     private Map<Integer,Fatura> faturas;
@@ -100,7 +102,8 @@ public class BDFaturas implements Serializable
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param object Objeto a comparar
+     * @return       Booelan que verifica se o objeto e igual
      */
     public boolean equals(Object object){
         if (this == object) return true;
@@ -119,7 +122,7 @@ public class BDFaturas implements Serializable
      * param e  Base de dados dos contribuintes empresas.
      * param d  Base de dados dos setores.
      */    
-    public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e, BDSetores d){
+    public void addFatura(Fatura a, BDContribuintes i, BDContribuintes e, BDSetores d) throws ErroNotFound{
         Empresa aux;
         CIndividual aux2;
            
@@ -129,8 +132,7 @@ public class BDFaturas implements Serializable
              aux2 = (CIndividual) i.getContribuinte(a.getNif_cliente());
         }
         catch (ErroNotFound l){
-             System.out.println("Contribuinte" +  l.getMessage() +"não existe\n");
-             return;
+            throw l;
         }
             
         i.setFaturaId(a.getId(),a.getNif_cliente());
@@ -175,8 +177,8 @@ public class BDFaturas implements Serializable
     public List<Fatura> faturas_no_intervalo(LocalDate start ,LocalDate end, Set<Integer> idlist){
         return this.faturas.values().stream()
                                     .filter(b -> idlist.contains(b.getId()) 
-                                    && b.getEmissao().isAfter(start)
-                                    && b.getEmissao().isBefore(end))
+                                    && (start.compareTo(b.getEmissao()) <= 0)
+                                    && (end.compareTo(b.getEmissao()) >= 0))
                                     .map( b -> b.clone())
                                     .collect(Collectors.toList());
     }

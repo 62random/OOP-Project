@@ -1,4 +1,4 @@
-
+    
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.io.*;
 
 
 /**
- * Classe Contribuinte
+ * Classe Contribuinte abstrata usada para tornar as informacao das empresas e dos contribuintes individuais compativeis.
  */
 public abstract class Contribuinte implements Serializable
 {
@@ -69,7 +69,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável nif do objeto
-      * @return  nif do objeto
+      * @return  Nif do objeto
     */
     
     public int getNif(){
@@ -78,7 +78,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável email do objeto.
-      * @return email do objeto
+      * @return Email do objeto
     */
     
     public String getEmail(){
@@ -87,7 +87,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável Nome do objeto.
-      * @return nome do objeto
+      * @return Nome do objeto
     */
     
     public String getNome(){
@@ -96,7 +96,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável morada do objeto.
-      * @return morada do objeto
+      * @return Morada do objeto
     */
     
     public String getMorada(){
@@ -105,7 +105,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
       * Get para a variável password do objeto.
-      * @return password do objeto
+      * @return Password do objeto
     */
     
     public String getPassword(){ /*Acho que isto não devia ter get, mas em vez disso uma função que recebe uma string e retorna um booleano (caso a string coincida com a pass)*/
@@ -114,7 +114,7 @@ public abstract class Contribuinte implements Serializable
     
     /**
       * Get para a variável faturas do objeto.
-      * @return faturas do objeto
+      * @return Faturas do objeto
     */
     public Set<Integer> getFaturas(){
         Set<Integer> nova = new TreeSet<>();
@@ -130,22 +130,22 @@ public abstract class Contribuinte implements Serializable
     }
 
     /**
-      * Método clone do objeto Contribuinte.
-      * @return clone do objeto
+      * Método abstrato de clone do objeto Contribuinte.
+      * @return Clone do objeto
     */
     
     public abstract Contribuinte clone();
     
     /**
      * Método abstrato para calcular o bonús do contribuinte.
-     * @return bonificacao do contribuinte
+     * @return Bonificacao do contribuinte
      */
     
     public abstract double bonus();
 
     /**
       * Método toString do objeto Contribuinte.
-      * @return objeto em modo string
+      * @return Objeto em modo string
     */
     
     public String toString(){
@@ -171,7 +171,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
        * Método set da variável nif.
-       * @param a valor a introduzir.
+       * @param a   Valor a introduzir.
     */    
     public void setNif(int a){
         this.nif = a;
@@ -179,7 +179,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
        * Método set da variável email.
-       * @param e valor a introduzir.
+       * @param e   Valor a introduzir.
     */
     
     public void setEmail(String e){
@@ -188,7 +188,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
        * Método set da variável nome.
-       * @param e valor a introduzir.
+       * @param e   Valor a introduzir.
     */
     
     
@@ -198,7 +198,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
        * Método set da variável morada.
-       * @param m valor a introduzir.
+       * @param m   Valor a introduzir.
     */
     
     
@@ -208,7 +208,7 @@ public abstract class Contribuinte implements Serializable
 
     /**
        * Método set da variável password.
-       * @param p valor a introduzir.
+       * @param p   Valor a introduzir.
     */
     
     
@@ -218,7 +218,7 @@ public abstract class Contribuinte implements Serializable
     
     /**
        * Método set para o set de faturas.
-       * @param a valor a introduzir.
+       * @param a   Valor a introduzir.
     */
     public void setFaturas(Set<Integer> a){
         this.faturas = new TreeSet<Integer>();
@@ -234,8 +234,8 @@ public abstract class Contribuinte implements Serializable
 
     /**
        * Método equals para a classe Contribuinte.
-       * @param o objeto a comparar.
-       * @return boleano que representa se a objeto e igual
+       * @param o   Objeto a comparar.
+       * @return    Boolean que representa se a objeto e igual.
     */
 
     public boolean equals(Object o){

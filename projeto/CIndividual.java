@@ -1,9 +1,7 @@
 
 /**
- * Escreva a descrição da classe CIndividual aqui.
+ * Classe que armazena a informacao de um contribuinte individual.
  * 
- * @author (seu nome) 
- * @version (número de versão ou data)
  */
 import java.util.Set;
 import java.util.HashSet;
@@ -11,6 +9,10 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+
+/**
+ * Classe que armazena a informacao de um contribuinte individual.
+ */
 
 public class CIndividual extends Contribuinte implements Serializable
 {
@@ -101,7 +103,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que copia um set de inteiros para o set com os nifs dos agregados familiares.
-     * @param agregados Set a copiar.
+     * @param Agregados Set a copiar.
      */
     
     public void setNifs_agregado(Set<Integer> agregados){
@@ -117,7 +119,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que copia um set de String para o set com os setores de dedução.
-     * @param setores Set a copiar.
+     * @param Setores Set a copiar.
      */
     
     public void setSetores(Set<String> setores){
@@ -134,7 +136,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que devolve uma cópia do conjunto de setores
-     * @ return copia do conjunto de setores
+     * @ return Copia do conjunto de setores
      */
     
     public Set<String> getSetores(){
@@ -152,7 +154,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que devolve uma cópia do conjunto de nifs do agregado.
-     * @return copia do conjunto de nifs do agregado
+     * @return Copia do conjunto de nifs do agregado
      */
     
     public Set<Integer> getNifsAgregado(){
@@ -170,7 +172,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que produz um clone do objeto.
-     * @return clone do objeto
+     * @return Clone do objeto
      */
     
     public CIndividual clone(){
@@ -179,7 +181,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método toString.
-     * @return objeto em modo string
+     * @return Objeto em modo string
      */
     
     public String toString(){
@@ -207,7 +209,8 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método equals da classe CIndividual
-     * @booelan que representa se o objeto e igual 
+     * @param       Objeto a comparar.
+     * @return      Booelan que representa se o objeto e igual ou nao ao input.
      */
     
     public boolean equals(Object o){
@@ -229,7 +232,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método hashCode da classe CIndividual
-     * @return hashcode do objeto
+     * @return Hashcode do objeto
      */
     
     public int hashCode(){
@@ -250,7 +253,7 @@ public class CIndividual extends Contribuinte implements Serializable
     
     /**
      * Método que calcula a bonificacao da classe CIndividual
-     * @return bonificacao do objeto
+     * @return Bonificacao do objeto
      */    
     public double bonus(){
         return (1+0.01*this.n_agregado + 0.0025*this.setores.size() + this.coeficientefiscal);
@@ -259,7 +262,7 @@ public class CIndividual extends Contribuinte implements Serializable
     /**
      * Método que verifica se uma data string pertence ao set de setores da classe CIndividual
      * @param s    String a verificar
-     * @return     boolean que representa a existencai do dado setor
+     * @return     Boolean que representa a existencai do dado setor
      */
     
     public boolean verificaSetor(String s){

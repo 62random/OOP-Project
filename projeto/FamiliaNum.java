@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
+/**
+ * Classe que extende a classe CIndividual para ser possivel a criacao de contribuintes com familias numerosas.
+ */
 public class FamiliaNum extends CIndividual implements Serializable
 {
     /**
@@ -67,7 +70,8 @@ public class FamiliaNum extends CIndividual implements Serializable
     
     /**
      * Método equals da classe FamiliaNum
-     * @booelan que representa se o objeto e igual 
+     * @param   Objeto a comparar.
+     * @return  Booelan que representa se o objeto e igual 
      */
     public boolean equals(Object o){
         if(this == o)

@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 
+/**
+ * Classe que funciona como menu da aplicacao e faz mariotariamente todo o input/output do programa.
+ */
+
 public class JavaFatura extends Exception
 {
     
@@ -30,6 +34,7 @@ public class JavaFatura extends Exception
       * @param i         Submenu atual.
     */
     private static void imprimirmenu(int i){
+        //System.out.print('\u000C');
         if (i == 1)
             imprimirmenu1();
         if (i == 2)
@@ -150,7 +155,7 @@ public class JavaFatura extends Exception
         }
            catch(InputMismatchException e){
            ac.next();
-           throw new Erros("Falha ao inserir");
+           throw new Erros("Erro no input passado");
         }
         
         Set<String> categorias = new TreeSet<>();
@@ -169,7 +174,12 @@ public class JavaFatura extends Exception
             System.out.println(e.getMessage());
             throw new Erros("Data invalida");
         }
-        bd.addFatura(faturaaux);
+        try{
+            bd.addFatura(faturaaux);
+        }
+        catch(ErroNotFound l){
+            throw new Erros ("O contribuinte " + l.getMessage() + " não está inserido.");
+        }
     }
     
     /**
@@ -214,7 +224,7 @@ public class JavaFatura extends Exception
                          string_5=ac.next();
         }
            catch(InputMismatchException e){
-           throw new Erros("Falha ao inserir");
+           throw new Erros("Erro no input passado");
         }
         Empresa empresa_aux = null;
         if (bd.containsConcelho(string_5.toUpperCase()) ) {
@@ -240,6 +250,7 @@ public class JavaFatura extends Exception
     /**
       * Metodo que calcula a taxa de beneficiencia com base no rendimento anual.
       * @param i         Rendimento anual.
+      * @return          Taxa de beneficiencia.
     */
     private static double calculaBenE(double i){
         if (i > 50000)
@@ -255,7 +266,7 @@ public class JavaFatura extends Exception
     }
     
     /**
-      * Metodo que insere um contribuinte individual numa base de dados geral.
+      * Metodo que insere um contribuinte individual numa base de dados geral da throw a Erros,ErroNotFound e ErroContains.
       * @param bd         Base de dados onde vai ser inserida o contribuinte individual.
     */
     private static void inserirCIndi(BDgeral bd) throws Erros, ErroNotFound, ErroContains{
@@ -307,7 +318,7 @@ public class JavaFatura extends Exception
                          
            }
            catch(InputMismatchException e){
-           throw new Erros("Falha ao inserir");
+           throw new Erros("Erro no input passado");
         }
         
         CIndividual individual_aux = null;   
@@ -331,10 +342,11 @@ public class JavaFatura extends Exception
     }
     
     /**
-      * Metodo que tenta fazer login de uma empresa, da throw a Erro caso falhe.
+      * Metodo que tenta fazer login de uma empresa, da throw a ErroNotFound caso falhe.
       * @param bd         Base de dados onde vai ser feito o login.
       * @param nif        Nif da empresa.
       * @param passe      Password da empresa.
+      * @return           Clasee empresa caso o login seja validado.
     */
     private static Empresa loginEmpresa(BDgeral bd, int nif, String passe) throws ErroNotFound{
         Empresa aux;
@@ -362,10 +374,11 @@ public class JavaFatura extends Exception
     }
     
     /**
-      * Metodo que tenta fazer login de um contribuinte individual, da throw a Erro caso falhe.
+      * Metodo que tenta fazer login de um contribuinte individual, da throw a ErroNotFound caso falhe.
       * @param bd         Base de dados onde vai ser feito o login.
       * @param nif        Nif da contribuinte individual.
       * @param passe      Password da contribuinte individual.
+      * @return           Classe contribuinte individual em caso de sucesso
     */
     private static CIndividual loginIndividual(BDgeral bd, int nif, String passe) throws ErroNotFound{
         CIndividual aux;
@@ -553,7 +566,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -577,7 +590,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -597,7 +610,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     if (string_1.equals(adminpassword)){
@@ -638,7 +651,7 @@ public class JavaFatura extends Exception
                          int_1=ac.nextInt();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     if (int_1 == 1) 
@@ -667,7 +680,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -708,7 +721,7 @@ public class JavaFatura extends Exception
                     
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     try{
@@ -725,7 +738,7 @@ public class JavaFatura extends Exception
                          string_1=ac.next();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     
@@ -777,7 +790,7 @@ public class JavaFatura extends Exception
                          int_1=ac.nextInt();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     
@@ -813,7 +826,7 @@ public class JavaFatura extends Exception
                          string_1=ac.next();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     
@@ -870,7 +883,7 @@ public class JavaFatura extends Exception
                         System.out.println(bd.top_X_faturacao(int_1).toString());
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
 
@@ -898,7 +911,7 @@ public class JavaFatura extends Exception
                          int_1=ac.nextInt();
                     }
                     catch(InputMismatchException e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Erro no input passado");
                         break;
                     }
                     switch(int_1){

@@ -4,6 +4,11 @@ import java.util.Comparator;
 import java.time.LocalDate;
 import java.io.Serializable;
 
+
+
+/**
+ * Classe comparator para comparar faturas com base na sua data.
+ */
 public class CompFatTime implements Comparator<Fatura>,Serializable
 {
     @Override

@@ -2,6 +2,10 @@
 import java.util.Comparator;
 import java.io.Serializable;
 
+
+/**
+ * Classe comparator para comparar faturas com base no seu valor.
+ */
 public class CompValor implements Comparator<Fatura>,Serializable
 {   
     @Override

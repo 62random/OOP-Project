@@ -12,7 +12,9 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
-
+/**
+ * Classe que armazena a informacao de uma empresa.
+ */
 public class Empresa extends Contribuinte implements Serializable 
 {
     private Set<String> setores;
@@ -37,6 +39,7 @@ public class Empresa extends Contribuinte implements Serializable
       * @param npassword    Password a introduzir.
       * @param setores      Conjunto de setores.
       * @param ncoeficiente Coeficiente de decução fiscal.
+      * @param faturas      Faturas da empresa.
      */
     public Empresa(int nif1,String nemail,String nnome,String nmorada,String npassword,Set<String> setores,double ncoeficiente,Set<Integer> faturas){
         super(nif1,nemail,nnome,nmorada,npassword,faturas);
@@ -138,7 +141,8 @@ public class Empresa extends Contribuinte implements Serializable
     
     /**
      * Método equal do objeto.
-     * @return booelan que verifica se o objeto e igual
+     * @param   o   Objeto a comparar
+     * @return      booelan que verifica se o objeto e igual
      */
     
     public boolean equals(Object o){
