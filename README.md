@@ -1,4 +1,4 @@
-# trabalho_poo
+#Object Oriented Programming - Course Assignment
 
 Object Oriented Programming course assignment.
 
